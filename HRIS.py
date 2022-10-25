@@ -1,6 +1,7 @@
 from cProfile import label
-from turtle import position
-from matplotlib import image
+from turtle import onclick, position
+from matplotlib import image, style
+from matplotlib.pyplot import show
 from numpy import place
 import pymysql
 from tkinter import *
@@ -13,18 +14,36 @@ from PIL import ImageTk, Image
 app = Tk()
 app.title("Human Resource Management System")
 app.geometry("1920x1080")
+app.resizable()
+app.state('zoomed')
 app.configure(bg='#c5c6c9')
 app.iconbitmap("logo1.ico")
 my_tree = ttk.Treeview(app)
 my_tree2 = ttk.Treeview(app)
 
-
-
 mbar = Frame(app, height=1060, width=350, bg="#5f8ad9", bd=1, relief=FLAT)
 mbar.place(x=0, y=0)
 
-frame_1 = customtkinter.CTkFrame(width=1500, height=720, fg_color ="#9e5752")
-frame_1.place(x=380, y=300)
+f1 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#bda344")
+f1.place(x=380, y=200)
+
+lnEntry = Entry(f1, width=30, bd=1, font=('Arial', 15))
+lnEntry.place(x=200, y=200)
+
+
+def dashboard():
+    f1 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#bda344")
+    f1.place(x=380, y=200)
+
+    lnEntry = Entry(f1, width=30, bd=1, font=('Arial', 15))
+    lnEntry.place(x=200, y=200)
+
+
+    
+
+def records():
+    f2 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#446ebd")
+    f2.place(x=380, y=200)
 
 
 
@@ -48,7 +67,7 @@ def left(event):
     ) 
 
 bttn = Button(mbar, text='Dashboard',height=2, width=21, bg="#5f8ad9", font=("", 20, "bold"), fg="white", bd=0,
-cursor='hand2')
+cursor='hand2', command=dashboard)
 bttn.place(x=-10, y=420)
 
 
@@ -78,7 +97,7 @@ def left2(event):
     ) 
 
 bttn2 = Button(mbar, text='Records',height=2, width=21, bg="#5f8ad9", font=("", 20, "bold"), fg="white", bd=0,
-cursor='hand2')
+cursor='hand2', command=records)
 bttn2.place(x=-10, y=500)
 
 bttn2.config(activebackground="#476496")
@@ -178,13 +197,14 @@ bttn5.config(activeforeground="#000000")
 bttn5.bind("<Enter>", entered5)
 bttn5.bind("<Leave>", left5)
 
+
 #-------------------------------------------photo----------------------------------------------------#
 
 photo = Image.open("logo.png")
 resized = photo.resize((250,250), Image.ANTIALIAS)
 nphoto = ImageTk.PhotoImage(resized)
 
-j = Label(app, image=nphoto, bg="#5f8ad9")
+j = Label(app, image= nphoto, bg="#5f8ad9")
 j.place(x=40, y=10)
 
 
