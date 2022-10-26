@@ -24,12 +24,6 @@ my_tree2 = ttk.Treeview(app)
 mbar = Frame(app, height=1060, width=350, bg="#5f8ad9", bd=1, relief=FLAT)
 mbar.place(x=0, y=0)
 
-f1 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#bda344")
-f1.place(x=380, y=200)
-
-lnEntry = Entry(f1, width=30, bd=1, font=('Arial', 15))
-lnEntry.place(x=200, y=200)
-
 
 def dashboard():
     f1 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#bda344")
@@ -37,9 +31,12 @@ def dashboard():
 
     lnEntry = Entry(f1, width=30, bd=1, font=('Arial', 15))
     lnEntry.place(x=200, y=200)
-
-
     
+    def show_frame(frame):
+        frame.tkraise()
+        
+    show_frame(f1)
+
 
 def records():
     f2 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#446ebd")
