@@ -219,7 +219,7 @@ def show_frame(frame):
         
 show_frame(f1)
 
-#conn = connection()
+#conn = connection()ewew
 #cursor = conn.cursor()
 #number_of_rows = cursor.execute("SELECT * FROM bayhon")
 #Label(tab2, text=f"Total: {number_of_rows}", font=("Arial", 15),bg='#fbc4ab').place(x=850, y=450)
