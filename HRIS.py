@@ -13,6 +13,7 @@ import customtkinter
 from PIL import ImageTk, Image
 from time import strftime
 
+
 app = Tk()
 app.title("Human Resource Management System")
 app.geometry("1920x1080")
@@ -21,7 +22,7 @@ app.state('zoomed')
 app.configure(bg='#c5c6c9')
 app.iconbitmap("logo1.ico")
 my_tree = ttk.Treeview(app)
-my_tree2 = ttk.Treeview(app)
+
 
 def connection():
     conn = pymysql.connect(
@@ -194,15 +195,18 @@ ff1 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
 ff1.place(x=30, y=30)
 ln = Label(ff1, text="persons", font=('Arial', 15), background="#86babd")
 ln.place(x=10, y=10)
-
+count= Label(ff1, text="56", font=('Arial', 70), background="#86babd")
+count.place(x=120, y=100)
 ff2 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
 ff2.place(x=400, y=30)
 ln2= Label(ff2, text="department", font=('Arial', 15), background="#86babd")
 ln2.place(x=10, y=10)
+count2= Label(ff2, text="9", font=('Arial', 70), background="#86babd")
+count2.place(x=140, y=100)
 #records#
 f2 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8aafd4")
-f1btn = Button(f2, text='Leave',height=2, width=21, bg="#5f8ad9", font=("", 20, "bold"), fg="white", bd=0,cursor='hand2')
-f1btn.place(x=0, y=0)
+
+
 #Performance#
 f3 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8ad4c9")
 #Leave#
@@ -222,17 +226,18 @@ show_frame(f1)
 #conn = connection()ewew
 #cursor = conn.cursor()
 #number_of_rows = cursor.execute("SELECT * FROM bayhon")
-#Label(tab2, text=f"Total: {number_of_rows}", font=("Arial", 15),bg='#fbc4ab').place(x=850, y=450)
+#Label(ff1, text=f"Total: {number_of_rows}", font=("Arial", 15),bg='#fbc4ab').place(x=850, y=450)
 
+#------------------time function-------------------#
 def my_time():
-    time_string = strftime('%H:%M:%S %p \n %A \n %x') # time format 
+    time_string = strftime('%I:%M:%S %p \n %A \n %x') # time format 
     l1.config(text=time_string)
     l1.after(1000,my_time) # time delay of 1000 milliseconds 
 	
 my_font=('times',45,'bold') # display size and style
 
 l1=tk.Label(f1,font=my_font,bg="#d4b88a")
-l1.place(x=500, y=350)
+l1.place(x=550, y=350)
 
 my_time()
 
