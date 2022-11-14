@@ -4,7 +4,6 @@ from turtle import onclick, position
 from matplotlib import image, style
 from matplotlib.pyplot import show
 from numpy import place
-import pymysql
 from tkinter import *
 from db import populate
 from db import read
