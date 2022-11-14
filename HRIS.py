@@ -6,6 +6,7 @@ from matplotlib.pyplot import show
 from numpy import place
 from tkinter import *
 from db import populate
+from db import populate2
 from db import read
 from db import connection
 from tkinter import ttk
@@ -187,8 +188,7 @@ f1_1 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
 f1_1.place(x=30, y=30)
 ln = Label(f1_1, text="persons", font=('Arial', 15), background="#86babd")
 ln.place(x=10, y=10)
-count= Label(f1_1, text="56", font=('Arial', 70), background="#86babd")
-count.place(x=120, y=100)
+
 f1_2 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
 f1_2.place(x=400, y=30)
 ln2= Label(f1_2, text="department", font=('Arial', 15), background="#86babd")
@@ -215,6 +215,11 @@ def refreshTable():
         my_tree.insert(parent='', index='end', iid=array, text="", values=(array), tag="orow")
 
     my_tree.tag_configure('orow', background='#EEEEEE', font=('Arial', 12))
+    
+    conn = connection()
+    cursor = conn.cursor()
+    number_of_rows = cursor.execute("SELECT * FROM firstt")
+    Label(f1_1, text=(number_of_rows), font=('Arial', 70), background="#86babd").place(relx=0.5,rely=0.5, anchor="center")
 
 
 ph1 = tk.StringVar()
@@ -267,12 +272,14 @@ def add():
                 depEntry.delete(0,'end')
                 ageEntry.delete(0,'end')
                 nalEntry.delete(0,'end')
+          
             else:
                 messagebox.showinfo('Return', 'You will now return to the application screen')
         except:
             messagebox.showinfo("Error", "Inventory already exist")
             return
         refreshTable()
+        refreshTable2()
 
 for frame2 in (f2, f2_1):
     frame2.place(x=380, y=200)
@@ -355,11 +362,68 @@ my_tree.heading("department", text="DEPARTMENT", anchor=CENTER)
 
 my_tree.place(x=27, y=27)
 
-populate()
-refreshTable()
 
 #Performance#
 f3 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8ad4c9")
+
+def refreshTable2():
+    for data in my_tree2.get_children():
+        my_tree2.delete(data)
+
+    for array in read():
+        my_tree2.insert(parent='', index='end', iid=array, text="", values=(array), tag="orow")
+
+    my_tree2.tag_configure('orow', background='#EEEEEE', font=('Arial', 12))
+    
+    conn = connection()
+    cursor = conn.cursor()
+    number_of_rows = cursor.execute("SELECT * FROM firstt")
+    Label(f1_1, text=(number_of_rows), font=('Arial', 70), background="#86babd").place(relx=0.5,rely=0.5, anchor="center")
+
+
+p1 = tk.StringVar()
+p2 = tk.StringVar()
+p3 = tk.StringVar()
+p4 = tk.StringVar()
+p5 = tk.StringVar()
+p6 = tk.StringVar()
+
+def setph(word,num):
+    if num ==1:
+        p1.set(word)
+    if num ==2:
+        p2.set(word)
+    if num ==3:
+        p3.set(word)
+    if num ==4:
+        p4.set(word)
+    if num ==5:
+        p5.set(num)
+    if num ==6:
+        p6.set(word)
+        
+my_tree2 =ttk.Treeview(f3, show="headings", height=12)
+my_tree2['columns'] = ("name","email","position","department")
+
+my_tree2.column("#0", width=0, stretch=NO)
+my_tree2.column("name", anchor=W, width=360)
+my_tree2.column("email", anchor=W, width=360)
+my_tree2.column("position", anchor=W, width=360)
+my_tree2.column("department", anchor=W, width=360)
+
+
+my_tree2.heading("name", text="NAME", anchor=CENTER)
+my_tree2.heading("email", text="EMAIL", anchor=CENTER)
+my_tree2.heading("position", text="POSITION", anchor=CENTER)
+my_tree2.heading("department", text="DEPARTMENT", anchor=CENTER)
+
+my_tree2.place(x=27, y=27)
+
+populate()
+refreshTable()
+refreshTable2()
+
+
 #Leave#
 f4 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8a9dd4")
 #Reports#
@@ -374,10 +438,8 @@ def show_frame(frame):
         
 show_frame(f1)
 
-#conn = connection()ewew
-#cursor = conn.cursor()
-#number_of_rows = cursor.execute("SELECT * FROM bayhon")
-#Label(ff1, text=f"Total: {number_of_rows}", font=("Arial", 15),bg='#fbc4ab').place(x=850, y=450)
+
+
 
 #------------------time function-------------------#
 def my_time():

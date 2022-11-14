@@ -10,7 +10,6 @@ import tkinter as tk
 import customtkinter
 
 
-
 def connection():
     conn = pymysql.connect(
         host='localhost',
@@ -44,6 +43,23 @@ def populate():
 
     for result in results:
         my_tree.insert(parent='', index=len(results), iid=result, text='',
+                              values=(result[0], result[1], result[2], result[3],result[4],result[5]))
+                              
+                              
+def populate2():
+    my_tree2 = ttk.Treeview()
+    for rows in my_tree2.get_children():
+        my_tree2.delete(rows)
+
+    conn2 = connection()
+    cursor2 = conn2.cursor()
+    cursor2.execute("SELECT * FROM firstt")
+    results2 = cursor2.fetchall()
+    conn2.commit()
+    conn2.close()
+
+    for result in results2:
+        my_tree2.insert(parent='', index=len(results2), iid=result, text='',
                               values=(result[0], result[1], result[2], result[3],result[4],result[5]))
                               
                               
