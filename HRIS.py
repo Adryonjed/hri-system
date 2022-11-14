@@ -6,6 +6,9 @@ from matplotlib.pyplot import show
 from numpy import place
 import pymysql
 from tkinter import *
+from db import populate
+from db import read
+from db import connection
 from tkinter import ttk
 from tkinter import messagebox
 import tkinter as tk
@@ -21,17 +24,7 @@ app.resizable()
 app.state('zoomed')
 app.configure(bg='#c5c6c9')
 app.iconbitmap("logo1.ico")
-my_tree = ttk.Treeview(app)
 
-
-def connection():
-    conn = pymysql.connect(
-        host='localhost',
-        user='root', 
-        password='',
-        db='ewe',
-    )
-    return conn
 
 
 #-------------side manu functions-------------#
@@ -191,21 +184,159 @@ bttn5.bind("<Leave>", left5)
 
 #dashboard#
 f1 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#d4b88a")
-ff1 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
-ff1.place(x=30, y=30)
-ln = Label(ff1, text="persons", font=('Arial', 15), background="#86babd")
+f1_1 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
+f1_1.place(x=30, y=30)
+ln = Label(f1_1, text="persons", font=('Arial', 15), background="#86babd")
 ln.place(x=10, y=10)
-count= Label(ff1, text="56", font=('Arial', 70), background="#86babd")
+count= Label(f1_1, text="56", font=('Arial', 70), background="#86babd")
 count.place(x=120, y=100)
-ff2 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
-ff2.place(x=400, y=30)
-ln2= Label(ff2, text="department", font=('Arial', 15), background="#86babd")
+f1_2 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
+f1_2.place(x=400, y=30)
+ln2= Label(f1_2, text="department", font=('Arial', 15), background="#86babd")
 ln2.place(x=10, y=10)
-count2= Label(ff2, text="9", font=('Arial', 70), background="#86babd")
+count2= Label(f1_2, text="9", font=('Arial', 70), background="#86babd")
 count2.place(x=140, y=100)
-#records#
-f2 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8aafd4")
 
+
+#records#
+
+
+f2 = customtkinter.CTkFrame(app, width=1500, height=820, fg_color ="#8aafd4")
+f2_1 = customtkinter.CTkFrame(app, width=1500, height=820, fg_color ="#8ed1ba")
+
+s = ttk.Style()
+s.configure("Treeview", rowheight="50")
+s.map('Treeview', background=[('selected', 'green')])
+
+def refreshTable():
+    for data in my_tree.get_children():
+        my_tree.delete(data)
+
+    for array in read():
+        my_tree.insert(parent='', index='end', iid=array, text="", values=(array), tag="orow")
+
+    my_tree.tag_configure('orow', background='#EEEEEE', font=('Arial', 12))
+
+
+ph1 = tk.StringVar()
+ph2 = tk.StringVar()
+ph3 = tk.StringVar()
+ph4 = tk.StringVar()
+
+def setph(word,num):
+    if num ==1:
+        ph1.set(word)
+    if num ==2:
+        ph2.set(word)
+    if num ==3:
+        ph3.set(word)
+    if num ==4:
+        ph4.set(word)
+
+
+def add():
+    name = str(nameEntry.get())
+    email = str(emailEntry.get())
+    position = str(posEntry.get())
+    department = str(depEntry.get())
+
+
+    if (name == "" or name == " ") or (email == "" or email == " ") or (position == "" or position == " ") or (department == "" or department == " "):
+        messagebox.showinfo("Error", "Please fill up the blank entry")
+        return
+    else:
+        try:
+            conn = connection()
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO firstt VALUES ('"+name+"','"+email+"','"+position+"','"+department+"')")
+            conn.commit()
+            conn.close()
+            msg = messagebox.askquestion('',"Do you want to add this person?")
+            if msg == 'yes':
+                nameEntry.delete(0,'end')
+                emailEntry.delete(0,'end')
+                posEntry.delete(0,'end')
+                depEntry.delete(0,'end')
+            else:
+                messagebox.showinfo('Return', 'You will now return to the application screen')
+        except:
+            messagebox.showinfo("Error", "Inventory already exist")
+            return
+        refreshTable()
+
+for frame2 in (f2, f2_1):
+    frame2.place(x=380, y=200)
+
+def show_frame2(frame):
+        frame.tkraise()
+        
+show_frame2(f2)
+    
+
+pho = Image.open("cbttn.png")
+resized = pho.resize((120,70), Image.ANTIALIAS)
+c_bbtn = ImageTk.PhotoImage(resized)
+
+cbttn = Button(f2, image = c_bbtn ,bg="#8aafd4", borderwidth=0,
+cursor='hand2',command=lambda: show_frame2(f2_1))
+cbttn.place(x=1200, y=690)
+cbttn.config(activebackground="#8aafd4")
+
+bbttn = Button(f2_1, text='Back',height=2, width=11, bg="#5f8ad9", font=("", 20, "bold"), fg="white", bd=0,
+cursor='hand2',command=lambda: show_frame2(f2))
+bbttn.place(x=1000, y=700)
+
+bbttn = Button(f2_1, text='add',height=2, width=11, bg="#5f8ad9", font=("", 20, "bold"), fg="white", bd=0,
+cursor='hand2',command=add)
+bbttn.place(x=1200, y=700)
+
+namelabel = Label(f2_1, text="Name: ", font=('Arial', 15),bg="#8ed1ba")
+namelabel.place(x=30, y=25)
+nameEntry = Entry(f2_1, width=20, bd=0, font=('Arial', 15),textvariable = ph1)
+nameEntry.place(x=100, y=27)
+
+emaillabel = Label(f2_1, text="Email: ", font=('Arial', 15),bg="#8ed1ba")
+emaillabel.place(x=330, y=25)
+emailEntry = Entry(f2_1, width=20, bd=0, font=('Arial', 15),textvariable = ph2)
+emailEntry.place(x=400, y=27)
+
+poslabel = Label(f2_1, text="Position: ", font=('Arial', 15),bg="#8ed1ba")
+poslabel.place(x=630, y=25)
+posEntry = Entry(f2_1, width=20, bd=0, font=('Arial', 15),textvariable = ph3)
+posEntry.place(x=720, y=27)
+
+deplabel = Label(f2_1, text="Department: ", font=('Arial', 15),bg="#8ed1ba")
+deplabel.place(x=950, y=25)
+depEntry = Entry(f2_1, width=20, bd=0, font=('Arial', 15),textvariable = ph4)
+depEntry.place(x=1070, y=27)
+
+
+
+
+
+
+
+my_tree =ttk.Treeview(f2, show="headings", height=12)
+my_tree['columns'] = ("name","email","position","department")
+
+my_tree.column("#0", width=0, stretch=NO)
+my_tree.column("name", anchor=W, width=360)
+my_tree.column("email", anchor=W, width=360)
+my_tree.column("position", anchor=W, width=360)
+my_tree.column("department", anchor=W, width=360)
+
+
+my_tree.heading("name", text="NAME", anchor=CENTER)
+my_tree.heading("email", text="EMAIL", anchor=CENTER)
+my_tree.heading("position", text="POSITION", anchor=CENTER)
+my_tree.heading("department", text="DEPARTMENT", anchor=CENTER)
+
+
+my_tree.place(x=27, y=27)
+
+populate()
+refreshTable()
 
 #Performance#
 f3 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8ad4c9")
