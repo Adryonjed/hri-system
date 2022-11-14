@@ -221,6 +221,8 @@ ph1 = tk.StringVar()
 ph2 = tk.StringVar()
 ph3 = tk.StringVar()
 ph4 = tk.StringVar()
+ph5 = tk.StringVar()
+ph6 = tk.StringVar()
 
 def setph(word,num):
     if num ==1:
@@ -231,6 +233,10 @@ def setph(word,num):
         ph3.set(word)
     if num ==4:
         ph4.set(word)
+    if num ==5:
+        ph5.set(num)
+    if num ==6:
+        ph6.set(word)
 
 
 def add():
@@ -238,9 +244,11 @@ def add():
     email = str(emailEntry.get())
     position = str(posEntry.get())
     department = str(depEntry.get())
+    age = str(ageEntry.get())
+    nationality = str(nalEntry.get())
 
 
-    if (name == "" or name == " ") or (email == "" or email == " ") or (position == "" or position == " ") or (department == "" or department == " "):
+    if (name == "" or name == " ") or (email == "" or email == " ") or (position == "" or position == " ") or (department == "" or department == " ") or (age == "" or age == " ") or (nationality == "" or nationality == " "):
         messagebox.showinfo("Error", "Please fill up the blank entry")
         return
     else:
@@ -248,7 +256,7 @@ def add():
             conn = connection()
             cursor = conn.cursor()
             cursor.execute(
-                "INSERT INTO firstt VALUES ('"+name+"','"+email+"','"+position+"','"+department+"')")
+                "INSERT INTO firstt VALUES ('"+name+"','"+email+"','"+position+"','"+department+"' ,'"+age+"','"+nationality+"')")
             conn.commit()
             conn.close()
             msg = messagebox.askquestion('',"Do you want to add this person?")
@@ -257,6 +265,8 @@ def add():
                 emailEntry.delete(0,'end')
                 posEntry.delete(0,'end')
                 depEntry.delete(0,'end')
+                ageEntry.delete(0,'end')
+                nalEntry.delete(0,'end')
             else:
                 messagebox.showinfo('Return', 'You will now return to the application screen')
         except:
@@ -309,6 +319,17 @@ deplabel = Label(f2_1, text="Department: ", font=('Arial', 15),bg="#8ed1ba")
 deplabel.place(x=950, y=25)
 depEntry = Entry(f2_1, width=20, bd=0, font=('Arial', 15),textvariable = ph4)
 depEntry.place(x=1070, y=27)
+
+agelabel = Label(f2_1, text="Age: ", font=('Arial', 15),bg="#8ed1ba")
+agelabel.place(x=30, y=85)
+ageEntry = Entry(f2_1, width=20, bd=0, font=('Arial', 15),textvariable = ph5)
+ageEntry.place(x=100, y=87)
+
+nallabel = Label(f2_1, text="Nationality: ", font=('Arial', 15),bg="#8ed1ba")
+nallabel.place(x=330, y=85)
+nalEntry = Entry(f2_1, width=20, bd=0, font=('Arial', 15),textvariable = ph6)
+nalEntry.place(x=440, y=87)
+
 
 
 

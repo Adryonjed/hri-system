@@ -23,7 +23,7 @@ def connection():
 def read():
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM firstt ORDER BY name")
+    cursor.execute("SELECT name, email, position, department FROM firstt ORDER BY name")
     results = cursor.fetchall()
     conn.commit()
     conn.close()
@@ -44,6 +44,6 @@ def populate():
 
     for result in results:
         my_tree.insert(parent='', index=len(results), iid=result, text='',
-                              values=(result[0], result[1], result[2], result[3]))
+                              values=(result[0], result[1], result[2], result[3],result[4],result[5]))
                               
                               
