@@ -22,7 +22,7 @@ def connection():
 def read():
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT name, email, position, department FROM firstt ORDER BY name")
+    cursor.execute("SELECT id, firstname, surname, position, department FROM person ORDER BY firstname")
     results = cursor.fetchall()
     conn.commit()
     conn.close()
@@ -36,30 +36,16 @@ def populate():
 
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM firstt")
+    cursor.execute("SELECT * FROM person")
     results = cursor.fetchall()
     conn.commit()
     conn.close()
-
     for result in results:
         my_tree.insert(parent='', index=len(results), iid=result, text='',
-                              values=(result[0], result[1], result[2], result[3],result[4],result[5]))
-                              
-                              
-def populate2():
-    my_tree2 = ttk.Treeview()
-    for rows in my_tree2.get_children():
-        my_tree2.delete(rows)
+                              values=(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7], result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]))
+    
 
-    conn2 = connection()
-    cursor2 = conn2.cursor()
-    cursor2.execute("SELECT * FROM firstt")
-    results2 = cursor2.fetchall()
-    conn2.commit()
-    conn2.close()
 
-    for result in results2:
-        my_tree2.insert(parent='', index=len(results2), iid=result, text='',
-                              values=(result[0], result[1], result[2], result[3],result[4],result[5]))
-                              
-                              
+
+
+
