@@ -16,9 +16,11 @@ import customtkinter
 import time
 
 
+
 app = tk.Tk()
 app.title("Human Resource Management System")
 app.geometry("1920x1080")
+
 app.resizable(True,True)
 app.state('zoomed')
 app.configure(bg='#dbb2b2')
@@ -212,11 +214,13 @@ my_time()
 #-------------------------------------------------------------------------------------------------------------------------------------#
 
 
-f2 = customtkinter.CTkFrame(app, width=1500, height=820, fg_color ="#8aafd4")
+f2 = customtkinter.CTkFrame(app, width=1500, height=820, fg_color ="#8aafd4",corner_radius=50)
 f2_1 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8ed1ba")
 f2_1.pack_propagate(0)
 
-cv = Canvas(f2_1,background='#c5c6c9',highlightthickness=0)
+
+
+cv = Canvas(f2_1,background='#c5c6c9',highlightthickness=0,)
 cv.pack(side =LEFT,fill=BOTH, expand=1)
 
 sb = customtkinter.CTkScrollbar(f2_1, orientation= VERTICAL, border_spacing = 3,fg_color = 'white', command=cv.yview)
@@ -224,7 +228,7 @@ sb.pack(side=RIGHT, fill=Y)
 cv.configure(yscrollcommand=sb.set)
 cv.bind('<Configure>', lambda e:cv.configure(scrollregion = cv.bbox('all')))
 
-sf = customtkinter.CTkFrame(cv, width=1500, height=1000 ,fg_color ="#8ed1ba")
+sf = customtkinter.CTkFrame(cv, width=1500, height=1000 ,fg_color ="#8ed1ba",corner_radius=50)
 cv.create_window((0,0), window=sf, anchor="nw")
 
 
@@ -264,6 +268,7 @@ sty.theme_use("default")
 sty.configure("Treeview", rowheight="50",fieldbackground = '#c9c9c7',background = '#c9c9c7')
 sty.configure("Treeview.Heading", font=(None, 15))
 sty.map('Treeview', background=[('selected', 'green')])
+
 
 
 #-------------------------------------------------------------------------------------------------------------------------------------#
@@ -310,6 +315,7 @@ def refreshTable():
 
 fi = tk.StringVar()
 
+c = tk.StringVar()
 c1 = tk.StringVar()
 c2 = tk.StringVar()
 c3 = tk.StringVar()
@@ -397,7 +403,7 @@ def show():
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM person WHERE firstname=%s",(findEntry.get(),))
         result = cursor.fetchone()
-        
+        drow = result[0]
         drow1 = result[1]
         drow2 = result[2]
         drow3 = result[3]
@@ -415,7 +421,7 @@ def show():
         drow15 = result[15]
         if result:
             show_frame2(f2_2)
-        
+            c.set(drow)
             c1.set(drow1)
             c2.set(drow2)
             c3.set(drow3)
@@ -435,7 +441,6 @@ def show():
             print('wrong')
 
 def add():
-
     sname = str(sn.get())
     fname = str(fnEntry.get())
     mname = str(mnEntry.get())
@@ -490,16 +495,20 @@ def add():
         refreshTable2()
 
 def update():
+    
+    selected_item = my_tree.selection()[0]
+    jed = str(my_tree.item(selected_item)['values'][0])
+   
 
     sname = str(sn2.get())
     fname = str(fnEntry2.get())
     mname = str(mnEntry2.get())
     ct = str(ctEntry2.get())
-    hei = int(htEntry2.get())
-    wei = int(wtEntry2.get())
+    hei = str(htEntry2.get())
+    wei = str(wtEntry2.get())
     bt = str(btt2.get())
-    tlno = int(tEntry2.get())
-    clno = int(cEntry2.get())
+    tlno = str(tEntry2.get())
+    clno = str(cEntry2.get())
     email = str(eEntry2.get())
     dobb =  str(dobentry2.get_date())
     sex = str(rb2.get())
@@ -514,7 +523,7 @@ def update():
         try:
             conn = connection()
             cursor = conn.cursor()
-            cursor.execute("UPDATE person SET surname='"+sname+"', firstname='"+fname+"', middlename='"+mname+"', sex='"+sex+"', DoB='"+dobb+"', citizenship='"+ct+"',civilstatus='"+cs+"',height='"+hei+"',weight='"+wei+"',bloodtype='"+bt+"',telno='"+tlno+"',cellno='"+clno+"',email='"+email+"',position='"+pos+"',department='"+dept+"' WHERE surname='"+sname+"' ")
+            cursor.execute("UPDATE person SET surname='"+sname+"', firstname='"+fname+"', middlename='"+mname+"', sex='"+sex+"', DoB='"+dobb+"', citizenship='"+ct+"',civilstatus='"+cs+"',height='"+hei+"',weight='"+wei+"',bloodtype='"+bt+"',telno='"+tlno+"',cellno='"+clno+"',email='"+email+"',position='"+pos+"',department='"+dept+"' WHERE id='"+jed+"' ")
             conn.commit()
             conn.close()
             msg = messagebox.askquestion('',"Do you want to Update this Information?")
@@ -536,6 +545,8 @@ def update():
                 eEntry2.delete(0,'end')
                 deEntry2.delete(0,'end')
                 show_frame2(f2)
+            else:
+                messagebox.showinfo('Return', 'You will now return to the application screen')
         except:
             messagebox.showinfo("Error", "Inventory already exist")
             return
@@ -639,7 +650,6 @@ back3.place(x=1000, y=900)
 uptd = customtkinter.CTkButton(sf3,text="Update",fg_color='#9c7846',text_font=('Arial', 20,) ,bg_color= '#b780c2', width=160, height=60, border_width=0, corner_radius=10,
 hover_color = '#2a4859',cursor='hand2',command=update)
 uptd.place(x=1200, y=900)
-
 
 
 find = Label(f2, text="FIND : ", font=('Arial', 15, 'bold'),bg="#8aafd4").place(x=50, y=700)
@@ -751,6 +761,10 @@ coEntry.place(x=200, y=800)
 
 pilabel = Label(sf2, text="PERSONAL INFORMATION ", font=('Arial', 20, 'bold'),bg="#d1a78e")
 pilabel.place(x=30, y=25)
+
+snlabel = Label(sf2, text="YOUR ID : ", font=('Arial', 12, 'bold'),bg="#d1a78e").place(x=1230, y=85)
+res = Label(sf2, text="", font=('Arial', 12, 'bold'),bg="#d1a78e", textvariable=c)
+res.place(x=1300, y=83)
 
 snlabel = Label(sf2, text="SURNAME : ", font=('Arial', 12, 'bold'),bg="#d1a78e").place(x=30, y=85)
 res1 = Label(sf2, text="", font=('Arial', 12, 'bold'),bg="#d1a78e", textvariable=c1)
@@ -958,6 +972,7 @@ f4 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8a9dd4")
 f5 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#8ad494")
 
 
+
 for frame in (f1,f2,f3,f4,f5):
     frame.place(x=380, y=200)
 
@@ -977,6 +992,7 @@ nphoto = ImageTk.PhotoImage(resized)
 
 j = Label(app, image= nphoto, bg="#5f8ad9")
 j.place(x=40, y=10)
+
 
 app.state('zoomed')
 app.mainloop()

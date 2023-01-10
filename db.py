@@ -44,7 +44,12 @@ def populate():
         my_tree.insert(parent='', index=len(results), iid=result, text='',
                               values=(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7], result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]))
     
-
+def join():
+    conn = connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM person LEFT JOIN educ ON person.id = educ.id")
+    conn.commit()
+    conn.close()
 
 
 
