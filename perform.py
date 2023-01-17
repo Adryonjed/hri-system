@@ -177,7 +177,7 @@ def performance():
             global file
             f_types = [('All Files', '*.*'), 
                     ('JPG', '*.jpg'),
-                    ('PNG', '*.png')]
+                    ('PNG', '*.png'),('DOCX','*.docx')]
             file = filedialog.askopenfilename(filetypes=f_types)
             fob = open(file, 'rb').read()
             conn = connection()
