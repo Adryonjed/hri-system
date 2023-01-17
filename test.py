@@ -14,40 +14,44 @@ from tkinter.ttk import Progressbar
 import tkinter as tk
 import customtkinter
 import time
+from tkinter import filedialog
+import base64
+import io
 
 
-def select(app):
 
-        
-        sname = str(res1.cget("text"))
-        fname = str(res2.cget("text"))
-        mname = str(res3.cget("text"))
-        ct = str(res6.cget("text"))
-        hei = str(res8.cget("text"))
-        wei = str(res9.cget("text"))
-        tlno = str(res11.cget("text"))
-        clno = str(res12.cget("text"))
-        email = str(res13.cget("text"))
-        pos = str(res14.cget("text"))
-        dept = str(res15.cget("text"))
-        
-        setc(sname,1)
-        setc(fname,2)
-        setc(mname,3)
-        setc(ct,4)
-        setc(hei,5)
-        setc(wei,6)
-        setc(tlno,7)
-        setc(clno,8)
-        setc(email,9)
-        setc(pos,10)
-        setc(dept,11)
+my_w = tk.Tk() # parent window 
+my_w.geometry("400x500") # size as width height
+my_w.title("www.plus2net.com")  # Adding a title
+# database connection 
+conn = connection()
+cursor = conn.cursor()
+cursor.execute("SELECT * FROM educ")
 
-        show_frame2(f2_3)
+# Column headers  row 0
+l1=Label(my_w, text='ID') 
+l1.grid(row=0,column=1) 
 
+l2=Label(my_w, text='Name') 
+l2.grid(row=0,column=2) 
 
-modb = customtkinter.CTkButton(sf2,text="Modify",fg_color='#467c9c',text_font=('Arial', 20,) ,bg_color= '#d1a78e', width=160, height=60, border_width=0, corner_radius=10,
-hover_color = '#2a4859',cursor='hand2',command=select)
-modb.place(x=1200, y=900)
+l3=Label(my_w, text='Photo') 
+l3.grid(row=0,column=3) 
 
-app.mainloop()
+i=1 # data starts from row 1 
+images = [] # to manage garbage collection. 
+
+for student in cursor: 
+    stream = io.BytesIO(student[2])
+    img=Image.open(stream)
+    img = ImageTk.PhotoImage(img)    
+    e = Label(my_w, text=student[0]) 
+    e.grid(row=i,column=1,ipadx=20) 
+    e = Label(my_w, text=student[1]) 
+    e.grid(row=i,column=2,ipadx=60) 
+    e = Label(my_w, image=img) 
+    e.grid(row=i, column=3,ipady=7)  
+    images.append(img) # garbage collection 
+    i=i+1 
+   
+my_w.mainloop()
