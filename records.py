@@ -465,7 +465,7 @@ def record():
         res.place(x=1320, y=85)
 
         snlabel = Label(sf2, text="SURNAME : ", font=('Arial', 12, 'bold'),bg="#d1a78e").place(x=30, y=85)
-        res1 = Label(sf2, text="", font=('Arial', 12, 'bold'),bg="#d1a78e", textvariable=c2)
+        res1 = Label(sf2, text="", font=('Arial', 12, 'bold'),bg="#d1a78e", textvariable=c3)
         res1.place(x=160, y=83)
 
         fnlabel = Label(sf2, text="FIRSTNAME : ", font=('Arial', 12, 'bold'),bg="#d1a78e").place(x=30, y=135)
@@ -473,7 +473,7 @@ def record():
         res2.place(x=160, y=133)
 
         mnlabel = Label(sf2, text="MIDDLENAME : ", font=('Arial', 12, 'bold'),bg="#d1a78e").place(x=30, y=185)
-        res3 = Label(sf2,text="", font=('Arial', 12, 'bold'),bg="#d1a78e", textvariable=c3)
+        res3 = Label(sf2,text="", font=('Arial', 12, 'bold'),bg="#d1a78e", textvariable=c2)
         res3.place(x=160, y=183)
 
         sexlabel = Label(sf2, text="SEX : ", font=('Arial', 12, 'bold'),bg="#d1a78e").place(x=800, y=135)
