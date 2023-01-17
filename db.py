@@ -15,14 +15,14 @@ def connection():
         host='localhost',
         user='root', 
         password='',
-        db='ewe',
+        db='HRIS',
     )
     return conn
 
 def read():
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, firstname, surname, position, department FROM person ORDER BY firstname")
+    cursor.execute("SELECT id, firstname, lastname, position, department FROM person ORDER BY id")
     results = cursor.fetchall()
     conn.commit()
     conn.close()
@@ -43,13 +43,16 @@ def populate():
     for result in results:
         my_tree.insert(parent='', index=len(results), iid=result, text='',
                               values=(result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7], result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]))
-    
-def join():
+
+def read2():
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM person LEFT JOIN educ ON person.id = educ.id")
+    cursor.execute("SELECT id, FROM image ORDER BY id")
+    results = cursor.fetchall()
     conn.commit()
     conn.close()
+    
+    return results
 
 
 

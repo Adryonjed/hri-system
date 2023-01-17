@@ -17,7 +17,7 @@ import time
 
 
 def dash():
-    f1 = customtkinter.CTkFrame(width=1500, height=820, fg_color ="#d4b88a", corner_radius=50)
+    f1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4b88a", corner_radius=50)
     f1.place(x=380, y=200)
 
     f1_1 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd",)

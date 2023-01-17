@@ -4,7 +4,7 @@ from matplotlib import image, style
 from matplotlib.pyplot import show
 from tkinter import *
 from db import *
-from tkinter import ttk
+from tkinter import Tk
 from tkinter import messagebox
 from PIL import ImageTk, Image
 from time import strftime
@@ -266,6 +266,7 @@ nphoto = ImageTk.PhotoImage(resized)
 
 j = Label(app, image= nphoto, bg="#5f8ad9")
 j.place(x=40, y=10)
+
 
 
 app.state('zoomed')
