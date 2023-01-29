@@ -1,26 +1,17 @@
-from imaplib import Commands
-from turtle import onclick, position
-from matplotlib import image, style
-from matplotlib.pyplot import show
 from tkinter import *
 from db import *
 from tkinter import ttk
-from tkinter import messagebox
-from PIL import ImageTk, Image
 from time import strftime
-from tkcalendar import DateEntry
-from datetime import date
-from tkinter.ttk import Progressbar
 import tkinter as tk
 import customtkinter
-import time
+
 
 
 def dash():
     f1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4b88a", corner_radius=50)
     f1.place(x=380, y=200)
 
-    f1_1 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd",)
+    f1_1 = customtkinter.CTkFrame(f1, width=350, height=300, fg_color="#86babd")
     f1_1.place(x=30, y=30)
     ln = Label(f1_1, text="Total Employees", font=('Arial', 20), background="#86babd")
     ln.place(x=10, y=10)
@@ -31,6 +22,8 @@ def dash():
     ln2.place(x=10, y=10)
     count2= Label(f1_2, text="9", font=('Arial', 70), background="#95c791", justify= CENTER)
     count2.place(relx=0.5, rely=0.5, anchor= CENTER)
+
+
 
     my_tree =ttk.Treeview()
 
@@ -49,8 +42,6 @@ def dash():
         em_number = cursor.execute("SELECT * FROM person")
         Label(f1_1, text=(em_number), font=('Arial', 70), background="#86babd").place(relx=0.5,rely=0.5, anchor=CENTER)
 
-
-    
 
 
     def my_time():

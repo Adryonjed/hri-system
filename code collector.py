@@ -18,6 +18,26 @@ from datetime import date
 from tkinter.ttk import Progressbar
 
 
+  
+def my_upd(value):
+    my_str=t1.get('1.0','end-1c') #The input string except the last line break
+    breaks=my_str.count('\n') # Number of line breaks ( except the last one )
+    char_numbers=len(my_str)-breaks # Number of chars user has entered 
+    l2.config(text=str(char_numbers)) # display number of chars 
+    if(char_numbers > 20):
+        t1.delete('end-2c') # remove last char of text widget
+t1.bind('<KeyRelease>',my_upd) # Key release event to call function.  
+        
+
+
+
+def my_upd(value):
+            my_str=htEntry.get()
+            char_numbers=len(my_str)
+            if(char_numbers > 10):
+               htEntry.delete(10,END)
+
+        htEntry.bind('<KeyRelease>',my_upd)
 
 
 def connection():

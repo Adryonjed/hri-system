@@ -1,19 +1,11 @@
-from imaplib import Commands
-from turtle import onclick, position
-from matplotlib import image, style
-from matplotlib.pyplot import show
 from tkinter import *
 from db import *
 from tkinter import ttk
 from tkinter import messagebox
-from PIL import ImageTk, Image
-from time import strftime
 from tkcalendar import DateEntry
 from datetime import date
-from tkinter.ttk import Progressbar
 import tkinter as tk
 import customtkinter
-import time
 from tkinter import filedialog
 import base64
 
@@ -34,10 +26,10 @@ def performance():
     
 
     sty = ttk.Style()
-    sty.theme_use("clam")
-    sty.configure("Treeview", rowheight="50",fieldbackground = '#c9c9c7',background = '#c9c9c7', borderwidth = 0)
-    sty.configure("Treeview.Heading", font=(None, 20), background="#c9c9c7", borderwidth = 0, relief = "flat")
-    sty.map("Treeview.Heading", background = [('active', "#c9c9c7" )])
+    sty.theme_use('clam')
+    sty.configure("Treeview", rowheight="50",fieldbackground ='#dbd5d5',background = '#dbd5d5', borderwidth = 0,relief = 'flat')
+    sty.configure("Treeview.Heading", font=(None, 20), background="#8f8d8d", borderwidth = 0, relief = "flat")
+    sty.map("Treeview.Heading", background = [('active', "#8f8d8d")])
     sty.map('Treeview', background=[('selected', 'green')])
 
     fi = tk.StringVar()
@@ -80,18 +72,18 @@ def performance():
 
     def check():
 
-        find = str(findEntry.get())
+        find = str(find2Entry.get())
         if (find == "" or find == " "):
-            messagebox.showinfo("Error", "Select a data or input your first name in the entry")
+            messagebox.showinfo("Error", "Select a data or input your ID No.")
             return
         else:
             conn = connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM person WHERE id=%s",(findEntry.get()))
+            cursor.execute("SELECT * FROM person WHERE id=%s",(find2Entry.get()))
             result = cursor.fetchone()
             drow = result[0]
             drow1 = result[1]
-            drow2 = result[2]
+            drow2 = result[3]
 
             if result:
                 indicate(check_p)
@@ -110,8 +102,8 @@ def performance():
         d = StringVar()
 
 
-        f3_1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8ad4c9")
-        f3_1.place(x=380, y=200)
+        f3_1 = customtkinter.CTkFrame(f3, width=1500, height=820, fg_color ="#8ad4c9")
+        f3_1.place(x=0, y=0)
         f3_1.grid_propagate(0)
 
 
@@ -144,7 +136,7 @@ def performance():
             
             conn = connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM image WHERE id=%s ORDER BY date DESC",(findEntry.get()))
+            cursor.execute("SELECT * FROM image WHERE id=%s ORDER BY date DESC",(find2Entry.get()))
             
 
             
@@ -224,30 +216,27 @@ def performance():
 
    
         
+    find2 = Label(f3, text="FIND : ", font=('Arial', 18, 'bold'),bg="#8aafd4").place(x=50, y=30)
+    find2Entry = customtkinter.CTkEntry(f3,height = 37, width=200, fg_color='white',border_width = 0 ,font=('Arial', 20),text_color='black',textvariable=fi)
+    find2Entry.place(x=130, y=28)
 
-    fin2 = Label(f3, text="FIND : ", font=('Arial', 15, 'bold'),bg="#8aafd4").place(x=50, y=700)
-    findEntry = customtkinter.CTkEntry(f3, width=500, fg_color='white',border_width = 0 ,font=('Arial', 16,),text_color='black',textvariable=fi)
-    findEntry.place(x=130, y=700)
 
-
-    my_tree =ttk.Treeview(f3, show="headings", height=12)
+    my_tree =ttk.Treeview(f3, show="headings", height=11)
     my_tree['columns'] = ("id","name","sur","pos","dept")
 
 
     my_tree.column("id", anchor=CENTER, width=287)
-    my_tree.column("name", anchor=W, width=287)
-    my_tree.column("sur", anchor=W, width=287)
-    my_tree.column("pos", anchor=W, width=287)
-    my_tree.column("dept", anchor=W, width=287)
-
-
+    my_tree.column("name", anchor=CENTER, width=287)
+    my_tree.column("sur", anchor=CENTER, width=287)
+    my_tree.column("pos", anchor=CENTER, width=287)
+    my_tree.column("dept", anchor=CENTER, width=287)
     my_tree.heading("id", text="ID", anchor=CENTER)
     my_tree.heading("name", text="NAME", anchor=CENTER)
     my_tree.heading("sur", text="SURNAME", anchor=CENTER)
     my_tree.heading("pos", text="POSITION", anchor=CENTER)
     my_tree.heading("dept", text="DEPARTMENT", anchor=CENTER)
+    my_tree.place(x=27, y=90)
 
-    my_tree.place(x=27, y=27)
     my_tree.bind("<Double-1>", dclick)
     populate()
     refreshTable()  
