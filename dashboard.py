@@ -39,7 +39,7 @@ def dash():
         
         conn = connection()
         cursor = conn.cursor()
-        em_number = cursor.execute("SELECT * FROM person")
+        em_number = cursor.execute("SELECT * FROM personal")
         Label(f1_1, text=(em_number), font=('Arial', 70), background="#86babd").place(relx=0.5,rely=0.5, anchor=CENTER)
 
 

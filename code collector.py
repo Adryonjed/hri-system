@@ -19,6 +19,39 @@ from tkinter.ttk import Progressbar
 
 
   
+if mnshow.cget("text") == "male":
+         mnshow.place(x=300,y=400)
+      else:
+         mnshow.place(x=300,y=300)
+
+   def imported():
+            f3_2 = customtkinter.CTkFrame(None, fg_color ="#8ad4c9")
+            f3_2.place(x=1000, y=400)
+            
+            conn = connection()
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM image WHERE id=%s ORDER BY date DESC",(find2Entry.get()))  
+            i = 1
+            
+            for g in cursor:
+
+                jo = Label(f3_2, text=g[2],font=('Arial', 50))
+                jo.grid(row=i, column=1, ipadx= 10,padx=20)
+                
+                jo2 = Label(f3_2,  text='imported', font=('Arial', 50),textvariable=g[1])
+                jo2.grid(row=i, column=2, ipadx= 10,padx=20)
+
+                delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,
+                hover_color = '#2a4859',cursor='hand2')
+                delp.grid(row= i, column = 3)
+
+                if i == 4:
+                    break
+                i = i+1
+
+            conn.commit()
+            conn.close()
+       
 def my_upd(value):
     my_str=t1.get('1.0','end-1c') #The input string except the last line break
     breaks=my_str.count('\n') # Number of line breaks ( except the last one )

@@ -50,7 +50,7 @@ def performance():
     def dclick(e):
         mouse_select()
 
-    mainframe3 = tk.Frame(bg='#dbb2b2')
+    mainframe3 = tk.Frame(f3,bg='#dbb2b2')
     mainframe3.place(x=380, y=200)
     mainframe3.pack_propagate(False)
 
@@ -79,7 +79,7 @@ def performance():
         else:
             conn = connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM person WHERE id=%s",(find2Entry.get()))
+            cursor.execute("SELECT * FROM personal WHERE id=%s",(find2Entry.get()))
             result = cursor.fetchone()
             drow = result[0]
             drow1 = result[1]
@@ -98,13 +98,10 @@ def performance():
 
     
     def check_p():
-        
-        d = StringVar()
-
 
         f3_1 = customtkinter.CTkFrame(f3, width=1500, height=820, fg_color ="#8ad4c9")
         f3_1.place(x=0, y=0)
-        f3_1.grid_propagate(0)
+        f3_1.pack_propagate(0)
 
 
 
@@ -138,7 +135,6 @@ def performance():
             cursor = conn.cursor()
             cursor.execute("SELECT * FROM image WHERE id=%s ORDER BY date DESC",(find2Entry.get()))
             
-
             
             i = 1
             
@@ -150,16 +146,13 @@ def performance():
                 jo2 = Label(f3_2,  text='imported', font=('Arial', 50),textvariable=g[1])
                 jo2.grid(row=i, column=2, ipadx= 10,padx=20)
 
+                delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,hover_color = '#2a4859',cursor='hand2')
+                delp.grid(row= i, column = 3)
+
                 if i == 4:
                     break
                 i = i+1
 
-              
-
-
-            
-
-        
 
             conn.commit()
             conn.close()
@@ -211,7 +204,7 @@ def performance():
             
 
     add3 = customtkinter.CTkButton(f3,text="Check",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(check))
+    hover_color = '#2a4859',cursor='hand2',command=check)
     add3.place(x=1200, y=700)
 
    

@@ -24,15 +24,18 @@ wel = Label(app, text="ROXAS MEMORIAL PROVINCIAL HOSPITAL", font=('Arial', 40, '
 wel.place(x=580,y=50)
 
 
+
+
 mbar = tk.Frame(app, background="#335791")
 mbar.pack(side=tk.LEFT)
 mbar.pack_propagate (False)
 mbar.configure (width=330, height=1080)
-
+   
 mainframe = tk.Frame(app, bg='#aee0e8')
 mainframe.pack(side=tk.BOTTOM)
 mainframe.pack_propagate(False)
 mainframe.configure (width=1570, height=900)
+
 
 
 def deletef():
@@ -47,121 +50,84 @@ def hide_indi():
 
 def indicate (lb,page):
     hide_indi()
-    lb.config(bg="#b1c2de")
+    lb.config(bg="#8abdb2")
     deletef()
     page()
 
 def entered(event):
-    bttn.config(
-        bg = "#335791",
-        fg = "#7ddae8",
-        font = ("",30,"bold"),
-        height=1, width=42
-    )
+    bttn.configure(text_color = '#d6af74')
+    bttn.place_configure(x=-145,y=420)
     
 def left(event):
-    bttn.config(
-        bg = "#335791",
-        fg = "#ffffff",
-        font = ("",20,"bold"),
-    height=2, width=51
-    ) 
+    bttn.configure(text_color = 'white')
+    bttn.place_configure(x=-200,y=420)
+    
 
 
-bttn = Button(mbar, text='Dashboard',height=2, width=51, bg="#335791", font=("", 20, "bold"), fg="white", bd=0,
+bttn = customtkinter.CTkButton(mbar, text='Dashboard',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
 cursor='hand2',command=lambda: indicate(indicate1, dash))
-bttn.place(x=-344, y=420)
-bttn.config(activebackground="#476496")
-bttn.config(activeforeground="#7ddae8")
+bttn.place(x=-200, y=420)
+
 bttn.bind("<Enter>", entered)
 bttn.bind("<Leave>", left)
 
 indicate1 = tk.Label (mbar, text='', bg='#335791')
-indicate1.place(x=3, y= 438, width=5, height=40)
+indicate1.place(x=-3, y= 420, width=13, height=80)
 
 def entered2(event):
-    bttn2.config(
-        bg = "#335791",
-        fg = "#7ddae8",
-        font = ("",30,"bold"),
-        height=1, width=43  
-    )
+    bttn2.configure(text_color = '#d6af74')
+    bttn2.place_configure(x=-145,y=500)
     
 def left2(event):
-    bttn2.config(
-        bg = "#335791",
-        fg = "#ffffff",
-        font = ("",20,"bold"),
-    height=2, width=51
-    ) 
+    bttn2.configure(text_color = 'white')
+    bttn2.place_configure(x=-220,y=500)
+    
 
-bttn2 = Button(mbar, text='Records',height=2, width=51, bg="#335791", font=("", 20, "bold"), fg="white", bd=0,
+bttn2 = customtkinter.CTkButton(mbar, text='Records',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
 cursor='hand2',command=lambda: indicate(indicate2, record))
-bttn2.place(x=-360, y=500)
-bttn2.config(activebackground="#476496")
-bttn2.config(activeforeground="#7ddae8")
+bttn2.place(x=-220, y=500)
 bttn2.bind("<Enter>", entered2)
 bttn2.bind("<Leave>", left2)
 
 indicate2 = tk.Label (mbar, text='', bg='#335791')
-indicate2.place(x=3, y= 520, width=5, height=40)
+indicate2.place(x=-3, y= 502,width=13, height=80)
 
 
 def entered3(event):
-    bttn3.config(
-        bg = "#335791",
-        fg = "#7ddae8",
-        font = ("",30,"bold"),
-        height=1, width=41
-    )
+    bttn3.configure(text_color = '#d6af74')
+    bttn3.place_configure(x=-145,y=580)
     
 def left3(event):
-    bttn3.config(
-        bg = "#335791",
-        fg = "#ffffff",
-        font = ("",20,"bold"),
-        height=2, width=51
-    ) 
+    bttn3.configure(text_color = 'white')
+    bttn3.place_configure(x=-190,y=580)
 
-bttn3 = Button(mbar, text='Performance',height=2, width=51, bg="#335791", font=("", 20, "bold"), fg="white", bd=0,
+bttn3 =customtkinter.CTkButton(mbar, text='Performance',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
 cursor='hand2',command=lambda: indicate(indicate3,performance))
-bttn3.place(x=-330, y=580)
-bttn3.config(activebackground="#476496")
-bttn3.config(activeforeground="#7ddae8")
+bttn3.place(x=-190, y=580)
 bttn3.bind("<Enter>", entered3)
 bttn3.bind("<Leave>", left3)
 
 indicate3 = tk.Label (mbar, text='', bg='#335791')
-indicate3.place(x=3, y= 600, width=5, height=40)
+indicate3.place(x=-3, y= 582, width=13, height=80)
 
 
 
 def entered4(event):
-    bttn4.config(
-        bg = "#335791",
-        fg = "#7ddae8",
-        font = ("",30,"bold"),
-        height=1, width=45
-    )
+    bttn4.configure(text_color = '#d6af74')
+    bttn4.place_configure(x=-145,y=660)
     
 def left4(event):
-    bttn4.config(
-        bg = "#335791",
-        fg = "#ffffff",
-        font = ("",20,"bold"),
-    height=2, width=51
-    ) 
+    bttn4.configure(text_color = 'white')
+    bttn4.place_configure(x=-240,y=660)
 
-bttn4 = Button(mbar, text='Leave',height=2, width=51, bg="#335791", font=("", 20, "bold"), fg="white", bd=0,
+bttn4 = customtkinter.CTkButton(mbar, text='Leave',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
 cursor='hand2',command=lambda: indicate(indicate4,leave))
-bttn4.place(x=-375, y=660)
-bttn4.config(activebackground="#476496")
-bttn4.config(activeforeground="#7ddae8")
+bttn4.place(x=-240, y=660)
 bttn4.bind("<Enter>", entered4)
 bttn4.bind("<Leave>", left4)
 
 indicate4 = tk.Label (mbar, text='', bg='#335791')
-indicate4.place(x=3, y= 680, width=5, height=40)
+indicate4.place(x=-3, y= 662, width=13, height=80)
 
 
 
@@ -195,7 +161,7 @@ def refreshTable():
     
     conn = connection()
     cursor = conn.cursor()
-    em_number = cursor.execute("SELECT * FROM person")
+    em_number = cursor.execute("SELECT * FROM personal")
     Label(f1_1, text=(em_number), font=('Arial', 70), background="#86babd").place(relx=0.5,rely=0.5, anchor="center")
 
 def my_time():
@@ -223,7 +189,7 @@ refreshTable()
 
 
 photo = PIL.Image.open("Assets\\logo.png")
-resized = photo.resize((200,200), PIL.Image.ANTIALIAS)
+resized = photo.resize((200,200))
 nphoto = ImageTk.PhotoImage(resized)
 
 j = Label(app, image= nphoto, bg="#335791")
