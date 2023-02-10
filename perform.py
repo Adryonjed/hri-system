@@ -142,7 +142,7 @@ def performance():
                     jo.grid(row=i, column=j,padx=30,pady=10)
 
 
-                delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=160, height=60, border_width=0, corner_radius=10,hover_color = '#2a4859',
+                delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=90, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
                 cursor='hand2',command=lambda k=g[0]:delete(k))
                 delp.grid(row= i, column = 7,pady=10,padx = 50)
 
@@ -319,7 +319,7 @@ def performance():
         
 
 
-        uptd = customtkinter.CTkButton(f3_1,text="Update",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
+        uptd = customtkinter.CTkButton(f3_1,text="Add Data",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=ups)
         uptd.place(x=1200, y=700)
 

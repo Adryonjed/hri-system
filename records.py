@@ -759,10 +759,10 @@ def record():
                      opt2.set(None)
                      indicate(record)
                   elif msg == 'no':
-                     messagebox.showinfo('Return', 'You will now return to the application screen')
-                     indicate(record)
+                     pass
                   else:
                      messagebox.showinfo('Return', 'You will now return to the application screen')
+                     indicate(record)
                except:
                   
                   messagebox.showinfo("Error", "Inventory already exist")
@@ -787,8 +787,11 @@ def record():
       titleabel = Label(sf, text="PERSONAL DATA SHEET", font=('Arial', 22, 'bold'),bg="#d4d4d4")
       titleabel.place(x=690, y=10, anchor= N)
 
-      sublabel = Label(sf, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#d4d4d4")
-      sublabel.place(x=30, y=50)
+      line = customtkinter.CTkFrame(sf, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=50)
+      sublabel = Label(sf, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#aeafb0")
+      sublabel.place(x=30, y=55)
+
+      
 
       snlabel = Label(sf, text="1.SURNAME :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=100)
       sn = customtkinter.CTkEntry(sf, height= 35,width=450, fg_color='white',border_width = 2, corner_radius= 10,placeholder_text = "Name extension (Jr.,Sr.)",font=('Arial', 22),placeholder_text_color= "gray",text_color='black')
@@ -975,7 +978,8 @@ def record():
    #-------------------------------------------------------------------------------------------------------------------------------------#
 
 
-      fblabel = Label(sf, text="FAMILY BACKGROUND", font=('Courier', 18, 'bold'),bg="#d4d4d4").place(x=30, y=1000)
+      line2 = customtkinter.CTkFrame(sf, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=1000)
+      fblabel = Label(sf, text="FAMILY BACKGROUND", font=('Courier', 18, 'bold'),bg="#aeafb0").place(x=30, y=1005)
 
       spolabel = Label(sf, text="21.SPOUSE'S SURNAME: ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1052)
       spoEntry = customtkinter.CTkEntry(sf, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black')
@@ -1041,8 +1045,9 @@ def record():
 
 
       
-      eblabel = Label(sf, text="EDUCATIONAL BACKGROUND", font=('Arial', 17, 'bold'),bg="#d4d4d4")
-      eblabel.place(x=30, y=1400)
+   
+      line3 = customtkinter.CTkFrame(sf, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=1300)
+      eblabel = Label(sf, text="EDUCATIONAL BACKGROUND", font=('Arial', 17, 'bold'),bg="#aeafb0").place(x=30, y=1405)
 
       lvllabel = Label(sf, text="Level", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=50, y=1450)
       NOSlabel = Label(sf, text="Name of School", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=310, y=1450)
@@ -1595,8 +1600,9 @@ def record():
       titleabel = Label(sf3, text="PERSONAL DATA SHEET", font=('Arial', 22, 'bold'),bg="#d4d4d4")
       titleabel.place(x=690, y=10, anchor= N)
 
-      sublabel = Label(sf3, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#d4d4d4")
-      sublabel.place(x=30, y=50)
+      line1 = customtkinter.CTkFrame(sf3, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=50)
+      sublabel = Label(sf3, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#aeafb0").place(x=30, y=55)
+
 
       snlabel = Label(sf3, text="1.SURNAME :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=100)
       sn = customtkinter.CTkEntry(sf3, height= 35,width=450, fg_color='white',border_width = 2, corner_radius= 10,placeholder_text = "Name extension (Jr.,Sr.)",font=('Arial', 22),placeholder_text_color= "gray",text_color='black',textvariable=p_sname)
@@ -1785,7 +1791,8 @@ def record():
    #-------------------------------------------------------------------------------------------------------------------------------------#
 
 
-      fblabel = Label(sf3, text="FAMILY BACKGROUND", font=('Courier', 18, 'bold'),bg="#d4d4d4").place(x=30, y=1000)
+      line2 = customtkinter.CTkFrame(sf3, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=1000)
+      fblabel = Label(sf3, text="FAMILY BACKGROUND", font=('Courier', 18, 'bold'),bg="#aeafb0").place(x=30, y=1005)
 
       spolabel = Label(sf3, text="21.SPOUSE'S SURNAME: ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1052)
       spoEntry = customtkinter.CTkEntry(sf3, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black',textvariable=s_sname)
@@ -1851,8 +1858,8 @@ def record():
 
 
       
-      eblabel = Label(sf3, text="EDUCATIONAL BACKGROUND", font=('Arial', 17, 'bold'),bg="#d4d4d4")
-      eblabel.place(x=30, y=1400)
+      line3 = customtkinter.CTkFrame(sf3, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=1400)
+      eblabel = Label(sf3, text="EDUCATIONAL BACKGROUND", font=('Arial', 17, 'bold'),bg="#aeafb0").place(x=30, y=1405)
 
       lvllabel = Label(sf3, text="Level", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=50, y=1450)
       NOSlabel = Label(sf3, text="Name of School", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=310, y=1450)
