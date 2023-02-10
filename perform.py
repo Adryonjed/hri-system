@@ -8,9 +8,14 @@ import tkinter as tk
 import customtkinter
 from tkinter import filedialog
 import base64
+from PIL import ImageTk, Image
+import PIL.Image
+import math
+from datetime import datetime
+from time import strftime
 
 def performance():
-    f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8ad4c9")
+    f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8ad4c9",corner_radius=60)
     f3.place(x=380, y=200)
 
     
@@ -64,10 +69,10 @@ def performance():
         deletef()
         page()
 
-    c = tk.StringVar()
-    c1 = tk.StringVar()
-    c2 = tk.StringVar()
-    c3 = tk.StringVar()
+    ids = tk.StringVar()
+    fname = tk.StringVar()
+    sname = tk.StringVar()
+
 
 
     def check():
@@ -83,13 +88,13 @@ def performance():
             result = cursor.fetchone()
             drow = result[0]
             drow1 = result[1]
-            drow2 = result[3]
+            drow2 = result[2]
 
             if result:
                 indicate(check_p)
-                c.set(drow)
-                c1.set(drow1)
-                c2.set(drow2)
+                ids.set(drow)
+                sname.set(drow1)
+                fname.set(drow2)
             else:
                 pass
 
@@ -99,117 +104,281 @@ def performance():
     
     def check_p():
 
-        f3_1 = customtkinter.CTkFrame(f3, width=1500, height=820, fg_color ="#8ad4c9")
+        f3_1 = customtkinter.CTkFrame(f3, width=1500, height=820, fg_color ="#8ad4c9",bg_color="#aee0e8",corner_radius=50)
         f3_1.place(x=0, y=0)
-        f3_1.pack_propagate(0)
 
-
-
-        dates = Label(f3_1, text="DATE OF BIRTH : ", font=('Arial', 12, 'bold'),bg="#8ed1ba").place(x=800, y=85)
-        dobbs = DateEntry(f3_1,width = 23, font = ('arial', 16), year = 2022, month = 6, day = 22, background = 'gray', foreground =  'white', borderwidth = 0, weekendbackground = 'red', bd = 0)
-        dt = date(2023,1,1)
-        dobbs.set_date(dt)
-        dobbs.place(x=950,y=83)
-
-
-
-
-        snlabel = Label(f3_1, text="YOUR ID :", font=('Arial', 15, 'bold'),bg="#d1a78e").place(x=30, y=30)
-        res = Label(f3_1, text="", font=('Arial', 15, 'bold'),bg="#d1a78e", textvariable=c)
+        snlabel = Label(f3_1, text="YOUR ID :", font=('Arial', 15, 'bold'),bg="#8ad4c9").place(x=30, y=30)
+        res = Label(f3_1, text="", font=('Arial', 15, 'bold'),bg="#8ad4c9", textvariable=ids)
         res.place(x=140, y=30)
 
-        snlabel = Label(f3_1, text="SURNAME :", font=('Arial', 20, 'bold'),bg="#d1a78e").place(x=500, y=100)
-        res1 = Label(f3_1, text="", font=('Arial', 20, 'bold'),bg="#d1a78e", textvariable=c2)
+        snlabel = Label(f3_1, text="SURNAME :", font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=500, y=100)
+        res1 = Label(f3_1, text="", font=('Arial', 20, 'bold'),bg="#8ad4c9", textvariable=sname)
         res1.place(x=670, y=100)
 
-        fnlabel = Label(f3_1, text="FIRSTNAME :", font=('Arial', 20, 'bold'),bg="#d1a78e").place(x=30, y=100)
-        res2 = Label(f3_1, text="", font=('Arial', 20, 'bold'),bg="#d1a78e", textvariable=c1)
+        fnlabel = Label(f3_1, text="FIRSTNAME :", font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=30, y=100)
+        res2 = Label(f3_1, text="", font=('Arial', 20, 'bold'),bg="#8ad4c9", textvariable=fname)
         res2.place(x=220, y=100)
 
+        
+        
+        f3_2 = customtkinter.CTkFrame(f3_1, fg_color ="transparent")
+        f3_2.place(x=240, y=250)
 
-        def imported():
-            f3_2 = customtkinter.CTkFrame(None, fg_color ="#8ad4c9")
-            f3_2.place(x=1000, y=400)
-            
+        
+        
+
+        def shoow():
+
             conn = connection()
             cursor = conn.cursor()
-            cursor.execute("SELECT * FROM image WHERE id=%s ORDER BY date DESC",(find2Entry.get()))
-            
-            
-            i = 1
-            
-            for g in cursor:
+            cursor.execute("SELECT datepass, quality, quantity, timeliness, average, remarks FROM rating WHERE id=%s ORDER BY datepass DESC",(find2Entry.get()))
+            result = cursor.fetchall()
+                        
+            i = 0
+            for g in result:
 
-                jo = Label(f3_2, text=g[2],font=('Arial', 50))
-                jo.grid(row=i, column=1, ipadx= 10,padx=20)
-                
-                jo2 = Label(f3_2,  text='imported', font=('Arial', 50),textvariable=g[1])
-                jo2.grid(row=i, column=2, ipadx= 10,padx=20)
+                for j in range(len(g)):
+                    jo = Label(f3_2, text=g[j],font=('Arial', 14),background="#8ad4c9")
+                    jo.grid(row=i, column=j,padx=30,pady=10)
 
-                delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,hover_color = '#2a4859',cursor='hand2')
-                delp.grid(row= i, column = 3)
+
+                delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=160, height=60, border_width=0, corner_radius=10,hover_color = '#2a4859',
+                cursor='hand2',command=lambda k=g[0]:delete(k))
+                delp.grid(row= i, column = 7,pady=10,padx = 50)
+
+                i = i+1
 
                 if i == 4:
                     break
-                i = i+1
-
+                
 
             conn.commit()
             conn.close()
-       
-        def upload():
+        shoow()
 
-            global file
-            f_types = [('All Files', '*.*'), 
-                    ('JPG', '*.jpg'),
-                    ('PNG', '*.png'),('DOCX','*.docx')]
-            file = filedialog.askopenfilename(filetypes=f_types)
-            fob = open(file, 'rb').read()
-            conn = connection()
-            cursor = conn.cursor()
-            args = (res.cget("text"),dobbs.get_date(),fob)
+        def delete(d_datepass):
 
             
-            query = 'INSERT IGNORE INTO image (id,date,img) VALUES (%s,%s,%s)'
-            cursor.execute(query, args)
-            conn.commit()
+            decision = messagebox.askquestion("Warning!!", "Delete this data? ")
+        
+            if decision == "yes":
+                conn = connection()
+                cursor = conn.cursor()
+                cursor.execute("DELETE FROM rating WHERE  datepass=%s",(d_datepass))
+                conn.commit()
+                conn.close()
+
+                for row in f3_2.grid_slaves():
+                    row.grid_forget()
+                shoow()
+            else:
+                messagebox.showinfo("Error", "Sorry an error occured")
 
 
-            imported()
+            
+
+        def ups():
+            root = customtkinter.CTkToplevel()
+            root.geometry('800x400')
+            root.overrideredirect(True)
+            root.wm_attributes("-transparentcolor",'gray')
+            
+
+            def start_drag(e):
+                e.widget.offset = (e.x, e.y)
+
+            def move_app(e):
+                # calculate the top-left corner of window based on the saved offset
+                root.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
+
+            def validate(u_input): 
+                return u_input.isdigit()
+            my_valid = root.register(validate)
+
+
+
+            frow = customtkinter.CTkFrame(root, width=800,height=400,fg_color="#84a98c")
+            frow.place(x=0,y=0)
+
+            bgg = customtkinter.CTkFrame(root, width=800,height=60,fg_color="#283618")
+            bgg.place(x=0,y=0)
+
+            lavs = customtkinter.CTkLabel(bgg,text="RATING INPUT",font=('Arial', 40, 'bold'),bg_color="#283618", text_color='white').place(x=250,y=8)
+
+            doblabel = Label(frow, text="Date taken:", font=('Courier', 14, 'bold'),bg="#84a98c").place(x=20, y=83)
+            dta= DateEntry(frow, height= 25, width=10, font = ('arial', 18),date_pattern='mm/dd/y', background='gray', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+            dt = date(2023,1,1)
+            dta.set_date(dt)
+            dta.place(x=150, y= 80)
+
+            qual = customtkinter.CTkEntry(frow,height= 40, width=50, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),validate='key',validatecommand=(my_valid,'%S'),text_color='black')
+            qual.place(x=130,y=150)
+
+            quan = customtkinter.CTkEntry(frow,height= 40, width=50, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),validate='key',validatecommand=(my_valid,'%S'),text_color='black')
+            quan.place(x=280,y=150)
+
+            til = customtkinter.CTkEntry(frow,height= 40, width=50, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),validate='key',validatecommand=(my_valid,'%S'),text_color='black')
+            til.place(x=440,y=150)
+
+
+            def calc():
+
+                global tots
+
+                quali = int(qual.get())
+                quant = int(quan.get())
+                timel = int(til.get())
+                sub = 0
+                total = 0
+
+                sub =  quali + quant + timel
+                total =math.floor(sub / 3)
+                
+
+                tots = customtkinter.CTkLabel(frow, text= total, font=('Arial', 32))
+                tots.place (x=580,y=155)
+
+                global remarks
+
+                if tots.cget("text") == 5:
+                    remarks = customtkinter.CTkLabel(frow, text='OUTSTANDING', font=('Arial', 32))
+                    remarks.place(x=220,y=250)
+                elif tots.cget("text") == 4:
+                    remarks = customtkinter.CTkLabel(frow, text='VERY SATISFACTORY', font=('Arial', 32))
+                    remarks.place(x=220,y=250)
+                elif tots.cget("text") == 3:
+                    remarks = customtkinter.CTkLabel(frow, text='SATISFACTORY', font=('Arial', 32))
+                    remarks.place(x=220,y=250)
+                elif tots.cget("text") == 2:
+                    remarks = customtkinter.CTkLabel(frow, text='UNSATISFACTORY', font=('Arial', 32))
+                    remarks.place(x=220,y=250)
+                elif tots.cget("text") == 1:
+                    remarks = customtkinter.CTkLabel(frow, text='POOR', font=('Arial', 32))
+                    remarks.place(x=220,y=250)
+                else:
+                    pass
+
+        
+
+            def proceeds():
+
+                ids = str(res.cget("text"))
+                rem = str(remarks.cget('text'))
+                qua = str(qual.get())
+                quann = str(quan.get())
+                timell = str(til.get())
+                totals = str(tots.cget("text"))
+                dtake = str(dta.get_date())
+
+                conn = connection()
+                cursor = conn.cursor()
+                cursor.execute(
+                        "INSERT INTO rating VALUES ('""','"+ids+"','"+dtake+"','"+qua+"','"+quann+"','"+timell+"','"+totals+"','"+rem+"') ")
+                conn.commit()
+                conn.close()
+
+
+                shoow()
+                root.destroy()
+
+            def cancels():
+                root.destroy()
+
+
+            lavs = Label(frow,text="5 - Outstanding\n4 - Very Satisfactory\n3 - Satisfactory\n2 - unsatisfactory\n1 - Poor",font=('Arial', 12, 'bold'),justify=LEFT,background="#84a98c", foreground='white').place(x=20,y=280)
+
+            sol = customtkinter.CTkButton(frow,text="Solve",fg_color='#9c7846',font=('Arial', 20) ,bg_color= '#84a98c', width=100, height=50, border_width=0, corner_radius=10,
+            hover_color = '#2a4859',cursor='hand2',command=calc)
+            sol.place(x=600, y=300)
+
+            
+            pro = PIL.Image.open("Assets\\exit.png")
+            checked2 = customtkinter.CTkImage(pro,size=(40,40))
+            proceed= customtkinter.CTkButton(frow, text="", image=checked2, bg_color= '#84a98c',fg_color="#84a98c",hover_color= "#84a98c", width= 20,cursor='hand2',command=proceeds)
+            proceed.place(x=710, y=300)
+
+            can = PIL.Image.open("Assets\\cancel.png")
+            checked2 = customtkinter.CTkImage(can,size=(40,40))
+            cancel = customtkinter.CTkButton(bgg, text="", image=checked2, bg_color= '#283618',fg_color="#283618",hover_color= "#283618", width= 20,cursor='hand2',command=cancels)
+            cancel.place(x=735,y=5)
+
+
+
+
+
+
+
+            bgg.bind("<Button-1>", start_drag)
+            bgg.bind("<B1-Motion>", move_app)
+
+            root.mainloop()
+
+
+
 
         
 
 
-    
-
-        
-        uplo = customtkinter.CTkButton(f3_1 ,text="Upload",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,
-        hover_color = '#2a4859',cursor='hand2',command= upload)
-        uplo.place(x=1200, y=700)
+        uptd = customtkinter.CTkButton(f3_1,text="Update",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
+        hover_color = '#2a4859',cursor='hand2',command=ups)
+        uptd.place(x=1200, y=700)
 
          
         backt = customtkinter.CTkButton(f3_1 ,text="Back",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(performance))
         backt.place(x=1000, y=700)
 
-        imported()
+        shoow()
+
+
+
+
+
+    def read2():
+        conn = connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT id, firstname, surname, position, department FROM personal WHERE surname like %s",(find2Entry.get()))
+        results = cursor.fetchall()
+        conn.commit()
+        conn.close()
+        
+        return results
+
+
+    def searching():
+        for rows2 in my_tree.get_children():
+            my_tree.delete(rows2)
+        
+        for array2 in read2():
+            my_tree.insert(parent='', index='end', iid=array2, text="", values=(array2), tag="orow")
 
         
 
+    def refresh():
+        populate()
+        refreshTable()
 
 
 
 
-    
-            
+    search = customtkinter.CTkButton(f3,text="Search",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=100, height=40, border_width=0, corner_radius=10,
+    hover_color = '#2a4859',cursor='hand2',command=searching)
+    search.place(x=350, y=27)
 
-    add3 = customtkinter.CTkButton(f3,text="Check",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,
+    refr = PIL.Image.open("Assets\\refresh.png")
+    ref = customtkinter.CTkImage(refr,size=(30,30))
+
+    search2 = customtkinter.CTkButton(f3,text="",image = ref, bg_color= '#8ad4c9',fg_color="#8ad4c9",hover_color= "#8ad4c9", width= 20,cursor='hand2',command=refresh)
+    search2.place(x=450, y=27)
+
+        
+    add3 = customtkinter.CTkButton(f3,text="Check",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
     hover_color = '#2a4859',cursor='hand2',command=check)
     add3.place(x=1200, y=700)
 
    
         
-    find2 = Label(f3, text="FIND : ", font=('Arial', 18, 'bold'),bg="#8aafd4").place(x=50, y=30)
+    find2 = Label(f3, text="FIND : ", font=('Arial', 18, 'bold'),bg="#8ad4c9").place(x=50, y=30)
     find2Entry = customtkinter.CTkEntry(f3,height = 37, width=200, fg_color='white',border_width = 0 ,font=('Arial', 20),text_color='black',textvariable=fi)
     find2Entry.place(x=130, y=28)
 

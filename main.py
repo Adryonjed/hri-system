@@ -20,6 +20,8 @@ app.state('zoomed')
 app.configure(bg='#aee0e8')
 app.iconbitmap("Assets\\logo1.ico")
 
+customtkinter.set_appearance_mode("dark")
+
 wel = Label(app, text="ROXAS MEMORIAL PROVINCIAL HOSPITAL", font=('Arial', 40, 'bold'),bg="#aee0e8")
 wel.place(x=580,y=50)
 

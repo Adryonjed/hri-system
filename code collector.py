@@ -17,6 +17,60 @@ from tkcalendar import DateEntry
 from datetime import date
 from tkinter.ttk import Progressbar
 
+conn = connection()
+                cursor = conn.cursor()
+                cursor.execute("INSERT * FROM personal WHERE id=%s",(find2Entry.get()))
+                
+                
+                i = 1
+                
+                for g in cursor:
+
+                    jo = Label(f3_2, text=g[5],font=('Arial', 50))
+                    jo.grid(row=i, column=1, ipadx= 10,padx=20)
+                    
+                    jo2 = Label(f3_2,  text='', font=('Arial', 50))
+                    jo2.grid(row=i, column=2, ipadx= 10,padx=20)
+
+                    delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,hover_color = '#2a4859',cursor='hand2')
+                    delp.grid(row= i, column = 3)
+
+                    if i == 4:
+                        break
+                    i = i+1
+                
+
+                conn.commit()
+                conn.close()
+
+
+ def upload():
+
+            global file
+            f_types = [('All Files', '*.*'), 
+                    ('JPG', '*.jpg'),
+                    ('PNG', '*.png'),('DOCX','*.docx')]
+            file = filedialog.askopenfilename(filetypes=f_types)
+            fob = open(file, 'rb').read()
+            conn = connection()
+            cursor = conn.cursor()
+            args = (res.cget("text"),dobbs.get_date(),fob)
+
+            
+            query = 'INSERT IGNORE INTO image (id,date,img) VALUES (%s,%s,%s)'
+            cursor.execute(query, args)
+            conn.commit()
+
+
+cursor.execute("UPDATE residential SET houseblock = '"+res1+"', street = '"+res2+"', subd  = '"+res3+"', brgy = '"+res4+"', city = '"+res5+"', province = '"+res6+"', zip = '"+res7+"'  ")
+cursor.execute("UPDATE permanent SET houseblock = '"+per1+"', street = '"+per2+"', subd  = '"+per3+"', brgy = '"+per4+"', city = '"+per5+"', province = '"+per6+"', zip = '"+per7+"'  ")
+cursor.execute("UPDATE spouse SET surname = '"+sposn+"', firstname = '"+spofn+"', middlename  = '"+spomn+"', occupation = '"+spooc+"', businessname = '"+spoebn+"', businessadd = '"+spoba+"', telephone = '"+spotel+"'  ")
+cursor.execute("UPDATE family SET fathersn = '"+fsn+"', fatherfn = '"+ffn+"', fathermn  = '"+fmn+"', mothermn = '"+mmn+"', mothersn = '"+msn+"', motherfn = '"+mfn+"', mothermmn = '"+mmd+"'  ")
+cursor.execute("UPDATE elementary SET school = '"+ens+"', degree = '"+ebdc+"', froms  = '"+efrom+"', tos = '"+eto+"', units = '"+ehigh+"', graduated = '"+eyg+"', acads = '"+esa+"' ")
+cursor.execute("UPDATE highschool SET school = '"+hsns+"', degree = '"+hsbdc+"', froms  = '"+hsfrom+"', tos = '"+hsto+"', units = '"+hshigh+"', graduated = '"+hsyg+"', acads = '"+hssa+"'  ")
+cursor.execute("UPDATE vocational SET school = '"+vtns+"', degree = '"+vtbdc+"', froms  = '"+vtfrom+"', tos = '"+vtto+"', units = '"+vthigh+"', graduated = '"+vtyg+"', acads = '"+vtsa+"'  ")
+cursor.execute("UPDATE college SET school = '"+cns+"', degree = '"+cbdc+"', froms  = '"+cfrom+"', tos = '"+cto+"', units = '"+chigh+"', graduated = '"+cyg+"', acads = '"+csa+"'  ")
+cursor.execute("UPDATE graduate SET school = '"+gns+"', degree = '"+gbdc+"', froms  = '"+gfrom+"', tos = '"+gto+"', units = '"+ghigh+"', graduated = '"+gyg+"', acads = '"+gsa+"'  ")
 
   
 if mnshow.cget("text") == "male":
@@ -112,6 +166,7 @@ li.grid(row=5, column=1, columnspan=4, padx=5, pady=0)
 def validate(u_input): # callback function
     return u_input.isdigit()
 my_valid = my_w.register(validate) # register 
+
 l1=tk.Label(my_w,text='Enter Number only')
 l1.grid(row=1,column=1,padx=20,pady=20)
 e1 = Entry(my_w,validate='key',validatecommand=(my_valid,'%S'))
