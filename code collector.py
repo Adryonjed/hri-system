@@ -17,6 +17,41 @@ from tkcalendar import DateEntry
 from datetime import date
 from tkinter.ttk import Progressbar
 
+pdf.drawString(50,525,f'            CURRENT BALANCE :  Rs. {cashData[2]}')
+
+"SELECT id FROM rating GROUP BY id"
+
+my_path = "C:\\Users\\ferna\\Downloads\\jed.pdf"
+c = canvas.Canvas(my_path,pagesize=GOV_LEGAL)
+c.drawString(20, 10, 'Hello world')
+c.showPage()
+c.save()
+
+my_w = tk.Tk()
+my_w.geometry("380x200")  
+sel=tk.StringVar() # declaring string variable 
+
+cal=DateEntry(my_w,selectmode='day',textvariable=sel)
+cal.grid(row=1,column=1,padx=20)
+
+def my_upd(*args): # triggered when value of string varaible changes
+    if(len(sel.get())>4):
+        l1.config(text=sel.get()) # read and display date
+        dob = datetime.strptime(sel.get(),'%m/%d/%y')
+        dt=date.today()
+        dt3=relativedelta(dt,dob)
+        l2.config(text="Years:"+ str(dt3.years) )
+l1=tk.Label(my_w,bg='yellow')  # Label to display date 
+l1.grid(row=1,column=2)
+
+l2=tk.Label(my_w)  # Label to display date 
+l2.grid(row=1,column=3,padx=10)
+
+sel.trace('w',my_upd) # on change of string variable 
+my_w.mainloop()
+
+
+
 conn = connection()
                 cursor = conn.cursor()
                 cursor.execute("INSERT * FROM personal WHERE id=%s",(find2Entry.get()))
@@ -44,7 +79,7 @@ conn = connection()
                 conn.close()
 
 
- def upload():
+         def upload():
 
             global file
             f_types = [('All Files', '*.*'), 
@@ -57,7 +92,7 @@ conn = connection()
             args = (res.cget("text"),dobbs.get_date(),fob)
 
             
-            query = 'INSERT IGNORE INTO image (id,date,img) VALUES (%s,%s,%s)'
+            query = 'INSERT * INTO image (id,date,img) VALUES (%s,%s,%s)'
             cursor.execute(query, args)
             conn.commit()
 
