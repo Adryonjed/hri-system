@@ -8,7 +8,8 @@ import customtkinter
 import PIL.Image
 from dashboard import *
 from records import *
-from perform import *
+from perform import * 
+from report import *
 
 
 app = tk.Tk()
@@ -16,7 +17,6 @@ app.title("Human Resource Management System")
 app.geometry("1920x1080")
 
 app.resizable(True,True)
-app.state('zoomed')
 app.configure(bg='#aee0e8')
 app.iconbitmap("Assets\\logo1.ico")
 
@@ -49,6 +49,7 @@ def hide_indi():
     indicate2.config(bg="#335791")
     indicate3.config(bg="#335791")
     indicate4.config(bg="#335791")
+    indicate5.config(bg="#335791")
 
 def indicate (lb,page):
     hide_indi()
@@ -130,6 +131,26 @@ bttn4.bind("<Leave>", left4)
 
 indicate4 = tk.Label (mbar, text='', bg='#335791')
 indicate4.place(x=-3, y= 662, width=13, height=80)
+
+
+
+def entered5(event):
+    bttn5.configure(text_color = '#d6af74')
+    bttn5.place_configure(x=-145,y=740)
+    
+def left5(event):
+    bttn5.configure(text_color = 'white')
+    bttn5.place_configure(x=-228,y=740)
+
+bttn5 = customtkinter.CTkButton(mbar, text='Reports',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
+cursor='hand2',command=lambda: indicate(indicate5,report))
+bttn5.place(x=-228, y=740)
+bttn5.bind("<Enter>", entered5)
+bttn5.bind("<Leave>", left5)
+
+indicate5 = tk.Label (mbar, text='', bg='#335791')
+indicate5.place(x=-3, y= 742, width=13, height=80)
+
 
 
 
