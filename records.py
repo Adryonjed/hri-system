@@ -725,7 +725,7 @@ def record():
                      indicate(record)
                except:
                   
-                  messagebox.showinfo("Error", "Inventory already exist")
+                  messagebox.showinfo("Error", "Data already exist")
                   return
          
          
@@ -832,8 +832,6 @@ def record():
       clabel = Label(sf, text="16.CELLPHONE NO. : ", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=950)
       cEntry = customtkinter.CTkEntry(sf, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),validate='key',validatecommand=(my_valid,'%S'),text_color='black')
       cEntry.place(x=280, y=950)
-
-
 
       def fr():
          for gr in (optlabel,ct5,ct6,coulabel,couEntry):
@@ -1360,7 +1358,7 @@ def record():
       titleabel = Label(sf3, text="PERSONAL DATA SHEET", font=('Arial', 22, 'bold'),bg="#d4d4d4")
       titleabel.place(x=690, y=10, anchor= N)
 
-      line1 = customtkinter.CTkFrame(sf3, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=50)
+      line1 = customtkinter.CTkFrame(sf3, height=40,width=1485, fg_color="#aeafb0").place(x=0,y=50)
       sublabel = Label(sf3, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#aeafb0").place(x=30, y=55)
 
 
@@ -1551,7 +1549,7 @@ def record():
    #-------------------------------------------------------------------------------------------------------------------------------------#
 
 
-      line2 = customtkinter.CTkFrame(sf3, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=1000)
+      line2 = customtkinter.CTkFrame(sf3, height=40,width=1485, fg_color="#aeafb0").place(x=0,y=1000)
       fblabel = Label(sf3, text="FAMILY BACKGROUND", font=('Arial', 18, 'bold'),bg="#aeafb0").place(x=30, y=1005)
 
       spolabel = Label(sf3, text="21.SPOUSE'S SURNAME: ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1052)
@@ -1618,7 +1616,7 @@ def record():
 
 
       
-      line3 = customtkinter.CTkFrame(sf3, height=40,width=1500, fg_color="#aeafb0").place(x=0,y=1400)
+      line3 = customtkinter.CTkFrame(sf3, height=40,width=1485, fg_color="#aeafb0").place(x=0,y=1400)
       eblabel = Label(sf3, text="EDUCATIONAL BACKGROUND", font=('Arial', 17, 'bold'),bg="#aeafb0").place(x=30, y=1405)
 
       lvllabel = Label(sf3, text="Level", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=50, y=1450)
@@ -1895,10 +1893,5 @@ def record():
    populate()
    refreshTable()
 
-   
-def leave():
-   f4 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8a9dd4")
-   f4.place(x=380, y=200)
-   ln = Label(f4, text="Total Employees", font=('Arial', 20), background="#86babd")
-   ln.place(x=50, y=10)
+
     

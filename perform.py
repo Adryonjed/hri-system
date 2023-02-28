@@ -41,15 +41,9 @@ def performance():
 
 
 
-    
-
-    mainframe3 = tk.Frame(f3,bg='#dbb2b2')
-    mainframe3.place(x=380, y=200)
-    mainframe3.pack_propagate(False)
-
 
     def deletef():
-        for frame in mainframe3.winfo_children():
+        for frame in f3.winfo_children():
             frame.destroy()
 
     def indicate(page):
@@ -69,7 +63,7 @@ def performance():
     
     def history():
 
-        global name
+        global name, drow, drow1, drow2
 
         selected_item = my_tree.selection()[0]
         name = str(my_tree.item(selected_item)['values'][0])
@@ -102,17 +96,12 @@ def performance():
         f3_1 = customtkinter.CTkFrame(f3, width=1500, height=820, fg_color ="#8ad4c9",bg_color="#aee0e8",corner_radius=50)
         f3_1.place(x=0, y=0)
 
-        snlabel = Label(f3_1, text="YOUR ID :", font=('Arial', 15, 'bold'),bg="#8ad4c9").place(x=30, y=30)
-        res = Label(f3_1, text="", font=('Arial', 15, 'bold'),bg="#8ad4c9", textvariable=ids)
-        res.place(x=140, y=30)
+        snlabel = Label(f3_1, text="YOUR ID : " + str(drow), font=('Arial', 15, 'bold'),bg="#8ad4c9").place(x=30, y=30)
 
-        snlabel = Label(f3_1, text="SURNAME :", font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=500, y=100)
-        res1 = Label(f3_1, text="", font=('Arial', 20, 'bold'),bg="#8ad4c9", textvariable=sname)
-        res1.place(x=670, y=100)
-
-        fnlabel = Label(f3_1, text="FIRSTNAME :", font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=30, y=100)
-        res2 = Label(f3_1, text="", font=('Arial', 20, 'bold'),bg="#8ad4c9", textvariable=fname)
-        res2.place(x=220, y=100)
+        fnlabel = Label(f3_1, text="FIRSTNAME : " + drow2, font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=30, y=100)
+       
+        snlabel = Label(f3_1, text="SURNAME : " + drow1, font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=500, y=100)
+       
 
         nat = datetime.now() 
         now = nat.strftime("%b/%d/%y")
@@ -179,7 +168,7 @@ def performance():
                     row.grid_forget()
                 shoow()
             else:
-                messagebox.showinfo("Error", "Sorry an error occured")
+                pass
 
         def view(s_ids):
             root = customtkinter.CTkToplevel()
@@ -206,7 +195,7 @@ def performance():
             img = PIL.Image.open(io.BytesIO(result[3]))
             imga = customtkinter.CTkImage(img,size=(300,600))
             
-            fram = customtkinter.CTkFrame(root, bg_color='white', fg_color='white',width=800,height=1000)
+            fram = customtkinter.CTkFrame(root, bg_color='gray', fg_color='white',width=800,height=1000,corner_radius=30)
             fram.pack()
             imahe = customtkinter.CTkLabel(fram, text='', image=imga)
             imahe.place(x=250,y=0)
@@ -217,7 +206,7 @@ def performance():
             can = PIL.Image.open("Assets\\cancel.png")
             checked2 = customtkinter.CTkImage(can,size=(30,30))
             cancel = customtkinter.CTkButton(fram, text="", image=checked2, bg_color= 'white',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
-            cancel.place(x=745,y=5)
+            cancel.place(x=740,y=10)
 
 
             fram.bind("<Button-1>", start_drag)
@@ -253,7 +242,7 @@ def performance():
                 fob = open(file, 'rb').read()
                 conn = connection()
                 cursor = conn.cursor()
-                args = (res.cget("text"),doblabel.cget("text"),fob)
+                args = (ids.get(),doblabel.cget("text"),fob)
                 
                 cursor.execute("INSERT INTO image (id,datepass,img) VALUES (%s,%s,%s)",args)
                 conn.commit()
@@ -265,7 +254,7 @@ def performance():
 
 
         uptd = customtkinter.CTkButton(f3_1,text="Add Data",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
-        hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(upload))
+        hover_color = '#2a4859',cursor='hand2',command=upload)
         uptd.place(x=1200, y=700)
 
          

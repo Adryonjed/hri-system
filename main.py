@@ -10,6 +10,7 @@ from dashboard import *
 from records import *
 from perform import * 
 from report import *
+from leaves import *
 
 
 app = tk.Tk()
@@ -17,15 +18,13 @@ app.title("Human Resource Management System")
 app.geometry("1920x1080")
 
 app.resizable(True,True)
-app.configure(bg='#aee0e8')
+app.configure(bg ='#aee0e8')
 app.iconbitmap("Assets\\logo1.ico")
 
-customtkinter.set_appearance_mode("dark")
+customtkinter.set_appearance_mode("System")
 
 wel = Label(app, text="ROXAS MEMORIAL PROVINCIAL HOSPITAL", font=('Arial', 40, 'bold'),bg="#aee0e8")
 wel.place(x=580,y=50)
-
-
 
 
 mbar = tk.Frame(app, background="#335791")
