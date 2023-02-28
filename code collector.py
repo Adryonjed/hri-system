@@ -17,6 +17,44 @@ from tkcalendar import DateEntry
 from datetime import date
 from tkinter.ttk import Progressbar
 
+
+def leave_his():
+         conn = connection()
+         cursor = conn.cursor()
+         cursor.execute("SELECT datefile, fromdate, todate, days FROM leave WHERE ids=%s ORDER BY datefile DESC",(name))
+         result = cursor.fetchall()
+
+         i = 1
+   
+         for g in result:
+
+               jo = Label(f3_2, text=g[1],font=('Arial', 14),background="#8ad4c9")
+               jo.grid(row=i, column=1,padx=30,pady=10)
+               jo2= Label(f3_2, text="Passed A Document",font=('Arial', 14),background="#8ad4c9",textvariable=g[0])
+               jo2.grid(row=i, column=2,padx=30,pady=10)
+
+               delp = customtkinter.CTkButton(f3_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=90, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+               cursor='hand2')
+               delp.grid(row= i, column = 3,pady=10,padx = 30)
+
+               delp = customtkinter.CTkButton(f3_2,text="view",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=90, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+               cursor='hand2')
+               delp.grid(row= i, column = 4,pady=10,padx = 30)
+
+               delp = customtkinter.CTkButton(f3_2,text="save",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=90, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+               cursor='hand2')
+               delp.grid(row= i, column = 5,pady=10,padx = 30)
+
+               i = i+1
+
+               if i == 4:
+                  break
+               
+
+         conn.commit()
+         conn.close()
+      leave_his()
+
 pdf.drawString(50,525,f'            CURRENT BALANCE :  Rs. {cashData[2]}')
 
 "SELECT id FROM rating GROUP BY id"
