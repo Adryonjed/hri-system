@@ -87,7 +87,7 @@ def leave():
       doblabel.place(x=1200, y=30)
 
        
-      f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="#8ad4c9",bg_color ="transparent",width=850,height=350)
+      f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="#8ad4c9",bg_color ="transparent",width=1000,height=350)
       f5_2.place(x=270, y=250)
 
       def show_data():
@@ -105,7 +105,7 @@ def leave():
                 jo = customtkinter.CTkLabel(f5_2, text=dtr,font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
                 jo.grid(row=i, column=0,padx=30,pady=10)
                 jo2= customtkinter.CTkLabel(f5_2, text=g[1],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
-                jo2.grid(row=i, column=1,padx=30,pady=10)
+                jo2.grid(row=i, column=1,padx = 30,pady=10,sticky = NSEW)
                 jo3= customtkinter.CTkLabel(f5_2, text=g[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
                 jo3.grid(row=i, column=2,padx=30,pady=10)
                 jo4= customtkinter.CTkLabel(f5_2, text=g[3],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
@@ -133,7 +133,7 @@ def leave():
             if decision == "yes":
                 conn = connection()
                 cursor = conn.cursor()
-                cursor.execute("DELETE FROM image WHERE  ids =%s",(s_datefile))
+                cursor.execute("DELETE FROM leaves WHERE  datefile =%s",(s_datefile))
                 conn.commit()
                 conn.close()
 
@@ -174,7 +174,7 @@ def leave():
 
          def proceed():
 
-            idss = str(res.cget("text"))
+            idss = str(ide)
             dfile = str(dofentry.get_date())
             typ = str(tyle.get())
             froo =  str(lfromentry.get_date())
@@ -201,6 +201,7 @@ def leave():
                         conn.commit()
                         conn.close()
                         root.destroy()
+                        aply.configure(state = NORMAL)
                      elif msg == 'no':
                         pass
                      else:
