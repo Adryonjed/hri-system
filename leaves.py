@@ -14,6 +14,7 @@ import PIL.Image
 from tkcalendar import DateEntry
 
 
+
 def leave():
    f4 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8a9dd4")
    f4.place(x=380, y=200)
@@ -43,26 +44,26 @@ def leave():
 
    def history():
 
-        global name,ide, fname,sname,pos,dept
+      global name,ide, fname,sname,pos,dept
 
-        selected_item = my_tree.selection()[0]
-        name = str(my_tree.item(selected_item)['values'][0])
+      selected_item = my_tree.selection()[0]
+      name = str(my_tree.item(selected_item)['values'][0])
 
-        if name != name:
-            messagebox.showinfo("Error", "Select a data or input your ID no.")
-            return
-        else:
-            conn = connection()
-            cursor = conn.cursor()
-            cursor.execute("SELECT id, firstname, surname, position, department FROM personal WHERE id=%s",(name))
-            result = cursor.fetchone()
-            ide = result[0]
-            fname = result[1]
-            sname = result[2]
-            pos = result[3]
-            dept = result[4]
-            indicate(show_leave)
-   
+      if name != name:
+         messagebox.showinfo("Error", "Select a data or input your ID no.")
+         return
+      else:
+         conn = connection()
+         cursor = conn.cursor()
+         cursor.execute("SELECT id, firstname, surname, position, department FROM personal WHERE id=%s",(name))
+         result = cursor.fetchone()
+         ide = result[0]
+         fname = result[1]
+         sname = result[2]
+         pos = result[3]
+         dept = result[4]
+         indicate(show_leave)
+      
 
    def show_leave():
 
@@ -79,6 +80,8 @@ def leave():
       poslabel = Label(f4_1, text="POSITION : " + pos, font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=700, y=100)
 
       poslabel = Label(f4_1, text="DEPARTMENT : " + pos, font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=700, y=150)
+
+      
       
 
       nat = datetime.now() 
@@ -87,29 +90,62 @@ def leave():
       doblabel.place(x=1200, y=30)
 
        
-      f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="#8ad4c9",bg_color ="transparent",width=1000,height=350)
-      f5_2.place(x=270, y=250)
+      f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="#8ad4c9",bg_color ="transparent",width=1200,height=350)
+      f5_2.place(x=120, y=250)
 
       def show_data():
             conn = connection()
             cursor = conn.cursor()
             cursor.execute("SELECT datefile, types, days, reco FROM leaves WHERE ids=%s ORDER BY datefile DESC",(name))
             result = cursor.fetchall()
+            conn.commit()
+            conn.close()
 
-            i = 0
+            i = 1
+
+            tableframe = customtkinter.CTkFrame(f4_1,fg_color ="transparent",bg_color ="transparent",width=1200,height=50)
+            tableframe.place(x=130,y=250)
+            dfile = customtkinter.CTkLabel(tableframe, text="    Date Filed    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dfile.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+            tol = customtkinter.CTkLabel(tableframe, text="                  Type of Leave                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+            dayss = customtkinter.CTkLabel(tableframe, text=" Days ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+            aps = customtkinter.CTkLabel(tableframe, text="       Approval     ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            aps.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+            aps = customtkinter.CTkLabel(tableframe, text="                   ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
     
             for g in result:
                 
                 dtr=datetime.strftime(g[0],'%b/%d/%Y')
 
+                dfile2 = customtkinter.CTkLabel(f5_2, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+                dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
+
+                tol2 = customtkinter.CTkLabel(f5_2, text="                                                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+                tol2.grid(row=0, column=1,padx=35,pady=10,sticky = NSEW)
+
+                dayss2 = customtkinter.CTkLabel(f5_2, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+                dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
+
+                ap2 = customtkinter.CTkLabel(f5_2, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+                ap2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
+                
+
                 jo = customtkinter.CTkLabel(f5_2, text=dtr,font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
-                jo.grid(row=i, column=0,padx=30,pady=10)
+                jo.grid(row=i, column=0,padx=5,pady=10,sticky = NSEW)
                 jo2= customtkinter.CTkLabel(f5_2, text=g[1],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
-                jo2.grid(row=i, column=1,padx = 30,pady=10,sticky = NSEW)
+                jo2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
                 jo3= customtkinter.CTkLabel(f5_2, text=g[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
-                jo3.grid(row=i, column=2,padx=30,pady=10)
+                jo3.grid(row=i, column=2,padx=5,pady=10,sticky = NSEW)
                 jo4= customtkinter.CTkLabel(f5_2, text=g[3],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
-                jo4.grid(row=i, column=3,padx=30,pady=10)
+                jo4.grid(row=i, column=3,padx=5,pady=10,sticky = NSEW)
 
                 dell = customtkinter.CTkButton(f5_2,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=90, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
                 cursor='hand2',command=lambda k=g[0]:delete(k))
@@ -117,12 +153,11 @@ def leave():
          
                 i = i+1
 
-                if i == 4:
+                if i == 7:
                     break
                 
 
-            conn.commit()
-            conn.close()
+            
       show_data()
 
       def delete(s_datefile):
@@ -187,7 +222,7 @@ def leave():
             stl = str(stud.get())
             ops = str(oth.get())
             
-            if (typ == "" or typ == " ") or (froo == "" or froo == " ") or (too == "" or too == " ") or (comm == "" or comm == " ") or (reco == "" or reco == " ") or (vsp == "" or vsp == " ") or (ics == "" or ics == " ") or (bw == "" or bw == " ") or (stl == "" or stl == " ") or (ops == "" or ops == " "):
+            if (typ == "" or typ == " ") or (froo == "" or froo == " ") or (too == "" or too == " ") or (comm == "" or comm == " ") or (reco == "" or reco == " "):
                   messagebox.showinfo("Error", "Please fill up the blank entry")
                   return
             else:
@@ -207,6 +242,7 @@ def leave():
                      else:
                         messagebox.showinfo('Return', 'You will now return to the application screen')
                         root.destroy()
+                        aply.configure(state = NORMAL)
                   except:
                        messagebox.showinfo("Error", "Data already exist")
                        return
