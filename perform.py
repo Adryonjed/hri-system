@@ -67,10 +67,9 @@ def performance():
 
         selected_item = my_tree.selection()[0]
         name = str(my_tree.item(selected_item)['values'][0])
-
         if name != name:
             messagebox.showinfo("Error", "Select a data or input your ID no.")
-            return
+            return         
         else:
             conn = connection()
             cursor = conn.cursor()
@@ -88,9 +87,6 @@ def performance():
             else:
                 pass
 
-
-
-    
     def show_history():
 
         f3_1 = customtkinter.CTkFrame(f3, width=1500, height=820, fg_color ="#8ad4c9",bg_color="#aee0e8",corner_radius=50)
@@ -101,7 +97,7 @@ def performance():
         fnlabel = Label(f3_1, text="FIRSTNAME : " + drow2, font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=30, y=100)
        
         snlabel = Label(f3_1, text="SURNAME : " + drow1, font=('Arial', 20, 'bold'),bg="#8ad4c9").place(x=500, y=100)
-       
+
 
         nat = datetime.now() 
         now = nat.strftime("%b/%d/%y")
@@ -175,6 +171,7 @@ def performance():
             root.geometry('800x1000')
             root.overrideredirect(True)
             root.wm_attributes("-transparentcolor",'gray')
+            root.grab_set()
             
 
             def start_drag(e):
@@ -194,7 +191,7 @@ def performance():
 
             img = PIL.Image.open(io.BytesIO(result[3]))
             imga = customtkinter.CTkImage(img,size=(300,600))
-            
+
             fram = customtkinter.CTkFrame(root, bg_color='gray', fg_color='white',width=800,height=1000,corner_radius=30)
             fram.pack()
             imahe = customtkinter.CTkLabel(fram, text='', image=imga)
@@ -307,7 +304,7 @@ def performance():
 
         
     add3 = customtkinter.CTkButton(f3,text="Check",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(history))
+    hover_color = '#2a4859',cursor='hand2',command=history)
     add3.place(x=1200, y=700)
 
    

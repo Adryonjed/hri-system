@@ -12,6 +12,8 @@ import customtkinter
 from PIL import ImageTk, Image
 import PIL.Image
 from tkcalendar import DateEntry
+from tkinter import filedialog
+import io
 
 
 
@@ -184,12 +186,13 @@ def leave():
          root.geometry('1200x700')
          root.overrideredirect(True)
          root.wm_attributes("-transparentcolor",'#333333')
+         root.grab_set()
 
          def start_drag(e):
-               e.widget.offset = (e.x, e.y)
+            e.widget.offset = (e.x, e.y)
 
          def move_app(e):
-               root.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
+            root.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
 
 
          l_frame = customtkinter.CTkFrame(root, bg_color='#333333', fg_color='white',width=1200,height=700,corner_radius=30)
@@ -207,6 +210,69 @@ def leave():
             total.configure(text=str(diff_days) + ' Days')
             days = str(diff_days)
 
+
+         def upl_mc():
+
+            global imgfile, imgs
+
+            f_types = [('JPG', '*.jpg'),('PNG', '*.png')]
+            imgfile = filedialog.askopenfilename(filetypes=f_types)
+            photo = PIL.Image.open(imgfile)
+            imgs = customtkinter.CTkImage(photo,size=(70,100))
+
+            def mc_view():
+               view_f = customtkinter.CTkToplevel()
+               view_f.geometry('800x1000')
+               view_f.overrideredirect(True)
+               view_f.wm_attributes("-transparentcolor",'gray')
+               view_f.grab_set()
+
+
+               def start_drag2(e):
+                e.widget.offset = (e.x, e.y)
+
+               def move_app2(e):
+         
+                  view_f.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
+
+               imgview = customtkinter.CTkImage(photo,size=(700,900))
+
+               view_frame = customtkinter.CTkFrame(view_f, bg_color='gray', fg_color='white',width=800,height=1000,corner_radius=30)
+               view_frame.pack()
+
+               imahe = customtkinter.CTkLabel(view_frame, text='', image=imgview)
+               imahe.place(x=40,y=50)
+
+               def cancels():
+                  view_f.destroy()
+
+               can = PIL.Image.open("Assets\\cancel.png")
+               checked2 = customtkinter.CTkImage(can,size=(30,30))
+               cancel = customtkinter.CTkButton(view_frame, text="", image=checked2, bg_color= 'white',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
+               cancel.place(x=740,y=10)
+
+               view_frame.bind("<Button-1>", start_drag2)
+               view_frame.bind("<B1-Motion>", move_app2)
+               view_f.mainloop()
+
+            vie = customtkinter.CTkButton(l_frame,text="",image=imgs,width=70,height=100, cursor='hand2',bg_color="transparent", fg_color="transparent", command=mc_view)
+            vie.place(x=570, y=450)
+
+         def imgsave():
+
+            if imgfile:
+                fob = open(imgfile, 'rb').read()
+                conn = connection()
+                cursor = conn.cursor()
+                args = (ide,doblabel.cget("text"),fob)
+                
+                cursor.execute("INSERT INTO medcert (idd,datefile,img) VALUES (%s,%s,%s)",args)
+                conn.commit()
+                conn.close()
+            else:
+                messagebox.showinfo("Error", "No File Selected")
+   
+
          def proceed():
 
             idss = str(ide)
@@ -221,7 +287,7 @@ def leave():
             bw = str(lbwtb.get("1.0","end-1c"))
             stl = str(stud.get())
             ops = str(oth.get())
-            
+      
             if (typ == "" or typ == " ") or (froo == "" or froo == " ") or (too == "" or too == " ") or (comm == "" or comm == " ") or (reco == "" or reco == " "):
                   messagebox.showinfo("Error", "Please fill up the blank entry")
                   return
@@ -235,6 +301,7 @@ def leave():
                            "INSERT INTO leaves VALUES ('""','"+idss+"','"+dfile+"','"+typ+"','"+froo+"','"+too+"','"+days+"','"+comm+"','"+reco+"','"+vsp+"','"+ics+"','"+bw+"','"+stl+"','"+ops+"') ")
                         conn.commit()
                         conn.close()
+
                         root.destroy()
                         aply.configure(state = NORMAL)
                      elif msg == 'no':
@@ -247,6 +314,10 @@ def leave():
                        messagebox.showinfo("Error", "Data already exist")
                        return
             show_data()
+
+         def allsave():
+            imgsave()
+            proceed()
 
 
 
@@ -312,15 +383,18 @@ def leave():
          op2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="Terminal Leave",radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Dual Citizenship',bg_color="transparent",variable=oth, cursor='hand2',font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 510)
          oth.set(None)
 
-
-         sol = customtkinter.CTkButton(l_frame,text="count",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=100, height=40, border_width=0, corner_radius=10,
+         sol = customtkinter.CTkButton(l_frame,text="count",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,
          hover_color = '#2a4859',cursor='hand2',command= solve)
          sol.place(x=480, y=300)
 
-         aply.configure(state = DISABLED)
+         upl = customtkinter.CTkButton(l_frame,text="Upload",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,
+         hover_color = '#2a4859',cursor='hand2',command= upl_mc)
+         upl.place(x=480, y=490)
+
+         
 
          proc = customtkinter.CTkButton(l_frame,text="Proceed",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
-         hover_color = '#2a4859',cursor='hand2',command= proceed)
+         hover_color = '#2a4859',cursor='hand2',command= allsave)
          proc.place(x=900, y=625)
 
          can = PIL.Image.open("Assets\\cancel.png")
@@ -328,8 +402,11 @@ def leave():
          cancel = customtkinter.CTkButton(l_frame, text="", image=checked2, bg_color= 'white',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
          cancel.place(x=1135,y=15)
 
+         aply.configure(state = DISABLED)
+
          root.bind("<Button-1>", start_drag)
          root.bind("<B1-Motion>", move_app)
+
          root.mainloop()
 
 

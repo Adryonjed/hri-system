@@ -18,6 +18,11 @@ from datetime import date
 from tkinter.ttk import Progressbar
 
 
+def change_appearance_mode_event(app, new_appearance_mode: str):
+    customtkinter.set_appearance_mode(new_appearance_mode)
+
+
+
 def leave_his():
          conn = connection()
          cursor = conn.cursor()

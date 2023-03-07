@@ -1,7 +1,3 @@
-from cProfile import label
-from imaplib import Commands
-from matplotlib import image, style
-from matplotlib.pyplot import show
 import pymysql
 from tkinter import *
 from tkinter import ttk

@@ -25,7 +25,7 @@ def record():
       for frame in f2.winfo_children():
          frame.destroy()
 
-   def indicate (page):
+   def indicate(page):
       deletef()
       page()
 
