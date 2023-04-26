@@ -142,7 +142,7 @@ def leave():
 
                 jo = customtkinter.CTkLabel(f5_2, text=dtr,font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
                 jo.grid(row=i, column=0,padx=5,pady=10,sticky = NSEW)
-                jo2= customtkinter.CTkLabel(f5_2, text=g[1],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
+                jo2= customtkinter.CTkLabel(f5_2, text=g[1],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
                 jo2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
                 jo3= customtkinter.CTkLabel(f5_2, text=g[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black")
                 jo3.grid(row=i, column=2,padx=5,pady=10,sticky = NSEW)

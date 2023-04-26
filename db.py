@@ -11,14 +11,14 @@ def connection():
         host='localhost',
         user='root', 
         password='',
-        db='HRIS',
+        db='hris',
     )
     return conn
 
 def read():
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, firstname, surname, position, department FROM personal ORDER BY id")
+    cursor.execute("SELECT id, firstname, surname, staff, department FROM personal ORDER BY id")
     results = cursor.fetchall()
     conn.commit()
     conn.close()
