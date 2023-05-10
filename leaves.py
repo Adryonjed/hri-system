@@ -1,5 +1,5 @@
 from tkinter import *
-from db import *
+from database.db import *
 from tkinter import ttk
 from tkinter import messagebox
 from time import strftime

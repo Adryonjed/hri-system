@@ -1,5 +1,6 @@
+from pkgutil import read_code
 from tkinter import *
-from db import *
+from database.db import *
 from tkinter import ttk
 from tkinter import messagebox
 import customtkinter
@@ -26,7 +27,7 @@ def performance():
         for data in my_tree.get_children():
             my_tree.delete(data)
 
-        for array in read():
+        for array in read_code():
             my_tree.insert(parent='', index='end', iid=array, text="", values=(array), tag="orow")
 
         my_tree.tag_configure('orow', font=('Arial', 12))

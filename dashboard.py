@@ -1,5 +1,5 @@
 from tkinter import *
-from db import *
+from database.db import *
 from tkinter import ttk
 from time import strftime
 import tkinter as tk
@@ -10,7 +10,7 @@ import PIL.Image
 
 
 def dash():
-    f1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4b88a", corner_radius=50)
+    f1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4", corner_radius=50)
     f1.place(x=380, y=200)
 
     f1_1 = customtkinter.CTkFrame(f1, width=300, height=200, fg_color="#67c9be",corner_radius=40)
@@ -51,7 +51,7 @@ def dash():
         l1.after(1000,my_time) 
 
     my_font=('times',45,'bold')
-    l1=tk.Label(f1,font=my_font,bg="#d4b88a")
+    l1=tk.Label(f1,font=my_font,bg="#d4d4d4")
     l1.place(x=550, y=300)
 
     my_time()

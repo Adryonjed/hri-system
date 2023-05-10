@@ -15,15 +15,7 @@ def connection():
     )
     return conn
 
-def read():
-    conn = connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT id, firstname, surname, staff, department FROM personal ORDER BY id")
-    results = cursor.fetchall()
-    conn.commit()
-    conn.close()
-    
-    return results
+
 
 def populate():
     my_tree = ttk.Treeview()
