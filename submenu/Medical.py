@@ -1,5 +1,5 @@
 from tkinter import *
-from db import *
+from database.db import *
 from tkinter import ttk
 from tkinter import messagebox
 import customtkinter
@@ -15,21 +15,18 @@ from datetime import datetime
 import io
 from PIL import ImageGrab
 
-def permas():
-    f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8ad4c9",corner_radius=60)
+def medic():
+    f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4",corner_radius=60)
     f3.place(x=380, y=200)
     f3.pack_propagate(False)
 
     f2title = customtkinter.CTkFrame(f3, width=1450, height=100, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
     f2title.place(x=20, y=20)
 
-    tit = customtkinter.CTkLabel(f2title, text="Records", font=("Arial", 30, 'bold'))
+    tit = customtkinter.CTkLabel(f2title, text="MEDICAL Records", font=("Arial", 30, 'bold'))
     tit.place(x=20,y=20)
-    subtit = customtkinter.CTkLabel(f2title, text="manage records", font=("Arial", 20))
+    subtit = customtkinter.CTkLabel(f2title, text="manage medical records", font=("Arial", 20))
     subtit.place(x=20,y=60)
-
-
-
 
     def deletef():
         for frame in f3.winfo_children():
@@ -525,35 +522,49 @@ def permas():
     #-------------------------------------------------------First Frame-----------------------------------------------------------------#
     #-------------------------------------------------------------------------------------------------------------------------------------
 
-    f3_1 = customtkinter.CTkScrollableFrame(f3, fg_color ="red",bg_color ="transparent", width= 1300,height= 550)
-    f3_1.place(x=90, y=200)
+    f3_1 = customtkinter.CTkScrollableFrame(f3, fg_color ="transparent",bg_color ="transparent", width= 1380,height= 550)
+    f3_1.place(x=50, y=200)
+
+    agree = PIL.Image.open("Assets\\green.png")
+    are = PIL.Image.open("Assets\\red.png")
+    aye = PIL.Image.open("Assets\\yell.png")
+
+    dl= PIL.Image.open("Assets\\delete.png")
+    dlt = customtkinter.CTkImage(dl,size=(25,25))
+
+    ed = PIL.Image.open("Assets\\edit.png")
+    edt = customtkinter.CTkImage(ed,size=(25,25))
 
     
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM personal")
+    cursor.execute("SELECT * FROM personal WHERE department = 'MEDICAL' ")
     result = cursor.fetchall()
     conn.commit()
     conn.close()
 
 
-    tableframe = customtkinter.CTkFrame(f3,fg_color ="transparent",bg_color ="blue",width=1200,height=50)
-    tableframe.place(x=100,y=210)
+    tableframe = customtkinter.CTkFrame(f3,fg_color ="transparent",bg_color ="transparent",width=1200,height=50)
+    tableframe.place(x=55,y=210)
 
-    dfile = customtkinter.CTkLabel(tableframe, text="Date Filed        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+    dfile = customtkinter.CTkLabel(tableframe, text="First Name                         ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     dfile.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
 
-    tol = customtkinter.CTkLabel(tableframe, text="Type of Leave                                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+    tol = customtkinter.CTkLabel(tableframe, text="Last Name                        ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-    dayss = customtkinter.CTkLabel(tableframe, text="Days      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+    dayss = customtkinter.CTkLabel(tableframe, text="Staff Type           ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
-    aps = customtkinter.CTkLabel(tableframe, text="Approval          ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+    aps = customtkinter.CTkLabel(tableframe, text="Department            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-    aps = customtkinter.CTkLabel(tableframe, text="                   ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+    aps = customtkinter.CTkLabel(tableframe, text="Status            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+    aps = customtkinter.CTkLabel(tableframe, text="Action            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+
 
     global i
 
@@ -561,45 +572,59 @@ def permas():
 
     for g in result:
         
+ 
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                  ",font=('Arial', 26, 'bold'),bg_color="black",text_color="black")
-        dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
+        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-        tol2 = customtkinter.CTkLabel(f3_1, text="                                                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        tol2.grid(row=0, column=1,padx=35,pady=10,sticky = NSEW)
+        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
-        dayss2 = customtkinter.CTkLabel(f3_1, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
+        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-        ap2 = customtkinter.CTkLabel(f3_1, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        ap2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dfile2.grid(row=0, column=4,padx=35,pady=10,sticky = NSEW)
+        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
         
 
-        col1 = customtkinter.CTkLabel(f3_1, text=g[2],font=('Arial', 20),bg_color="#8ad4c9",text_color="black",anchor=W)
+        col1 = customtkinter.CTkLabel(f3_1, text=g[2],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
         col1.grid(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
-        col2 = customtkinter.CTkLabel(f3_1, text=g[1],font=('Arial',20),bg_color="#8ad4c9",text_color="black",anchor=W)
+        col2 = customtkinter.CTkLabel(f3_1, text=g[1],font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
         col2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
-        col3 = customtkinter.CTkLabel(f3_1, text=g[15],font=('Arial',20),bg_color="#8ad4c9",text_color="black",anchor=W)
+        col3 = customtkinter.CTkLabel(f3_1, text=g[15],font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
         col3.grid(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
-        col4 = customtkinter.CTkLabel(f3_1, text=g[17],font=('Arial',20),bg_color="#8ad4c9",text_color="black",anchor=W)
+        col4 = customtkinter.CTkLabel(f3_1, text=g[17],font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
         col4.grid(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
 
-        delp = customtkinter.CTkButton(f3_1,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=90, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
-        cursor='hand2',command=lambda k=g[0]:delete(k))
-        delp.grid(row= i, column = 4,pady=5,padx = 10)
+        if g[19] == "Active":
+            clrstat = customtkinter.CTkImage(agree,size=(25,15))
 
-        showb2 = customtkinter.CTkButton(f3_1,text="Show Data",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=90, height=35, border_width=0, corner_radius=10,
+        elif g[19] == "Inactive":
+            clrstat = customtkinter.CTkImage(are,size=(25,15))
+            
+        else:
+            clrstat = customtkinter.CTkImage(aye,size=(25,15))
+
+        col5 = customtkinter.CTkLabel(f3_1, text=g[19], image = clrstat,compound= "left",font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+        col5.grid(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
+
+        delp = customtkinter.CTkButton(f3_1,text="",image= dlt,fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=40, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+        cursor='hand2',command=lambda k=g[0]:delete(k))
+        delp.grid(row= i, column = 5,pady=5,padx = 10)
+
+        showb2 = customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
         hover_color = '#2a4859' , command=lambda k=g[0]:show(k))
-        showb2.grid(row= i, column = 5,pady=5,padx = 10)
+        showb2.grid(row= i, column = 6,pady=5,padx = 10)
+
 
         
         i = i+1
 
-        if i == 4:
-            break
 
 
     def delete(s_id):
@@ -627,7 +652,7 @@ def permas():
 
                 for row in f3_1.grid_slaves():
                     row.grid_forget()
-                permas()
+                medic()
 
             else:
                 pass
@@ -813,7 +838,7 @@ def permas():
                         civ.set(None)
                         ctz.set(None)
                         opt2.set(None)
-                        indicate(permas)
+                        indicate(medic)
                         
                     elif msg == 'no':
                         pass
@@ -822,10 +847,10 @@ def permas():
                 except:
                     messagebox.showinfo("Error", "Inventory already exist")
                     return
-                permas()
+                medic()
 
         back3 = customtkinter.CTkButton(sf3,text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
-        hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(permas))
+        hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(medic))
         back3.place(x=1000, y=1900)
 
         uptd = customtkinter.CTkButton(sf3,text="Update",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
@@ -1244,7 +1269,7 @@ def permas():
 
         stalabel = Label(sf3, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
         staEntry = tk.StringVar()
-        sta = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Nurse", "Doctor", "Midwife", "Allied Health Professionals", "Volunteer"])
+        sta = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Pharmacist","Radiologist", "Cardiologist", "Pathologist" ,"Dietitian", "Pediatrician", "Orthopedic", "General surgeons", "Pulmonologists", "Anesthesiologists", "Gynecologists", "Therapist"])
         sta.place(x=160, y=1800)
         sta.set(result2[15])
 
@@ -1264,7 +1289,17 @@ def permas():
     def read2():
       conn = connection()
       cursor = conn.cursor()
-      cursor.execute("SELECT id, firstname, surname, staff, department FROM personal WHERE surname like %s OR firstname like %s OR id like %s",(findEntry.get(),findEntry.get(),findEntry.get()))
+      cursor.execute("SELECT id, firstname, surname, staff, department,status FROM personal WHERE position = %s AND status = %s AND department = 'MEDICAL' ",(findEntry.get(), findEntry3.get()))
+      results = cursor.fetchall()
+      conn.commit()
+      conn.close()
+
+      return results
+
+    def read3():
+      conn = connection()
+      cursor = conn.cursor()
+      cursor.execute("SELECT id, firstname, surname, staff, department, status FROM personal WHERE (position = %s) AND (firstname like %s OR id like %s)",(findEntry.get(),findEntry2.get(),findEntry2.get()))
       results = cursor.fetchall()
       conn.commit()
       conn.close()
@@ -1277,20 +1312,24 @@ def permas():
       
       for array2 in read2():
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                  ",font=('Arial', 26, 'bold'),bg_color="black",text_color="black")
-        dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
 
-        tol2 = customtkinter.CTkLabel(f3_1, text="                                                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        tol2.grid(row=0, column=1,padx=35,pady=10,sticky = NSEW)
+        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-        dayss2 = customtkinter.CTkLabel(f3_1, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
+        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
-        ap2 = customtkinter.CTkLabel(f3_1, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        ap2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
+        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dfile2.grid(row=0, column=4,padx=35,pady=10,sticky = NSEW)
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+        
 
         col1.configure(f3_1, text=array2[1])
         col1.grid_configure(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
@@ -1300,33 +1339,92 @@ def permas():
         col3.grid_configure(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
         col4.configure(f3_1, text=array2[4])
         col4.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
-        customtkinter.CTkButton(f3_1,text="Delete",fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "#8ad4c9", width=90, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
-        cursor='hand2',command=lambda k=g[0]:delete(k)).grid(row= i, column = 4 ,pady=10,padx = 30)
+        col5.configure(f3_1, text=array2[5])
+        col5.grid_configure(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
+
+        customtkinter.CTkButton(f3_1,text="",image= dlt,fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=40, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+        cursor='hand2',command=lambda k=g[0]:delete(k)).grid(row= i, column = 5,pady=5,padx = 10)
+
+        customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+        hover_color = '#2a4859' , command=lambda k=g[0]:show(k)).grid(row= i, column = 6,pady=5,padx = 10)
+
+
+    def searchbar():
+      for rows2 in f3_1.grid_slaves():
+        rows2.grid_forget()
+      
+      for array2 in read3():
+
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+        
+
+        col1.configure(f3_1, text=array2[1])
+        col1.grid_configure(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
+        col2.configure(f3_1, text=array2[2])
+        col2.grid_configure(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
+        col3.configure(f3_1, text=array2[3])
+        col3.grid_configure(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
+        col4.configure(f3_1, text=array2[4])
+        col4.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+        col5.configure(f3_1, text=array2[5])
+        col5.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+
+
+        customtkinter.CTkButton(f3_1,text="",image= dlt,fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=40, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+        cursor='hand2',command=lambda k=g[0]:delete(k)).grid(row= i, column = 5,pady=5,padx = 10)
+
+        customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+        hover_color = '#2a4859' , command=lambda k=g[0]:show(k)).grid(row= i, column = 6,pady=5,padx = 10)
+
          
     def refresh():
-        permas()
+        medic()
 
     
-    find = Label(f3, text="FIND : ", font=('Arial', 18, 'bold'),bg="#8ad4c9").place(x=50, y=140)
-    fin = tk.StringVar()
-    findEntry = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black",variable = fin, values=["Jed Adryon", "Fewmale", "Widowed", "Seperated", "Other/s"], command=searching)
+    find = customtkinter.CTkLabel(f3, text="Find: ", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black").place(x=50, y=153)
+    
+    findEntry = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Casual","Contractual","On the Job","Permanent", "Volunteer"], command=searching)
     findEntry.set("")
-    findEntry.place(x=130, y=140)
+    findEntry.place(x=110, y=150)
     findEntry.bind("<Key>", read2)
+
+
+    find2 = customtkinter.CTkLabel(f3, text="Status: ", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black").place(x=330, y=153)
+
+    findEntry3 = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Active","Inactive","AWOL"], command=searching)
+    findEntry3.set("")
+    findEntry3.place(x=410, y=150)
+    findEntry3.bind("<Key>", read2)
+
 
     refr = PIL.Image.open("Assets\\refresh.png")
     ref = customtkinter.CTkImage(refr,size=(30,30))
 
-    refreshh = customtkinter.CTkButton(f3,text="",image = ref, bg_color= '#8aafd4',fg_color="#8aafd4",hover_color= "#8aafd4", width= 20,cursor='hand2',command=refresh)
-    refreshh.place(x=340, y=140)
+    refreshh = customtkinter.CTkButton(f3,text="",image = ref, bg_color= 'transparent',fg_color="transparent",hover_color= "#8aafd4", width= 20,cursor='hand2',command=refresh)
+    refreshh.place(x=620, y=150)
 
-    search = customtkinter.CTkButton(f3,text="Search",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=100, height=40, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command=searching)
-    search.place(x=1310, y=140)
+    search = customtkinter.CTkButton(f3,text="Search",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=100, height=40, border_width=0, corner_radius=10,
+    hover_color = '#2a4859',cursor='hand2',command=searchbar)
+    search.place(x=1350, y=150)
     
-    findEntry2 = customtkinter.CTkEntry(f3,height = 37, width= 400, fg_color='white',border_width = 0 ,font=('Arial', 20),text_color='black')
-    findEntry2.place(x=900, y=140)
-
+    findEntry2 = customtkinter.CTkEntry(f3,height = 37, width= 400, fg_color='white',border_width = 2 , corner_radius= 10,font=('Arial', 20),text_color='black')
+    findEntry2.place(x=940, y=150)
 
 
     

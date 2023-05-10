@@ -1,5 +1,5 @@
 from tkinter import *
-from db import *
+from database.db import *
 from tkinter import ttk
 from tkinter import messagebox
 import customtkinter
@@ -20,36 +20,28 @@ from reportlab.lib.pagesizes import GOV_LEGAL
 
 
 
-def report():
-    f5 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8ad4c9",corner_radius=60)
-    f5.place(x=380, y=200)
+
 
     
 
-    def refreshTable():
-        for data in my_tree.get_children():
-            my_tree.delete(data)
+def rept():
+    f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4",corner_radius=60)
+    f3.place(x=380, y=200)
+    f3.pack_propagate(False)
 
-        for array in read():
-            my_tree.insert(parent='', index='end', iid=array, text="", values=(array), tag="orow")
+    f2title = customtkinter.CTkFrame(f3, width=1450, height=100, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
+    f2title.place(x=20, y=20)
 
-        my_tree.tag_configure('orow', font=('Arial', 12))
-    
-
-    sty = ttk.Style()
-    sty.theme_use('clam')
-    sty.configure("Treeview", rowheight="50",fieldbackground ='#dbd5d5',background = '#dbd5d5', borderwidth = 0,relief = 'flat')
-    sty.configure("Treeview.Heading", font=(None, 20), background="#8f8d8d", borderwidth = 0, relief = "flat")
-    sty.map("Treeview.Heading", background = [('active', "#8f8d8d")])
-    sty.map('Treeview', background=[('selected', 'green')])
+    tit = customtkinter.CTkLabel(f2title, text="Report Records", font=("Arial", 30, 'bold'))
+    tit.place(x=20,y=20)
+    subtit = customtkinter.CTkLabel(f2title, text="manage report records", font=("Arial", 20))
+    subtit.place(x=20,y=60)
 
 
-    def dclick(e):
-        show()
 
 
     def deletef():
-        for frame in f5.winfo_children():
+        for frame in f3.winfo_children():
             frame.destroy()
 
     def indicate(page):
@@ -57,8 +49,11 @@ def report():
         deletef()
         page()
 
+   
 
-   #===================personal
+    ids = tk.StringVar()
+
+    #===================personal
 
     p_sname = tk.StringVar()
     p_fname = tk.StringVar()
@@ -391,160 +386,254 @@ def report():
         if num == 7:
             g_sa.set(word)
    
-    def show():
+    def show(s_id):
 
-        selected_item = my_tree.selection()[0]
-        name = str(my_tree.item(selected_item)['values'][0])
+        conn = connection()
+        cursor = conn.cursor()
+        cursor2 = conn.cursor()
+        cursor3 = conn.cursor()
+        cursor4 = conn.cursor()
+        cursor5 = conn.cursor()
+        cursor6 = conn.cursor()
+        cursor7 = conn.cursor()
+        cursor8 = conn.cursor()
+        cursor9 = conn.cursor()
+        cursor10 = conn.cursor()
+        cursor11 = conn.cursor()
+        cursor.execute("SELECT * FROM personal WHERE id=%s",(s_id))
+        cursor2.execute("SELECT * FROM numbers WHERE id=%s",(s_id))
+        cursor3.execute("SELECT * FROM residential WHERE id=%s",(s_id))
+        cursor4.execute("SELECT * FROM permanent WHERE id=%s",(s_id))
+        cursor5.execute("SELECT * FROM spouse WHERE id=%s",(s_id))
+        cursor6.execute("SELECT * FROM family WHERE id=%s",(s_id))
+        cursor7.execute("SELECT * FROM elementary WHERE id=%s",(s_id))
+        cursor8.execute("SELECT * FROM highschool WHERE id=%s",(s_id))
+        cursor9.execute("SELECT * FROM vocational WHERE id=%s",(s_id))
+        cursor10.execute("SELECT * FROM college WHERE id=%s",(s_id))
+        cursor11.execute("SELECT * FROM graduate WHERE id=%s",(s_id))
+        result = cursor.fetchone()
+        result2 = cursor2.fetchone()
+        result3 = cursor3.fetchone()
+        result4 = cursor4.fetchone()
+        result5 = cursor5.fetchone()
+        result6 = cursor6.fetchone()
+        result7 = cursor7.fetchone()
+        result8 = cursor8.fetchone()
+        result9 = cursor9.fetchone()
+        result10 = cursor10.fetchone()
+        result11 = cursor11.fetchone()
 
-        if name != name:
-            messagebox.showinfo("Error", "Select a data or input your ID no.")
-            return
+        dtr=datetime.strftime(result[4],'%b/%d/%Y')
+    
+        id(result[0],1)
+        per(result[1],1)
+        per(result[2],2)
+        per(result[3],3)
+        per(dtr,4)
+        per(result[5],5)
+        per(result[6],6)
+        per(result[7],7)
+        per(result[8],8)
+        per(result[9],9)
+        per(result[10],10)
+        per(result[11],11)
+        per(result[12],12)
+        per(result[13],13)
+        per(result[14],14)
+        per(result[15],15)
+        per(result[16],16)
+        per(result[17],17)
+
+        numbs(result2[1],1)
+        numbs(result2[2],2)
+        numbs(result2[3],3)
+        numbs(result2[4],4)
+        numbs(result2[5],5)
+        numbs(result2[6],6)
+        numbs(result2[7],7)
+        numbs(result2[8],8)
+
+        resad(result3[1],1)
+        resad(result3[2],2)
+        resad(result3[3],3)
+        resad(result3[4],4)
+        resad(result3[5],5)
+        resad(result3[6],6)
+        resad(result3[7],7)
+
+        perad(result4[1],1)
+        perad(result4[2],2)
+        perad(result4[3],3)
+        perad(result4[4],4)
+        perad(result4[5],5)
+        perad(result4[6],6)
+        perad(result4[7],7)
+
+        spous(result5[1],1)
+        spous(result5[2],2)
+        spous(result5[3],3)
+        spous(result5[4],4)
+        spous(result5[5],5)
+        spous(result5[6],6)
+        spous(result5[7],7)
+
+        fam(result6[1],1)
+        fam(result6[2],2)
+        fam(result6[3],3)
+        fam(result6[4],4)
+        fam(result6[5],5)
+        fam(result6[6],6)
+        fam(result6[7],7)
+
+        elem(result7[1],1)
+        elem(result7[2],2)
+        elem(result7[3],3)
+        elem(result7[4],4)
+        elem(result7[5],5)
+        elem(result7[6],6)
+        elem(result7[7],7)
+
+        high(result8[1],1)
+        high(result8[2],2)
+        high(result8[3],3)
+        high(result8[4],4)
+        high(result8[5],5)
+        high(result8[6],6)
+        high(result8[7],7)
+
+        voca(result9[1],1)
+        voca(result9[2],2)
+        voca(result9[3],3)
+        voca(result9[4],4)
+        voca(result9[5],5)
+        voca(result9[6],6)
+        voca(result9[7],7)
+
+        col(result10[1],1)
+        col(result10[2],2)
+        col(result10[3],3)
+        col(result10[4],4)
+        col(result10[5],5)
+        col(result10[6],6)
+        col(result10[7],7)
+
+        grad(result11[1],1)
+        grad(result11[2],2)
+        grad(result11[3],3)
+        grad(result11[4],4)
+        grad(result11[5],5)
+        grad(result11[6],6)
+        grad(result11[7],7)
+
+        indicate(show_e)
 
 
+
+
+
+    #-------------------------------------------------------------------------------------------------------------------------------------#
+    #-------------------------------------------------------First Frame-----------------------------------------------------------------#
+    #-------------------------------------------------------------------------------------------------------------------------------------
+
+    f3_1 = customtkinter.CTkScrollableFrame(f3, fg_color ="transparent",bg_color ="transparent", width= 1380,height= 550)
+    f3_1.place(x=50, y=200)
+
+    agree = PIL.Image.open("Assets\\green.png")
+    are = PIL.Image.open("Assets\\red.png")
+    aye = PIL.Image.open("Assets\\yell.png")
+
+    ed = PIL.Image.open("Assets\\view.png")
+    edt = customtkinter.CTkImage(ed,size=(25,25))
+
+
+    
+    conn = connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM personal")
+    result = cursor.fetchall()
+    conn.commit()
+    conn.close()
+
+
+    tableframe = customtkinter.CTkFrame(f3,fg_color ="transparent",bg_color ="transparent",width=1200,height=50)
+    tableframe.place(x=55,y=210)
+
+    dfile = customtkinter.CTkLabel(tableframe, text="First Name                         ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    dfile.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+    tol = customtkinter.CTkLabel(tableframe, text="Last Name                        ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+    dayss = customtkinter.CTkLabel(tableframe, text="Staff Type           ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+    aps = customtkinter.CTkLabel(tableframe, text="Department            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+    aps = customtkinter.CTkLabel(tableframe, text="Status            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+    aps = customtkinter.CTkLabel(tableframe, text="Action            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+
+
+    global i
+
+    i = 1
+
+    for g in result:
+        
+ 
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+
+        col1 = customtkinter.CTkLabel(f3_1, text=g[2],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+        col1.grid(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
+        col2 = customtkinter.CTkLabel(f3_1, text=g[1],font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+        col2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
+        col3 = customtkinter.CTkLabel(f3_1, text=g[15],font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+        col3.grid(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
+        col4 = customtkinter.CTkLabel(f3_1, text=g[17],font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+        col4.grid(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+
+        if g[19] == "Active":
+            clrstat = customtkinter.CTkImage(agree,size=(25,15))
+
+        elif g[19] == "Inactive":
+            clrstat = customtkinter.CTkImage(are,size=(25,15))
+            
         else:
+            clrstat = customtkinter.CTkImage(aye,size=(25,15))
+
+        col5 = customtkinter.CTkLabel(f3_1, text=g[19], image = clrstat,compound= "left",font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+        col5.grid(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
+
+        showb2 = customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+        hover_color = '#2a4859' , command=lambda k=g[0]:show(k))
+        showb2.grid(row= i, column = 5,pady=5,padx = 3)
+
         
-            conn = connection()
-            cursor = conn.cursor()
-            cursor2 = conn.cursor()
-            cursor3 = conn.cursor()
-            cursor4 = conn.cursor()
-            cursor5 = conn.cursor()
-            cursor6 = conn.cursor()
-            cursor7 = conn.cursor()
-            cursor8 = conn.cursor()
-            cursor9 = conn.cursor()
-            cursor10 = conn.cursor()
-            cursor11 = conn.cursor()
-            cursor.execute("SELECT * FROM personal WHERE id=%s",(name))
-            cursor2.execute("SELECT * FROM numbers WHERE id=%s",(name))
-            cursor3.execute("SELECT * FROM residential WHERE id=%s",(name))
-            cursor4.execute("SELECT * FROM permanent WHERE id=%s",(name))
-            cursor5.execute("SELECT * FROM spouse WHERE id=%s",(name))
-            cursor6.execute("SELECT * FROM family WHERE id=%s",(name))
-            cursor7.execute("SELECT * FROM elementary WHERE id=%s",(name))
-            cursor8.execute("SELECT * FROM highschool WHERE id=%s",(name))
-            cursor9.execute("SELECT * FROM vocational WHERE id=%s",(name))
-            cursor10.execute("SELECT * FROM college WHERE id=%s",(name))
-            cursor11.execute("SELECT * FROM graduate WHERE id=%s",(name))
-            result = cursor.fetchone()
-            result2 = cursor2.fetchone()
-            result3 = cursor3.fetchone()
-            result4 = cursor4.fetchone()
-            result5 = cursor5.fetchone()
-            result6 = cursor6.fetchone()
-            result7 = cursor7.fetchone()
-            result8 = cursor8.fetchone()
-            result9 = cursor9.fetchone()
-            result10 = cursor10.fetchone()
-            result11 = cursor11.fetchone()
+        i = i+1
 
-            dtr=datetime.strftime(result[4],'%b/%d/%Y')
-        
-            id(result[0],1)
-            per(result[1],1)
-            per(result[2],2)
-            per(result[3],3)
-            per(dtr,4)
-            per(result[5],5)
-            per(result[6],6)
-            per(result[7],7)
-            per(result[8],8)
-            per(result[9],9)
-            per(result[10],10)
-            per(result[11],11)
-            per(result[12],12)
-            per(result[13],13)
-            per(result[14],14)
-            per(result[15],15)
-            per(result[16],16)
-            per(result[17],17)
-
-            numbs(result2[1],1)
-            numbs(result2[2],2)
-            numbs(result2[3],3)
-            numbs(result2[4],4)
-            numbs(result2[5],5)
-            numbs(result2[6],6)
-            numbs(result2[7],7)
-            numbs(result2[8],8)
-
-            resad(result3[1],1)
-            resad(result3[2],2)
-            resad(result3[3],3)
-            resad(result3[4],4)
-            resad(result3[5],5)
-            resad(result3[6],6)
-            resad(result3[7],7)
-
-            perad(result4[1],1)
-            perad(result4[2],2)
-            perad(result4[3],3)
-            perad(result4[4],4)
-            perad(result4[5],5)
-            perad(result4[6],6)
-            perad(result4[7],7)
-
-            spous(result5[1],1)
-            spous(result5[2],2)
-            spous(result5[3],3)
-            spous(result5[4],4)
-            spous(result5[5],5)
-            spous(result5[6],6)
-            spous(result5[7],7)
-
-            fam(result6[1],1)
-            fam(result6[2],2)
-            fam(result6[3],3)
-            fam(result6[4],4)
-            fam(result6[5],5)
-            fam(result6[6],6)
-            fam(result6[7],7)
-
-            elem(result7[1],1)
-            elem(result7[2],2)
-            elem(result7[3],3)
-            elem(result7[4],4)
-            elem(result7[5],5)
-            elem(result7[6],6)
-            elem(result7[7],7)
-
-            high(result8[1],1)
-            high(result8[2],2)
-            high(result8[3],3)
-            high(result8[4],4)
-            high(result8[5],5)
-            high(result8[6],6)
-            high(result8[7],7)
-
-            voca(result9[1],1)
-            voca(result9[2],2)
-            voca(result9[3],3)
-            voca(result9[4],4)
-            voca(result9[5],5)
-            voca(result9[6],6)
-            voca(result9[7],7)
-
-            col(result10[1],1)
-            col(result10[2],2)
-            col(result10[3],3)
-            col(result10[4],4)
-            col(result10[5],5)
-            col(result10[6],6)
-            col(result10[7],7)
-
-            grad(result11[1],1)
-            grad(result11[2],2)
-            grad(result11[3],3)
-            grad(result11[4],4)
-            grad(result11[5],5)
-            grad(result11[6],6)
-            grad(result11[7],7)
-
-            indicate(show_e)
 
     def show_e():
 
-        f2_2 = customtkinter.CTkFrame(f5, width=1500, height=820, fg_color ="transparent")
+        f2_2 = customtkinter.CTkFrame(f3, width=1500, height=820, fg_color ="transparent")
         f2_2.place(x=0, y=0)
         f2_2.pack_propagate(0)
         cv2 = Canvas(f2_2,background='#ffffff',highlightthickness=0)
@@ -569,7 +658,7 @@ def report():
          
 
         back2 = customtkinter.CTkButton(sf2,text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#ffffff', width=160, height=60, border_width=0, corner_radius=10,
-        hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(report))
+        hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(rept))
         back2.place(x=1000, y=1900)
 
 
@@ -729,74 +818,143 @@ def report():
 
 
 
+        
+
     def read2():
-        conn = connection()
-        cursor = conn.cursor()
-        cursor.execute("SELECT id, firstname, surname, position, department FROM personal WHERE surname like %s OR firstname like %s OR id like %s",(findEntry.get(),findEntry.get(),findEntry.get()))
-        results = cursor.fetchall()
-        conn.commit()
-        conn.close()
-        
-        return results
+      conn = connection()
+      cursor = conn.cursor()
+      cursor.execute("SELECT id, firstname, surname, staff, department, status FROM personal WHERE position = %s AND status = %s",(findEntry.get(), findEntry3.get()))
+      results = cursor.fetchall()
+      conn.commit()
+      conn.close()
+
+      return results
+
+    def read3():
+      conn = connection()
+      cursor = conn.cursor()
+      cursor.execute("SELECT id, firstname, surname, staff, department, status FROM personal WHERE firstname like %s OR surname like %s OR id like %s",(findEntry2.get(),findEntry2.get(),findEntry2.get()))
+      results = cursor.fetchall()
+      conn.commit()
+      conn.close()
+
+      return results
+    
+    def searching(event):
+      for rows2 in f3_1.grid_slaves():
+        rows2.grid_forget()
+      
+      for array2 in read2():
+
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
 
 
-    def searching():
-        for rows2 in my_tree.get_children():
-            my_tree.delete(rows2)
-        
-        for array2 in read2():
-            my_tree.insert(parent='', index='end', iid=array2, text="", values=(array2), tag="orow")
+        col1.configure(f3_1, text=array2[1])
+        col1.grid_configure(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
+        col2.configure(f3_1, text=array2[2])
+        col2.grid_configure(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
+        col3.configure(f3_1, text=array2[3])
+        col3.grid_configure(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
+        col4.configure(f3_1, text=array2[4])
+        col4.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+        col5.configure(f3_1, text=array2[5])
+        col5.grid_configure(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
 
-        
 
+        customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+        hover_color = '#2a4859' , command=lambda k=g[0]:show(k)).grid(row= i, column = 5,pady=5,padx = 10)
+
+
+    def searchbar():
+      for rows2 in f3_1.grid_slaves():
+        rows2.grid_forget()
+      
+      for array2 in read3():
+
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+
+        col1.configure(f3_1, text=array2[1])
+        col1.grid_configure(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
+        col2.configure(f3_1, text=array2[2])
+        col2.grid_configure(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
+        col3.configure(f3_1, text=array2[3])
+        col3.grid_configure(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
+        col4.configure(f3_1, text=array2[4])
+        col4.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+        col5.configure(f3_1, text=array2[5])
+        col5.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+
+
+        customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+        hover_color = '#2a4859' , command=lambda k=g[0]:show(k)).grid(row= i, column = 5,pady=5,padx = 10)
+
+         
     def refresh():
-        populate()
-        refreshTable()
+        rept()
+
+    
+    find = customtkinter.CTkLabel(f3, text="Find: ", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black").place(x=50, y=153)
+    
+    findEntry = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Casual","Contractual","On the Job","Permanent", "Volunteer"], command=searching)
+    findEntry.set("")
+    findEntry.place(x=110, y=150)
+    findEntry.bind("<Key>", read2)
 
 
+    find2 = customtkinter.CTkLabel(f3, text="Status: ", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black").place(x=330, y=153)
 
+    findEntry3 = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Active","Inactive","AWOL"], command=searching)
+    findEntry3.set("")
+    findEntry3.place(x=410, y=150)
+    findEntry3.bind("<Key>", read2)
 
-    search = customtkinter.CTkButton(f5,text="Search",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=100, height=40, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command=searching)
-    search.place(x=350, y=27)
 
     refr = PIL.Image.open("Assets\\refresh.png")
     ref = customtkinter.CTkImage(refr,size=(30,30))
 
-    search2 = customtkinter.CTkButton(f5,text="",image = ref, bg_color= '#8ad4c9',fg_color="#8ad4c9",hover_color= "#8ad4c9", width= 20,cursor='hand2',command=refresh)
-    search2.place(x=450, y=27)
+    refreshh = customtkinter.CTkButton(f3,text="",image = ref, bg_color= 'transparent',fg_color="transparent",hover_color= "#8aafd4", width= 20,cursor='hand2',command=refresh)
+    refreshh.place(x=620, y=150)
 
-        
-    add3 = customtkinter.CTkButton(f5,text="Check",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command=show)
-    add3.place(x=1200, y=700)
-
-   
-        
-    find = Label(f5, text="FIND : ", font=('Arial', 18, 'bold'),bg="#8ad4c9").place(x=50, y=30)
-    findEntry = customtkinter.CTkEntry(f5,height = 37, width=200, fg_color='white',border_width = 0 ,font=('Arial', 20),text_color='black')
-    findEntry.place(x=130, y=28)
-
-
-    my_tree =ttk.Treeview(f5, show="headings", height=11)
-    my_tree['columns'] = ("id","name","sur","pos","dept")
-
-
-    my_tree.column("id", anchor=CENTER, width=287)
-    my_tree.column("name", anchor=CENTER, width=287)
-    my_tree.column("sur", anchor=CENTER, width=287)
-    my_tree.column("pos", anchor=CENTER, width=287)
-    my_tree.column("dept", anchor=CENTER, width=287)
-    my_tree.heading("id", text="ID", anchor=CENTER)
-    my_tree.heading("name", text="NAME", anchor=CENTER)
-    my_tree.heading("sur", text="SURNAME", anchor=CENTER)
-    my_tree.heading("pos", text="POSITION", anchor=CENTER)
-    my_tree.heading("dept", text="DEPARTMENT", anchor=CENTER)
-    my_tree.place(x=27, y=90)
-
-    my_tree.bind("<Double-1>", dclick)
-
+    search = customtkinter.CTkButton(f3,text="Search",fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=100, height=40, border_width=0, corner_radius=10,
+    hover_color = '#2a4859',cursor='hand2',command=searchbar)
+    search.place(x=1350, y=150)
+    search.bind("<Return>",searchbar)
     
+    findEntry2 = customtkinter.CTkEntry(f3,height = 37, width= 400, fg_color='white',border_width = 2 , corner_radius= 10,font=('Arial', 20),text_color='black')
+    findEntry2.place(x=940, y=150)
+
+
    
-    populate()
-    refreshTable()  
+    
