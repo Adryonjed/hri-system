@@ -27,7 +27,7 @@ def performance():
         for data in my_tree.get_children():
             my_tree.delete(data)
 
-        for array in read_code():
+        for array in read2():
             my_tree.insert(parent='', index='end', iid=array, text="", values=(array), tag="orow")
 
         my_tree.tag_configure('orow', font=('Arial', 12))
