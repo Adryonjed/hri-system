@@ -28,23 +28,24 @@ def show_perform(s_id):
     
 
 
-    f4_1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#8ad4c9",bg_color="#aee0e8",corner_radius=50)
+    f4_1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4",bg_color="transparent",corner_radius=50)
     f4_1.place(x=380, y=200)
-
-    
 
     nat = datetime.now() 
     now = nat.strftime("%b %d, %Y")
 
-    doblabel = Label(f4_1,text=now, font=('Arial', 16, 'bold'),bg="#8ad4c9")
-    doblabel.place(x=1300, y=30)
+    f2title = customtkinter.CTkFrame(f4_1, width=1450, height=100, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
+    f2title.place(x=20, y=20)
 
-    tit = customtkinter.CTkLabel(f4_1, text=result[2], font=("Arial", 50, 'bold'),text_color="black")
-    tit.place(x=50,y=20)
-    subtit = customtkinter.CTkLabel(f4_1, text=result[1] + " - " + result[17], font=("Arial", 30),text_color="black")
-    subtit.place(x=50,y=80)
+    tit = customtkinter.CTkLabel(f2title, text=result[2], font=("Arial", 30, 'bold'))
+    tit.place(x=20,y=20)
+    subtit = customtkinter.CTkLabel(f2title, text=result[1] + " - " + result[17], font=("Arial", 20))
+    subtit.place(x=20,y=60)
+    doblabel = customtkinter.CTkLabel(f2title,text=now, font=('Arial', 16, 'bold'))
+    doblabel.place(x=1330, y=20)
+
     
-    f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="#8ad4c9",bg_color ="transparent",width=1050,height=500)
+    f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="#d4d4d4",bg_color ="transparent",width=1050,height=500)
     f5_2.place(x=220, y=150)
 
     ed = PIL.Image.open("Assets\\edit.png")
@@ -54,7 +55,7 @@ def show_perform(s_id):
         
         conn = connection()
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM performances WHERE ids = %s ",(s_id))
+        cursor.execute("SELECT * FROM perform WHERE ids = %s",(s_id))
         result = cursor.fetchall()
         conn.commit()
         conn.close()
@@ -84,7 +85,7 @@ def show_perform(s_id):
 
         for g2 in result:
             
-            dtr=datetime.strftime(g2[2],'%b/%d/%Y')
+            """dtr=datetime.strftime(g2[2],'%b/%d/%Y')"""
 
             dfile2 = customtkinter.CTkLabel(f5_2, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
@@ -102,14 +103,14 @@ def show_perform(s_id):
             ac.grid(row=0, column=4,padx=35,pady=10,sticky = NSEW)
             
 
-            jo = customtkinter.CTkLabel(f5_2, text=dtr,font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo = customtkinter.CTkLabel(f5_2, text=g2[1],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo.grid(row=i, column=0,padx=5,pady=10,sticky = NSEW)
-            jo2= customtkinter.CTkLabel(f5_2, text=g2[3],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo2= customtkinter.CTkLabel(f5_2, text=g2[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
-            jo3= customtkinter.CTkLabel(f5_2, text=g2[4],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            """jo3= customtkinter.CTkLabel(f5_2, text=g2[4],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo3.grid(row=i, column=2,padx=5,pady=10,sticky = NSEW)
             jo4= customtkinter.CTkLabel(f5_2, text=g2[5],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
-            jo4.grid(row=i, column=3,padx=5,pady=10,sticky = NSEW)
+            jo4.grid(row=i, column=3,padx=5,pady=10,sticky = NSEW)"""
 
             shoow = customtkinter.CTkButton(f5_2,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
             hover_color = '#2a4859' , command=lambda k=g2[0]:showit(k))
@@ -158,7 +159,7 @@ def show_perform(s_id):
             aply.configure(state = NORMAL)
 
         def solve(): 
-            global total, average
+            global ttl, average
 
             c1 = int(cr1.get())
             c2 = int(cr2.get())
@@ -167,11 +168,13 @@ def show_perform(s_id):
             c5 = int(cr5.get())
             c6 = int(cr6.get())
 
-            total = c1 + c2 + c3 + c4 + c5 + c6
-            tots.configure(text=str(total))
+            ttal = c1 + c2 + c3 + c4 + c5 + c6
+            tots.configure(text=str(ttal))
+            ttl = str(ttal)
 
-            average = total / 6
-            avera.configure(text='{:.2f}'.format(average))
+            aver = ttal / 6
+            avera.configure(text='{:.2f}'.format(aver))
+            average = str(aver)
 
 
         def validate(u_input): 
@@ -192,7 +195,7 @@ def show_perform(s_id):
             cri6 = str(cr6.get())
 
         
-            if (cri1 == "" or cri1 == " ") or (cri2 == "" or cri2 == " ") or (cri3 == "" or cri3 == " ") or (cri4 == "" or cri4 == " ") or (cri5 == "" or cri5 == " ") or (cri6 == "" or cri6 == " "):
+            if (cri1 == "" or cri1 == " ") :
                     messagebox.showinfo("Error", "Please fill up the blank entry")
                     return
             else:
@@ -202,7 +205,7 @@ def show_perform(s_id):
                             conn = connection()
                             cursor = conn.cursor()
                             cursor.execute(
-                                "INSERT INTO performances VALUES ('""',"+idss+"','"+dfile+"','"+cri1+"','"+cri2+"','"+cri3+"','"+cri4+"','"+cri5+"','"+cri6+"','"+total+"','"+average+"') ")
+                                "INSERT INTO perform VALUES ('""','"+idss+"','"+dfile+"','"+cri1+"','"+cri2+"','"+cri3+"','"+cri4+"','"+cri5+"','"+cri6+"','"+ttl+"','"+average+"') ")
                             conn.commit()
                             conn.close()
                             root.destroy()

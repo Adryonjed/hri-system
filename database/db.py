@@ -36,13 +36,12 @@ def populate():
 def read2():
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, firstname, surname, position, department FROM personal ORDER BY id")
-    
-    results = cursor.fetchall()
+    cursor.execute("SELECT * FROM personal WHERE department = 'NURSING' ")
+    result = cursor.fetchall()
     conn.commit()
     conn.close()
     
-    return results
+    return result
 
 
 

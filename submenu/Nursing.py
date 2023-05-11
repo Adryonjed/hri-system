@@ -14,6 +14,7 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
+from database.db import read2
 
 def nurse():
     f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4",corner_radius=60)
@@ -526,6 +527,13 @@ def nurse():
     f3_1 = customtkinter.CTkScrollableFrame(f3, fg_color ="transparent",bg_color ="transparent", width= 1380,height= 550)
     f3_1.place(x=50, y=200)
 
+    conn = connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM personal WHERE department = 'NURSING' ")
+    result = cursor.fetchall()
+    conn.commit()
+    conn.close()
+
     agree = PIL.Image.open("Assets\\green.png")
     are = PIL.Image.open("Assets\\red.png")
     aye = PIL.Image.open("Assets\\yell.png")
@@ -535,15 +543,6 @@ def nurse():
 
     ed = PIL.Image.open("Assets\\edit.png")
     edt = customtkinter.CTkImage(ed,size=(25,25))
-
-
-    
-    conn = connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM personal WHERE department = 'NURSING' ")
-    result = cursor.fetchall()
-    conn.commit()
-    conn.close()
 
 
     tableframe = customtkinter.CTkFrame(f3,fg_color ="transparent",bg_color ="transparent",width=1200,height=50)
@@ -567,10 +566,8 @@ def nurse():
     aps = customtkinter.CTkLabel(tableframe, text="Action            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
 
-
-    global i
-
     i = 1
+
 
     for g in result:
         
@@ -622,7 +619,6 @@ def nurse():
         hover_color = '#2a4859' , command=lambda k=g[0]:show(k))
         showb2.grid(row= i, column = 6,pady=5,padx = 3)
 
-        
         i = i+1
 
 
@@ -1287,110 +1283,134 @@ def nurse():
         de.set(result2[17])
         
 
-    def read2():
-      conn = connection()
-      cursor = conn.cursor()
-      cursor.execute("SELECT id, firstname, surname, staff, department,status FROM personal WHERE position = %s AND status = %s AND department = 'NURSING' ",(findEntry.get(), findEntry3.get()))
-      results = cursor.fetchall()
-      conn.commit()
-      conn.close()
-
-      return results
-
-    def read3():
-      conn = connection()
-      cursor = conn.cursor()
-      cursor.execute("SELECT id, firstname, surname, staff, department, status FROM personal WHERE (position = %s) AND (firstname like %s OR id like %s)",(findEntry.get(),findEntry2.get(),findEntry2.get()))
-      results = cursor.fetchall()
-      conn.commit()
-      conn.close()
-
-      return results
-    
     def searching(event):
-      for rows2 in f3_1.grid_slaves():
-        rows2.grid_forget()
-      
-      for array2 in read2():
-
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
-
-        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
-
-        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
-
-        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
-
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
-
-        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
-
-        col1.configure(f3_1, text=array2[1])
-        col1.grid_configure(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
-        col2.configure(f3_1, text=array2[2])
-        col2.grid_configure(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
-        col3.configure(f3_1, text=array2[3])
-        col3.grid_configure(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
-        col4.configure(f3_1, text=array2[4])
-        col4.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
-        col5.configure(f3_1, text=array2[5])
-        col5.grid_configure(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
-
-        customtkinter.CTkButton(f3_1,text="",image= dlt,fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=40, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
-        cursor='hand2',command=lambda k=g[0]:delete(k)).grid(row= i, column = 5,pady=5,padx = 10)
-
-        customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
-        hover_color = '#2a4859' , command=lambda k=g[0]:show(k)).grid(row= i, column = 6,pady=5,padx = 10)
-
+        for rows2 in f3_1.grid_slaves():
+            rows2.grid_forget()
         
-    def searchbar():
-      for rows2 in f3_1.grid_slaves():
-        rows2.grid_forget()
+        conn = connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM personal WHERE department = 'NURSING' AND(position = %s AND status = %s)",(findEntry.get(), findEntry3.get()))
+        results = cursor.fetchall()
+        conn.commit()
+        conn.close()
+
+        i = 1
+
+        for array2 in results:
+
+            dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+            tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+            dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+            ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+            dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+            act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+
+            col1 = customtkinter.CTkLabel(f3_1, text=array2[2],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col1.grid(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
+            col2 = customtkinter.CTkLabel(f3_1, text=array2[1],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
+            col3 = customtkinter.CTkLabel(f3_1, text=array2[15],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col3.grid(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
+            col4 = customtkinter.CTkLabel(f3_1, text=array2[17],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col4.grid(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+
+            if array2[19] == "Active":
+                clrstat = customtkinter.CTkImage(agree,size=(25,15))
+
+            elif array2[19] == "Inactive":
+                clrstat = customtkinter.CTkImage(are,size=(25,15))
+                
+            else:
+                clrstat = customtkinter.CTkImage(aye,size=(25,15))
+
+            col5 = customtkinter.CTkLabel(f3_1, text=array2[19], image = clrstat, compound= "left",font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+            col5.grid(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
+
+
+            customtkinter.CTkButton(f3_1,text="",image= dlt,fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=40, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+            cursor='hand2',command=lambda k=array2[0]:delete(k)).grid(row= i, column = 5,pady=5,padx = 10)
+
+            customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+            hover_color = '#2a4859' , command=lambda k=array2[0]:show(k)).grid(row= i, column = 6,pady=5,padx = 10)
+
+            i = i+1
       
-      for array2 in read3():
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+    def searchbar():
+        for rows2 in f3_1.grid_slaves():
+            rows2.grid_forget()
+        
+        conn = connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM personal WHERE (position = %s) AND (firstname like %s OR id like %s)",(findEntry.get(),findEntry2.get(),findEntry2.get()))
+        results = cursor.fetchall()
+        conn.commit()
+        conn.close()
 
-        tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+        i = 1
 
-        dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+        for array2 in results:
 
-        ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+            dfile2 = customtkinter.CTkLabel(f3_1, text="                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dfile2.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+            tol2 = customtkinter.CTkLabel(f3_1, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            tol2.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-        act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+            dayss2 = customtkinter.CTkLabel(f3_1, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dayss2.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
-        col1.configure(f3_1, text=array2[1])
-        col1.grid_configure(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
-        col2.configure(f3_1, text=array2[2])
-        col2.grid_configure(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
-        col3.configure(f3_1, text=array2[3])
-        col3.grid_configure(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
-        col4.configure(f3_1, text=array2[4])
-        col4.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
-        col5.configure(f3_1, text=array2[5])
-        col5.grid_configure(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+            ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+            dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+            act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            act2.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
+
+            col1 = customtkinter.CTkLabel(f3_1, text=array2[2],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col1.grid(row=i, column=0,padx = 5,pady=10,sticky = NSEW)
+            col2 = customtkinter.CTkLabel(f3_1, text=array2[1],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
+            col3 = customtkinter.CTkLabel(f3_1, text=array2[15],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col3.grid(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
+            col4 = customtkinter.CTkLabel(f3_1, text=array2[17],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
+            col4.grid(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
+
+            if array2[19] == "Active":
+                clrstat = customtkinter.CTkImage(agree,size=(25,15))
+
+            elif array2[19] == "Inactive":
+                clrstat = customtkinter.CTkImage(are,size=(25,15))
+                
+            else:
+                clrstat = customtkinter.CTkImage(aye,size=(25,15))
+
+            col5 = customtkinter.CTkLabel(f3_1, text=array2[19], image = clrstat, compound= "left",font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+            col5.grid(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
 
 
-        customtkinter.CTkButton(f3_1,text="",image= dlt,fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=40, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
-        cursor='hand2',command=lambda k=g[0]:delete(k)).grid(row= i, column = 5,pady=5,padx = 10)
+            customtkinter.CTkButton(f3_1,text="",image= dlt,fg_color='#9c4656',font=('Arial', 20,) ,bg_color= "transparent", width=40, height=35, border_width=0, corner_radius=10,hover_color = '#2a4859',
+            cursor='hand2',command=lambda k=array2[0]:delete(k)).grid(row= i, column = 5,pady=5,padx = 10)
 
-        customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
-        hover_color = '#2a4859' , command=lambda k=g[0]:show(k)).grid(row= i, column = 6,pady=5,padx = 10)
+            customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+            hover_color = '#2a4859' , command=lambda k=array2[0]:show(k)).grid(row= i, column = 6,pady=5,padx = 10)
 
+            i = i+1
+
+    
          
     def refresh():
         nurse()
@@ -1409,7 +1429,7 @@ def nurse():
     findEntry3 = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Active","Inactive","AWOL"], command=searching)
     findEntry3.set("")
     findEntry3.place(x=410, y=150)
-    findEntry3.bind("<Key>", read2)
+    findEntry3.bind("<Key>", searching)
 
 
     refr = PIL.Image.open("Assets\\refresh.png")

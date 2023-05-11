@@ -9,13 +9,12 @@ import PIL.Image
 from dashboard import *
 from submenu.Ancillary import *
 from report import *
-from leaves import *
 from submenu.Nursing import *
 from submenu.Admin import *
 from submenu.Medical import *
 from submenu.addEmployee import *
 from leaveData import *
-from Performance import *
+from ratingData import *
 
 
 
@@ -30,8 +29,14 @@ app.iconbitmap("Assets\\logo1.ico")
 
 customtkinter.set_appearance_mode("System")
 
-wel = Label(app, text="ROXAS MEMORIAL PROVINCIAL HOSPITAL", font=('Arial', 40, 'bold'),bg="#aee0e8")
-wel.place(x=580,y=50)
+f2title = customtkinter.CTkFrame(app, width=1500, height=130, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
+f2title.place(x=380, y=20)
+
+tit = customtkinter.CTkLabel(f2title, text="Human Resource Information Management", font=("Arial", 40, 'bold'))
+tit.place(x=350,y=20)
+subtit = customtkinter.CTkLabel(f2title, text="Roxas Memorial Provincial Hospital", font=("Arial", 30))
+subtit.place(x=490,y=80)
+
 
 
 mbar = customtkinter.CTkFrame(app, bg_color="transparent", fg_color="#335791",corner_radius=40,width=380, height=1060)
@@ -218,6 +223,17 @@ nphoto = ImageTk.PhotoImage(resized)
 
 j = Label(app, image= nphoto, bg="#335791")
 j.place(x=50, y=40)
+
+"""def my_time():
+    time_string = strftime('%b %d, %Y \n %A') 
+    l1.configure(text=time_string)
+    l1.after(1000,my_time) 
+
+my_font=('times',25,'bold')
+l1=customtkinter.CTkLabel(f2title,font=my_font,bg_color="transparent")
+l1.place(x=1330, y=35)
+
+my_time()"""
 
 
 

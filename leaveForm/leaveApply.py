@@ -14,7 +14,7 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
-from EditLeave import *
+from leaveForm.EditLeave import *
 
 def show_leave(s_id):
       

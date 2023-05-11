@@ -54,9 +54,6 @@ def show_apply(s_ids):
     now = nat.strftime("%b %d, %Y")
     doblabel = Label(text=now)
   
-
-   
-
     def cancels():
         root.destroy()
         
@@ -69,62 +66,81 @@ def show_apply(s_ids):
         days = str(diff_days)
 
 
+    conn = connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM medcert WHERE id = %s",(s_ids))
+    imgres = cursor.fetchone()
+    conn.commit()
+    conn.close()
+
+    imga = PIL.Image.open(io.BytesIO(imgres[3]))
+    imgs = customtkinter.CTkImage(imga,size=(70,100))
+
+
     def upl_mc():
 
-        global imgfile, photo
-
+        global imgfile, photo, imahe
         f_types = [('JPG', '*.jpg'),('PNG', '*.png')]
         imgfile = filedialog.askopenfilename(filetypes=f_types)
         photo = PIL.Image.open(imgfile)
-        imgs = customtkinter.CTkImage(photo,size=(70,100))
-
-        def mc_view():
-            view_f = customtkinter.CTkToplevel()
-            view_f.geometry('800x1000')
-            view_f.overrideredirect(True)
-            view_f.wm_attributes("-transparentcolor",'gray')
-            view_f.grab_set()
-
-
-            def start_drag2(e):
-                e.widget.offset = (e.x, e.y)
-
-            def move_app2(e):
+        img = customtkinter.CTkImage(photo,size=(70,100))
+        imgv= customtkinter.CTkImage(photo,size=(700,900))
         
-                view_f.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
+        vie.configure(image=img)
+        imahe.configure(image=imgv)
 
-            imgview = customtkinter.CTkImage(photo,size=(700,900))
+    def mc_view():
 
-            view_frame = customtkinter.CTkFrame(view_f, bg_color='gray', fg_color='white',width=800,height=1000,corner_radius=30)
-            view_frame.pack()
+        global photo, imahe
 
-            imahe = customtkinter.CTkLabel(view_frame, text='', image=imgview)
-            imahe.place(x=40,y=50)
+        view_f = customtkinter.CTkToplevel()
+        view_f.geometry('800x1000')
+        view_f.overrideredirect(True)
+        view_f.wm_attributes("-transparentcolor",'gray')
+        view_f.grab_set()
 
-            def cancels():
-                view_f.destroy()
 
-            can = PIL.Image.open("Assets\\cancel.png")
-            checked2 = customtkinter.CTkImage(can,size=(30,30))
-            cancel = customtkinter.CTkButton(view_frame, text="", image=checked2, bg_color= 'white',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
-            cancel.place(x=740,y=10)
+        def start_drag2(e):
+            e.widget.offset = (e.x, e.y)
 
-            view_frame.bind("<Button-1>", start_drag2)
-            view_frame.bind("<B1-Motion>", move_app2)
-            view_f.mainloop()
+        def move_app2(e):
+    
+            view_f.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
 
-        vie = customtkinter.CTkButton(l_frame,text="",image=imgs,width=70,height=100, cursor='hand2',bg_color="transparent", fg_color="transparent", command=mc_view)
-        vie.place(x=570, y=450)
+        imgview = customtkinter.CTkImage(imga,size=(700,900))
+
+        view_frame = customtkinter.CTkFrame(view_f, bg_color='gray', fg_color='white',width=800,height=1000,corner_radius=30)
+        view_frame.pack()
+
+        imahe = customtkinter.CTkLabel(view_frame, text='', image=imgview)
+        imahe.place(x=40,y=50)
+
+        def cancels():
+            view_f.destroy()
+
+        can = PIL.Image.open("Assets\\cancel.png")
+        checked2 = customtkinter.CTkImage(can,size=(30,30))
+        cancel = customtkinter.CTkButton(view_frame, text="", image=checked2, bg_color= 'white',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
+        cancel.place(x=740,y=10)
+
+        view_frame.bind("<Button-1>", start_drag2)
+        view_frame.bind("<B1-Motion>", move_app2)
+        view_f.mainloop()
+
+        
 
     def imgsave():
+
+        idd = Label(textvariable=idss)
+        ides = str(idd.cget("text"))
 
         if imgfile:
             fob = open(imgfile, 'rb').read()
             conn = connection()
             cursor = conn.cursor()
-            args = (idss,doblabel,fob)
+            args = (fob,ides)
             
-            cursor.execute("UPDATE medcert SET (idd,datefile,img) VALUES (%s,%s,%s)",args)
+            cursor.execute("UPDATE medcert SET img=%s WHERE id = %s",args)
             conn.commit()
             conn.close()
         else:
@@ -136,9 +152,7 @@ def show_apply(s_ids):
     def proceed():
 
         idd = Label(textvariable=idss)
-
         ides = str(idd.cget("text"))
-
 
         dfile = str(dofentry.get_date())
         typ = str(tyle.get())
@@ -257,8 +271,10 @@ def show_apply(s_ids):
     hover_color = '#2a4859',cursor='hand2',command= upl_mc)
     upl.place(x=480, y=490)
 
-    
+    vie = customtkinter.CTkButton(l_frame,text="",image=imgs,width=70,height=100, cursor='hand2',bg_color="transparent", fg_color="transparent", command=mc_view)
+    vie.place(x=570, y=450)
 
+    
     proc = customtkinter.CTkButton(l_frame,text="Proceed",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
     hover_color = '#2a4859',cursor='hand2',command= allsave)
     proc.place(x=900, y=625)
