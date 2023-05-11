@@ -655,8 +655,6 @@ def rept():
         j.bind("<MouseWheel>", lambda event: cv2.yview_scroll(-int(event.delta/100), "units"))
 
 
-         
-
         back2 = customtkinter.CTkButton(sf2,text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#ffffff', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(rept))
         back2.place(x=1000, y=1900)
@@ -815,9 +813,6 @@ def rept():
 
         gsashow = customtkinter.CTkLabel(sf2, text = "NOT APPLICABLE HERE\nINSTEAD WRITE IT", font=('Arial',32,'bold'),bg_color="transparent",text_color="#7a7979").place(x=950,y=1180)
     
-
-
-
         
 
     def searching(event):
@@ -942,10 +937,6 @@ def rept():
             i = i+1
 
 
-        
-
-
-         
     def refresh():
         rept()
 
@@ -955,7 +946,7 @@ def rept():
     findEntry = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["ADMIN","ANCILLARY", "MEDICAL", "NURSING"], command=searching)
     findEntry.set("")
     findEntry.place(x=110, y=150)
-    findEntry.bind("<Key>", read2)
+    findEntry.bind("<Key>", searching)
 
 
     find2 = customtkinter.CTkLabel(f3, text="Status: ", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black").place(x=330, y=153)
@@ -963,7 +954,7 @@ def rept():
     findEntry3 = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Active","Inactive","AWOL"], command=searching)
     findEntry3.set("")
     findEntry3.place(x=410, y=150)
-    findEntry3.bind("<Key>", read2)
+    findEntry3.bind("<Key>", searching)
 
 
     refr = PIL.Image.open("Assets\\refresh.png")

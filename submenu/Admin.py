@@ -1446,7 +1446,7 @@ def adm():
     findEntry = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Casual","Contractual","On the Job","Permanent", "Volunteer"], command=searching)
     findEntry.set("")
     findEntry.place(x=110, y=150)
-    findEntry.bind("<Key>", read2)
+    findEntry.bind("<Key>", searching)
 
 
     find2 = customtkinter.CTkLabel(f3, text="Status: ", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black").place(x=330, y=153)
@@ -1454,7 +1454,7 @@ def adm():
     findEntry3 = customtkinter.CTkOptionMenu(f3,height= 35, width = 200,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", values=["Active","Inactive","AWOL"], command=searching)
     findEntry3.set("")
     findEntry3.place(x=410, y=150)
-    findEntry3.bind("<Key>", read2)
+    findEntry3.bind("<Key>", searching)
 
 
     refr = PIL.Image.open("Assets\\refresh.png")
