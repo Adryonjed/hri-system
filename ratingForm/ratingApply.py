@@ -14,6 +14,7 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
+from ratingForm.EditRating import *
 
 
 def show_perform(s_id):
@@ -26,7 +27,6 @@ def show_perform(s_id):
     conn.commit()
     conn.close()
     
-
 
     f4_1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4",bg_color="transparent",corner_radius=50)
     f4_1.place(x=380, y=200)
@@ -45,8 +45,9 @@ def show_perform(s_id):
     doblabel.place(x=1330, y=20)
 
     
-    f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="#d4d4d4",bg_color ="transparent",width=1050,height=500)
-    f5_2.place(x=220, y=150)
+    f5_2 = customtkinter.CTkScrollableFrame(f4_1, fg_color ="transparent",bg_color ="transparent", width= 1380,height= 500)
+    f5_2.place(x=50, y=150)
+
 
     ed = PIL.Image.open("Assets\\edit.png")
     edt = customtkinter.CTkImage(ed,size=(25,25))
@@ -59,59 +60,49 @@ def show_perform(s_id):
         result = cursor.fetchall()
         conn.commit()
         conn.close()
-        
-
+    
 
         i = 1
 
         tableframe = customtkinter.CTkFrame(f4_1,fg_color ="transparent",bg_color ="transparent",width=1200,height=50)
-        tableframe.place(x=225,y=150)
+        tableframe.place(x=55,y=150)
 
-        dfile = customtkinter.CTkLabel(tableframe, text="Date Filed        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile = customtkinter.CTkLabel(tableframe, text="Date Filed                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dfile.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
 
-        tol = customtkinter.CTkLabel(tableframe, text="Type of Leave                                 ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol = customtkinter.CTkLabel(tableframe, text="Total                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-        dayss = customtkinter.CTkLabel(tableframe, text="Days         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss = customtkinter.CTkLabel(tableframe, text="Average                                             ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
-        aps = customtkinter.CTkLabel(tableframe, text="Approval            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        aps = customtkinter.CTkLabel(tableframe, text="Action     ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         aps.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
-
-        aps = customtkinter.CTkLabel(tableframe, text="Action  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
 
         for g2 in result:
             
-            """dtr=datetime.strftime(g2[2],'%b/%d/%Y')"""
 
-            dfile2 = customtkinter.CTkLabel(f5_2, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dfile2 = customtkinter.CTkLabel(f5_2, text="                                                       ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
 
-            tol2 = customtkinter.CTkLabel(f5_2, text="                                                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            tol2 = customtkinter.CTkLabel(f5_2, text="                                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             tol2.grid(row=0, column=1,padx=35,pady=10,sticky = NSEW)
 
-            dayss2 = customtkinter.CTkLabel(f5_2, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dayss2 = customtkinter.CTkLabel(f5_2, text="                                ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
 
-            ap2 = customtkinter.CTkLabel(f5_2, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            ap2 = customtkinter.CTkLabel(f5_2, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             ap2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
 
-            ac = customtkinter.CTkLabel(f5_2, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-            ac.grid(row=0, column=4,padx=35,pady=10,sticky = NSEW)
             
-
-            jo = customtkinter.CTkLabel(f5_2, text=g2[1],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo = customtkinter.CTkLabel(f5_2, text=g2[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo.grid(row=i, column=0,padx=5,pady=10,sticky = NSEW)
-            jo2= customtkinter.CTkLabel(f5_2, text=g2[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo2= customtkinter.CTkLabel(f5_2, text=g2[9],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
-            """jo3= customtkinter.CTkLabel(f5_2, text=g2[4],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo3= customtkinter.CTkLabel(f5_2, text=g2[10],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo3.grid(row=i, column=2,padx=5,pady=10,sticky = NSEW)
-            jo4= customtkinter.CTkLabel(f5_2, text=g2[5],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
-            jo4.grid(row=i, column=3,padx=5,pady=10,sticky = NSEW)"""
-
+           
             shoow = customtkinter.CTkButton(f5_2,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
             hover_color = '#2a4859' , command=lambda k=g2[0]:showit(k))
             shoow.grid(row= i, column = 4,pady=5,padx = 3)
@@ -121,14 +112,14 @@ def show_perform(s_id):
     show_data()
 
     def showit(s_ide):
-        pass
+        show_edit(s_ide)
 
 
     def apply():
         root = customtkinter.CTkToplevel()
         root.geometry('800x900')
         root.overrideredirect(True)
-        root.title("Leave Form")
+        root.title("Rating Form")
         root.wm_attributes("-transparentcolor",'#333333')
         root.wait_visibility()
         root.grab_set()
@@ -182,7 +173,6 @@ def show_perform(s_id):
         my_valid = l_frame.register(validate)
 
 
-
         def proceed():
 
             idss = str(ide)
@@ -195,7 +185,7 @@ def show_perform(s_id):
             cri6 = str(cr6.get())
 
         
-            if (cri1 == "" or cri1 == " ") :
+            if (cri1 == "" or cri1 == " ") or (cri2 == "" or cri2 == " ") or (cri3 == "" or cri3 == " ") or (cri4 == "" or cri4 == " ") or (cri5 == "" or cri5 == " ") or (cri6 == "" or cri6 == " "):
                     messagebox.showinfo("Error", "Please fill up the blank entry")
                     return
             else:
@@ -228,8 +218,6 @@ def show_perform(s_id):
         criteria = customtkinter.CTkLabel(l_frame, text="Criteria", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black").place(x=270, y=200)
 
         rating = customtkinter.CTkLabel(l_frame, text="Rate", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black").place(x=655, y=200)
-
-        
 
         cr1label = customtkinter.CTkLabel(l_frame, text="Appearance / wears prescribed uniform with ID ", font=('Courier', 16),bg_color="transparent", text_color="black").place(x=70, y=250)
         cr1 = customtkinter.CTkEntry(l_frame,  height= 35, width=50, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black',validate='key',validatecommand=(my_valid,'%S'))

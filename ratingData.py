@@ -37,7 +37,6 @@ def perform():
             frame.destroy()
 
     def indicate(page):
-
         deletef()
         page()
 
@@ -87,10 +86,10 @@ def perform():
     aps = customtkinter.CTkLabel(tableframe, text="Department            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-    aps = customtkinter.CTkLabel(tableframe, text="Status            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps = customtkinter.CTkLabel(tableframe, text="Status               ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
-    aps = customtkinter.CTkLabel(tableframe, text="Action            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps = customtkinter.CTkLabel(tableframe, text="Action         ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
 
 
@@ -113,7 +112,7 @@ def perform():
         ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
         act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
@@ -147,10 +146,9 @@ def perform():
         
         i = i+1
 
-  
 
     def show_per(s_id):
-        show_perform(s_id)
+        indicate(show_perform(s_id))
         backt = customtkinter.CTkButton(None ,text="Back",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#8aafd4', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(perform))
         backt.place(x=1400, y=900)
@@ -199,21 +197,21 @@ def perform():
             col4 = customtkinter.CTkLabel(f3_1, text=array2[17],font=('Arial', 20),bg_color="transparent",text_color="black",anchor=W)
             col4.grid(row=i, column=3,padx = 5,pady=10,sticky = NSEW)
 
-            if g[19] == "Active":
+            if array2[19] == "Active":
                 clrstat = customtkinter.CTkImage(agree,size=(25,15))
 
-            elif g[19] == "Inactive":
+            elif array2[19] == "Inactive":
                 clrstat = customtkinter.CTkImage(are,size=(25,15))
                 
             else:
                 clrstat = customtkinter.CTkImage(aye,size=(25,15))
 
-            col5 = customtkinter.CTkLabel(f3_1, text=g[19], image = clrstat,compound= "left",font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
+            col5 = customtkinter.CTkLabel(f3_1, text=array2[19], image = clrstat,compound= "left",font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
             col5.grid(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
 
 
             customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
-            hover_color = '#2a4859' , command=lambda k=g[0]:show_per(k)).grid(row= i, column = 5,pady=5,padx = 10)
+            hover_color = '#2a4859' , command=lambda k=array2[0]:show_per(k)).grid(row= i, column = 5,pady=5,padx = 10)
 
             i = i+1
       
@@ -274,7 +272,7 @@ def perform():
 
 
             customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
-            hover_color = '#2a4859' , command=lambda k=g[0]:show_per(k)).grid(row= i, column = 5,pady=5,padx = 10)
+            hover_color = '#2a4859' , command=lambda k=array2[0]:show_per(k)).grid(row= i, column = 5,pady=5,padx = 10)
 
             i = i+1
 
