@@ -14,10 +14,10 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
-from leaveForm.leaveApply import *
 
 
-def leaves():
+
+def Highr():
    f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4",corner_radius=60)
    f3.place(x=380, y=200)
    f3.pack_propagate(False)
@@ -25,9 +25,9 @@ def leaves():
    f2title = customtkinter.CTkFrame(f3, width=1450, height=100, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
    f2title.place(x=20, y=20)
 
-   tit = customtkinter.CTkLabel(f2title, text="Leave Records", font=("Arial", 30, 'bold'))
+   tit = customtkinter.CTkLabel(f2title, text="High Ranking Offical Records", font=("Arial", 30, 'bold'))
    tit.place(x=20,y=20)
-   subtit = customtkinter.CTkLabel(f2title, text="manage leave records", font=("Arial", 20))
+   subtit = customtkinter.CTkLabel(f2title, text="manage High Ranking Offical Records", font=("Arial", 20))
    subtit.place(x=20,y=60)
 
 
@@ -67,7 +67,7 @@ def leaves():
     
    conn = connection()
    cursor = conn.cursor()
-   cursor.execute("SELECT * FROM personal")
+   cursor.execute("SELECT * FROM personal WHERE position = 'Permanent' ")
    result = cursor.fetchall()
    conn.commit()
    conn.close()
@@ -148,10 +148,7 @@ def leaves():
       i = i+1
 
    def show_lea(s_id):
-      show_leave(s_id)
-      backt = customtkinter.CTkButton(None ,text="Back",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
-      hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(leaves))
-      backt.place(x=1400, y=900)
+        pass
 
 
    def searching(event):
@@ -277,7 +274,7 @@ def leaves():
 
          
    def refresh():
-      leaves()
+      Highr()
 
     
    find = customtkinter.CTkLabel(f3, text="Find: ", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black").place(x=50, y=153)

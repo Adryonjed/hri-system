@@ -8,13 +8,14 @@ import customtkinter
 import PIL.Image
 from dashboard import *
 from submenu.Ancillary import *
-from report import *
+from report_submenu.report import *
 from submenu.Nursing import *
 from submenu.Admin import *
 from submenu.Medical import *
 from submenu.addEmployee import *
 from leaveData import *
 from ratingData import *
+from report_submenu.highranking import *
 
 
 
@@ -44,7 +45,6 @@ mbar.pack(side=tk.LEFT)
 mbar.pack_propagate (False)
 mbar.place(x=-35,y=0)
 
-mbarframe = customtkinter.CTkFrame(app, bg_color="transparent", fg_color="#335791",corner_radius=40, width=380, height=1060)
    
 mainframe = tk.Frame(app, bg='#aee0e8')
 mainframe.pack(side=tk.BOTTOM)
@@ -69,7 +69,9 @@ def hide_indi():
     bttn3.configure(fg_color="transparent")
     bttn4.configure(fg_color="transparent")
     bttn5.configure(fg_color="transparent")
-
+    bttn5_1.configure(fg_color="transparent")
+    bttn5_5.configure(fg_color="transparent")
+    
 def indicate (lb,page):
     hide_indi()
     lb.configure(fg_color = "black")
@@ -109,11 +111,11 @@ def toggle_switch():
 
 def update_switch():
     if is_on:
+        mbarframe2.place_forget()
         mbarframe.place(x=30,y=420)
         bttn5.place(x=-198, y=880)
         bttn4.place(x=-210, y=800)
         bttn3.place(x=-160, y=720)
-        
     else:
         mbarframe.place_forget()
         bttn5.place(x=-198, y=640)
@@ -182,6 +184,8 @@ def left4(event):
     bttn4.configure(text_color = 'white')
     bttn4.place_configure(x=-210,y=wid)
 
+
+
 bttn4 = customtkinter.CTkButton(mbar, text='Leave',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
 cursor='hand2',command=lambda: indicate(bttn4,leaves))
 bttn4.place(x=-210, y=560)
@@ -189,24 +193,50 @@ bttn4.bind("<Enter>", entered4)
 bttn4.bind("<Leave>", left4)
 
 
-
 def entered5(event):
     bttn5.configure(text_color = '#d6af74')
-
     wid = bttn5.winfo_y()
     bttn5.place_configure(x=-145,y=wid)
     
 def left5(event):
     bttn5.configure(text_color = 'white')
-   
     wid = bttn5.winfo_y()
     bttn5.place_configure(x=-198,y=wid)
 
+def toggle_switch2():
+    global is_onr
+    is_onr = not is_onr
+    update_switch2()
+
+def update_switch2():
+    if is_onr:
+        mbarframe.place_forget()
+        mbarframe2.place(x=30,y=660)
+        bttn5.place(x=-198, y=640)
+        bttn4.place(x=-210, y=560)
+        bttn3.place(x=-160, y=480)
+
+    else:
+        mbarframe2.place_forget()
+        
+
+is_onr = False
+
+mbarframe2 = customtkinter.CTkFrame(mbar, bg_color="transparent", fg_color="red", width=350, height=160)
+
 bttn5 = customtkinter.CTkButton(mbar, text='Reports',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
-cursor='hand2',command=lambda: indicate(bttn5,rept))
+cursor='hand2',command=lambda: indicate(bttn5,toggle_switch2))
 bttn5.place(x=-198, y=640)
 bttn5.bind("<Enter>", entered5)
 bttn5.bind("<Leave>", left5)
+
+bttn5_1 = customtkinter.CTkButton(mbarframe2, text='HIGH RANKING OFFICALS',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#335791',
+cursor='hand2',command=lambda: indicate(bttn5_1, Highr))
+bttn5_1.place(x=-130, y=60)
+
+bttn5_5 = customtkinter.CTkButton(mbarframe2, text='DATA SHEET RECORDS',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#335791',
+cursor='hand2',command=lambda: indicate(bttn5_5, rept))
+bttn5_5.place(x=-140, y=110)
 
 
 

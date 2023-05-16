@@ -18,9 +18,9 @@ from PIL import ImageGrab
 
 
 
-def show_apply(s_ids):
+def show_apply(s_ide):
     root = customtkinter.CTkToplevel()
-    root.geometry('1200x700')
+    root.geometry('1200x790')
     root.overrideredirect(True)
     root.title("Leave Form")
     root.wm_attributes("-transparentcolor",'#333333')
@@ -35,18 +35,18 @@ def show_apply(s_ids):
         root.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
 
 
-    l_frame = customtkinter.CTkFrame(root, bg_color='#333333', fg_color='white',width=1200,height=700,corner_radius=30)
+    l_frame = customtkinter.CTkFrame(root, bg_color='#333333', fg_color='white',width=1200,height=790,corner_radius=30)
     l_frame.pack()
 
-    idss = tk.StringVar()
+    ides = tk.StringVar()
 
     def id(word,num):
         if num == 1:
-            idss.set(word)
+            ides.set(word)
 
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT ide, ids, datefile, types, fromdate, todate, commu, reco,studl, others FROM leaves WHERE ide = %s",(s_ids))
+    cursor.execute("SELECT * FROM leaves WHERE ide = %s",(s_ide))
     results = cursor.fetchone()
     id(results[0],1)
 
@@ -66,105 +66,27 @@ def show_apply(s_ids):
         days = str(diff_days)
 
 
-    conn = connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM medcert WHERE id = %s",(s_ids))
-    imgres = cursor.fetchone()
-    conn.commit()
-    conn.close()
 
-    imga = PIL.Image.open(io.BytesIO(imgres[3]))
-    imgs = customtkinter.CTkImage(imga,size=(70,100))
-
-
-    def upl_mc():
-
-        global imgfile, photo, imahe
-        f_types = [('JPG', '*.jpg'),('PNG', '*.png')]
-        imgfile = filedialog.askopenfilename(filetypes=f_types)
-        photo = PIL.Image.open(imgfile)
-        img = customtkinter.CTkImage(photo,size=(70,100))
-        imgv= customtkinter.CTkImage(photo,size=(700,900))
-        
-        vie.configure(image=img)
-        imahe.configure(image=imgv)
-
-    def mc_view():
-
-        global photo, imahe
-
-        view_f = customtkinter.CTkToplevel()
-        view_f.geometry('800x1000')
-        view_f.overrideredirect(True)
-        view_f.wm_attributes("-transparentcolor",'gray')
-        view_f.grab_set()
-
-
-        def start_drag2(e):
-            e.widget.offset = (e.x, e.y)
-
-        def move_app2(e):
-    
-            view_f.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
-
-        imgview = customtkinter.CTkImage(imga,size=(700,900))
-
-        view_frame = customtkinter.CTkFrame(view_f, bg_color='gray', fg_color='white',width=800,height=1000,corner_radius=30)
-        view_frame.pack()
-
-        imahe = customtkinter.CTkLabel(view_frame, text='', image=imgview)
-        imahe.place(x=40,y=50)
-
-        def cancels():
-            view_f.destroy()
-
-        can = PIL.Image.open("Assets\\cancel.png")
-        checked2 = customtkinter.CTkImage(can,size=(30,30))
-        cancel = customtkinter.CTkButton(view_frame, text="", image=checked2, bg_color= 'white',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
-        cancel.place(x=740,y=10)
-
-        view_frame.bind("<Button-1>", start_drag2)
-        view_frame.bind("<B1-Motion>", move_app2)
-        view_f.mainloop()
-
-        
-
-    def imgsave():
-
-        idd = Label(textvariable=idss)
-        ides = str(idd.cget("text"))
-
-        if imgfile:
-            fob = open(imgfile, 'rb').read()
-            conn = connection()
-            cursor = conn.cursor()
-            args = (fob,ides)
-            
-            cursor.execute("UPDATE medcert SET img=%s WHERE id = %s",args)
-            conn.commit()
-            conn.close()
-        else:
-            messagebox.showinfo("Error", "No File Selected")
-
-    
+    idd = Label(textvariable=ides)
 
 
     def proceed():
 
-        idd = Label(textvariable=idss)
-        ides = str(idd.cget("text"))
-
+        idss = str(idd.cget("text"))
         dfile = str(dofentry.get_date())
         typ = str(tyle.get())
         froo =  str(lfromentry.get_date())
         too =  str(ltoentry.get_date())
-        comm = str(cmt.get())
-        recc = str(rec.get())
         vsp = str(vspltb.get("1.0","end-1c"))
         ics = str(icsltb.get("1.0","end-1c"))
-        bw = str(lbwtb.get("1.0","end-1c"))
+        ifp = str(medcert.get())
+        bw = str(bbw.get())
+        sts = str(stts.get("1.0","end-1c"))
+        comm = str(cmt.get())
+        recc = str(rec.get())
         stl = str(stud.get())
         ops = str(oth.get())
+
     
         if (typ == "" or typ == " ") or (froo == "" or froo == " ") or (too == "" or too == " ") or (comm == "" or comm == " ") or (recc == "" or recc == " "):
                 messagebox.showinfo("Error", "Please fill up the blank entry")
@@ -175,7 +97,7 @@ def show_apply(s_ids):
                     if msg == 'yes':
                         conn = connection()
                         cursor = conn.cursor()
-                        cursor.execute("UPDATE leaves SET datefile = '"+dfile+"', types = '"+typ+"', fromdate  = '"+froo+"', todate = '"+too+"', day = '"+days+"', commu = '"+comm+"', reco = '"+recc+"', vspl = '"+vsp+"', sl = '"+ics+"', lbw = '"+bw+"' , studl = '"+stl+"' , others = '"+ops+"' WHERE ide = '"+ides+"' ")
+                        cursor.execute("UPDATE leaves SET datefile = '"+dfile+"', types = '"+typ+"', fromdate  = '"+froo+"', todate = '"+too+"', day = '"+days+"', commu = '"+comm+"', reco = '"+recc+"', vspl = '"+vsp+"', sl = '"+ics+"', conditions = '"+ifp+"', lbw = '"+bw+"' , sem = '"+sts+"' , studl = '"+stl+"' , others = '"+ops+"' WHERE ide = '"+idss+"' ")
                         conn.commit()
                         conn.close()
 
@@ -192,14 +114,6 @@ def show_apply(s_ids):
                     return
         
 
-    def allsave():
-        imgsave()
-        proceed()
-
-
-    
-
-
 
     dof = customtkinter.CTkLabel(l_frame, text="Date Filing: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=50)
     dofentry = DateEntry(l_frame, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
@@ -212,79 +126,83 @@ def show_apply(s_ids):
     st.place(x=190, y= 100)
     st.set(results[3])
 
-    nool = customtkinter.CTkLabel(l_frame, text="Number of Working days applied for", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=200)
+    nool = customtkinter.CTkLabel(l_frame, text="Number of Working days applied for:", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=165)
 
-    lfrom = customtkinter.CTkLabel(l_frame, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=252)
+    lfrom = customtkinter.CTkLabel(l_frame, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=212)
     lfromentry = DateEntry(l_frame, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
     lfromentry.set_date(results[4])
-    lfromentry.place(x=100, y= 250)
+    lfromentry.place(x=100, y= 210)
 
-    lto = customtkinter.CTkLabel(l_frame, text="To: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=250, y=252)
+    lto = customtkinter.CTkLabel(l_frame, text="To: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=250, y=212)
     ltoentry = DateEntry(l_frame, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
     ltoentry.set_date(results[5])
-    ltoentry.place(x=305, y= 250)
+    ltoentry.place(x=305, y= 210)
 
-    total = Label(l_frame, text="Days", font=('Arial', 16, 'bold'),bg="white")
-    total.place(x=480, y=252)
+    total = Label(l_frame, text=str(results[6]) + " Days", font=('Arial', 16, 'bold'),bg="white")
+    total.place(x=480, y=212)
+
+    sol = customtkinter.CTkButton(l_frame,text="count",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,
+    hover_color = '#2a4859',cursor='hand2',command= solve)
+    sol.place(x=480, y=250)
+
+    vspl = customtkinter.CTkLabel(l_frame, text="In case of Vacation/Special Privilege Leave:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=300)
+    vspltb = customtkinter.CTkTextbox(l_frame,height= 50, width = 400,border_width=2,bg_color="transparent", fg_color="white", text_color="black",font=('Arial', 16),scrollbar_button_color="#616161",scrollbar_button_hover_color="#616161")
+    vspltb.place(x=50, y= 340)
+
+    icsl = customtkinter.CTkLabel(l_frame, text="In case of Sick Leave:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=400)
+    icsltb = customtkinter.CTkTextbox(l_frame,height= 50, width = 400,border_width=2,bg_color="transparent", fg_color="white", text_color="black",font=('Arial', 16),scrollbar_button_color="#616161",scrollbar_button_hover_color="#616161")
+    icsltb.place(x=50, y= 440)
+
+    med = customtkinter.CTkLabel(l_frame, text="If Sick leave, Passed a Medical Certificate:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=500)
+    medcert = tk.StringVar()
+    medcert1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Yes", radiobutton_height= 20, radiobutton_width= 20, border_width_checked = 10, border_width_unchecked= 5, value="Yes",bg_color="transparent",variable=medcert, cursor='hand2', font=('Courier', 16, 'bold'),text_color='#171414').place(x=50,y= 530)
+    medcert2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="No",radiobutton_height= 20, radiobutton_width= 20, border_width_checked = 10, border_width_unchecked= 5, value="No",bg_color="transparent",variable=medcert, cursor='hand2',font=('Courier', 16, 'bold'),text_color='#171414').place(x=140,y= 530)
+    medcert.set(results[11])
+
+    lbw = customtkinter.CTkLabel(l_frame, text="In case of Special Leave Benefits for Women:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=560)
+    bbw = tk.StringVar()
+    lbwtb = customtkinter.CTkOptionMenu(l_frame,height= 35, width = 400,fg_color='#b8b8b8',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = '#a19e9d',text_color = "black",variable = bbw, values=["Maternity Leave", "VAWC", "gynecological disorder"])
+    lbwtb.place(x=50, y= 600)
+    bbw.set(results[12])
+
+    att = customtkinter.CTkLabel(l_frame, text="In Case Attended a Seminar:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=650)
+    stts = customtkinter.CTkTextbox(l_frame,height= 50, width = 400,border_width=2,bg_color="transparent", fg_color="white", text_color="black",font=('Arial', 16),scrollbar_button_color="#616161",scrollbar_button_hover_color="#616161")
+    stts.place(x=50, y= 690)
 
     comm = customtkinter.CTkLabel(l_frame, text="Commutation:", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=700, y=100)
     cmt = tk.StringVar()
     opcm1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Requested", radiobutton_height= 30, radiobutton_width= 30, border_width_checked = 10, border_width_unchecked= 5, value="Requested",bg_color ="white",variable=cmt, cursor='hand2', font=('Courier', 16, 'bold'),text_color='#171414').place(x=700,y= 150)
     opcm2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="Not Requested",radiobutton_height= 30, radiobutton_width= 30, border_width_checked = 10, border_width_unchecked= 5, value="Not Requested",bg_color ="white",variable=cmt, cursor='hand2',font=('Courier', 16, 'bold'),text_color='#171414').place(x=870,y= 150)
-    cmt.set(results[6])
+    cmt.set(results[7])
 
     recom = customtkinter.CTkLabel(l_frame, text="Recommendation:", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=700, y=200)
     rec = tk.StringVar()
     opre1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Approve", radiobutton_height= 30, radiobutton_width= 30, border_width_checked = 10, border_width_unchecked= 5, value="Approve",bg_color="transparent",variable=rec, cursor='hand2', font=('Courier', 16, 'bold'),text_color='#171414').place(x=700,y= 250)
     opre2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="Decline",radiobutton_height= 30, radiobutton_width= 30, border_width_checked = 10, border_width_unchecked= 5, value="Decline",bg_color="transparent",variable=rec, cursor='hand2',font=('Courier', 16, 'bold'),text_color='#171414').place(x=870,y= 250)
-    rec.set(results[7])
-
-    vspl = customtkinter.CTkLabel(l_frame, text="In case of Vacation/Special Privilege Leave:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=350)
-    vspltb = customtkinter.CTkTextbox(l_frame,height= 50, width = 400 ,border_width=2,bg_color="transparent", fg_color="white", text_color="black",font=('Arial', 16),scrollbar_button_color="#616161",scrollbar_button_hover_color="#616161")
-    vspltb.place(x=50, y= 390)
-
-    icsl = customtkinter.CTkLabel(l_frame, text="In case of Sick Leave:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=450)
-    icsltb = customtkinter.CTkTextbox(l_frame,height= 50, width = 400,border_width=2,bg_color="transparent", fg_color="white", text_color="black",font=('Arial', 16),scrollbar_button_color="#616161",scrollbar_button_hover_color="#616161")
-    icsltb.place(x=50, y= 490)
-
-    lbw = customtkinter.CTkLabel(l_frame, text="In case of Special Leave Benefits for Women:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=20,y=550)
-    lbwtb = customtkinter.CTkTextbox(l_frame,height= 50, width = 400,border_width=2,bg_color="transparent", fg_color="white", text_color="black",font=('Arial', 16),scrollbar_button_color="#616161",scrollbar_button_hover_color="#616161")
-    lbwtb.place(x=50, y= 590)
+    rec.set(results[8])
 
     csl = customtkinter.CTkLabel(l_frame, text="In case of Study Leave:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=700, y=350)
     stud = tk.StringVar()
     opcsl1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Completion of Master's Degree", radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Filipino',bg_color="transparent",variable=stud, cursor='hand2', font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 380)
     opcsl2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="BAR/Board Examination Review",radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Dual Citizenship',bg_color="transparent",variable=stud, cursor='hand2',font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 410)
-    stud.set(results[8])
+    stud.set(results[14])
 
     op = customtkinter.CTkLabel(l_frame, text="Other purpose:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=700, y=450)
     oth = tk.StringVar()
     op1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Monetization of Leave Credits", radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Filipino',bg_color="transparent",variable=oth, cursor='hand2', font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 480)
     op2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="Terminal Leave",radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Dual Citizenship',bg_color="transparent",variable=oth, cursor='hand2',font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 510)
-    oth.set(results[9])
-
-    sol = customtkinter.CTkButton(l_frame,text="count",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command= solve)
-    sol.place(x=480, y=300)
-
-    upl = customtkinter.CTkButton(l_frame,text="Upload",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command= upl_mc)
-    upl.place(x=480, y=490)
-
-    vie = customtkinter.CTkButton(l_frame,text="",image=imgs,width=70,height=100, cursor='hand2',bg_color="transparent", fg_color="transparent", command=mc_view)
-    vie.place(x=570, y=450)
-
+    oth.set(results[15])
     
-    proc = customtkinter.CTkButton(l_frame,text="Proceed",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2',command= allsave)
-    proc.place(x=900, y=625)
+
+    proc = customtkinter.CTkButton(l_frame,text="Proceed",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=160, height=60, border_width=0, corner_radius=10,
+    hover_color = '#2a4859',cursor='hand2',command= proceed)
+    proc.place(x=990, y=690)
+
 
     can = PIL.Image.open("Assets\\cancel.png")
     checked2 = customtkinter.CTkImage(can,size=(30,30))
     cancel = customtkinter.CTkButton(l_frame, text="", image=checked2, bg_color= 'white',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
     cancel.place(x=1135,y=15)
-
-
 
     root.bind("<Button-1>", start_drag)
     root.bind("<B1-Motion>", move_app)

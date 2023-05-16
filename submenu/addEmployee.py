@@ -11,6 +11,10 @@ from tkinter import ttk
 import customtkinter
 from PIL import ImageTk, Image
 import PIL.Image
+import io
+from PIL import ImageGrab
+from tkinter import filedialog
+from PIL import Image, ImageTk
 from dashboard import*
 
    
@@ -45,6 +49,9 @@ def add_e():
    def validate(u_input): 
       return u_input.isdigit()
    my_valid = f2_1.register(validate)
+
+   
+      
 
 
    def add():
@@ -219,16 +226,42 @@ def add_e():
                
                messagebox.showinfo("Error", "Data already exist")
                return
-      
-      
+            
+   def upl_mc():
 
+      global imgfile, photo
+
+      f_types = [('JPG', '*.jpg'),('PNG', '*.png')]
+      imgfile = filedialog.askopenfilename(filetypes=f_types)
+      photo = PIL.Image.open(imgfile)
+
+      imgs = customtkinter.CTkImage(photo,size=(140,140))
+
+      profile = customtkinter.CTkLabel(sf, text="", image= imgs)
+      profile.place(x=1230, y=100)
+
+   def addimg():
+      if imgfile:
+            fob = open(imgfile, 'rb').read()
+            conn = connection()
+            cursor = conn.cursor()
+            args = (sn.get(), fnEntry.get(),fob)
+            cursor.execute("INSERT INTO profile (fname,sname,img) VALUES (%s,%s,%s)",args)
+            conn.commit()
+            conn.close()
+      else:
+            messagebox.showinfo("Error", "No File Saved")
+
+   def allsave():
+       addimg()
+       add()
 
    back = customtkinter.CTkButton(sf, text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
    hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(dash))
    back.place(x=1000, y=2200)
 
    addto = customtkinter.CTkButton(sf,text="Attach",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
-   hover_color = '#2a4859',cursor='hand2',command=add)
+   hover_color = '#2a4859',cursor='hand2',command=allsave)
    addto.place(x=1200, y=2200)
 
 #-------------------------------------------------------------------------------------------------------------------------------------#
@@ -242,8 +275,10 @@ def add_e():
    sublabel = Label(sf, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#aeafb0")
    sublabel.place(x=30, y=55)
 
-   
+   pro_up = customtkinter.CTkButton(sf, width=50, height=30, command=upl_mc, text="Chose file")
+   pro_up.place(x=920, y=200)
 
+   
    snlabel = Label(sf, text="1.SURNAME :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=100)
    sn = customtkinter.CTkEntry(sf, height= 35,width=450, fg_color='white',border_width = 2, corner_radius= 10,placeholder_text = "Name extension (Jr.,Sr.)",font=('Arial', 22),placeholder_text_color= "gray",text_color='black')
    sn.place(x=280, y=100)
@@ -439,6 +474,8 @@ def add_e():
 
    line2 = customtkinter.CTkFrame(sf, height=40,width=1485, fg_color="#aeafb0").place(x=0,y=1000)
    fblabel = Label(sf, text="FAMILY BACKGROUND", font=('Arial', 18, 'bold'),bg="#aeafb0").place(x=30, y=1005)
+
+   
 
    spolabel = Label(sf, text="21.SPOUSE'S SURNAME: ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1052)
    spoEntry = customtkinter.CTkEntry(sf, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black')
@@ -636,27 +673,27 @@ def add_e():
    roelabel.place(x=30, y=1750)
 
 
-   stalabel = Label(sf, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
+
+   polabel = Label(sf, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
+   poEntry = tk.StringVar()
+   po = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"])
+   po.place(x=160, y=1800)
+   po.set("")
+
+   stalabel = Label(sf, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
    staEntry = tk.StringVar()
    sta = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Registered Nurse", "LPN", "Midwife", "Caregivers", "Pediatric nursing",  "Practitioner", "Pharmacist","Radiologist", "Cardiologist", "Pathologist" ,"Dietitian", "Pediatrician", "Orthopedic", "General surgeons", "Pulmonologists", "Anesthesiologists", "Gynecologists", "Therapist", "hospice workers", "Social workers", "Cook", "Housekeeper", "Driver", "Porter", "Maintenance Worker", "COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
-   sta.place(x=160, y=1800)
+   sta.place(x=600, y=1850)
    sta.set("")
 
 
-   polabel = Label(sf, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=520, y=1800)
-   poEntry = tk.StringVar()
-   po = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"])
-   po.place(x=640, y=1800)
-   po.set("")
-
-
-   deptlabel = Label(sf, text="STATION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=1000, y=1800)
+   deptlabel = Label(sf, text="STATION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
    deEntry = tk.StringVar()
    de = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = deEntry, values=["ADMIN","ANCILLARY", "MEDICAL", "NURSING"])
-   de.place(x=1120, y=1800)
+   de.place(x=600, y=1970)
    de.set("")
 
-   nool = customtkinter.CTkLabel(sf, text="If Contractual (time of contract)", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1870)
+   nool = customtkinter.CTkLabel(sf, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1870)
 
    lfrom = customtkinter.CTkLabel(sf, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=1922)
    lfrom = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
@@ -668,7 +705,7 @@ def add_e():
    lto.set_date(dt)
    lto.place(x=305, y= 1920)
 
-   started = customtkinter.CTkLabel(sf, text="If Permanent (when it started)", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1970)
+   started = customtkinter.CTkLabel(sf, text="If Permanent (when it started):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1970)
 
    lstarted = customtkinter.CTkLabel(sf, text="Start: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=2022)
    lstart = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)

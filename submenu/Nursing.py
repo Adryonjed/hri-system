@@ -16,7 +16,14 @@ import io
 from PIL import ImageGrab
 
 
+#------------------------------------------------------- 
+#-------------------------------------------------------frames  
+#-------------------------------------------------------
+
+
 def nurse():
+
+    
     f3 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4",corner_radius=60)
     f3.place(x=380, y=200)
     f3.pack_propagate(False)
@@ -40,6 +47,10 @@ def nurse():
 
         deletef()
         page()
+
+#------------------------------------------------------- 
+#-------------------------------------------------------variables to show databases  
+#-------------------------------------------------------
 
     p_sname = tk.StringVar()
     p_fname = tk.StringVar()
@@ -378,6 +389,8 @@ def nurse():
 
     def show(s_id):
 
+        global imgas
+
         conn = connection()
         cursor = conn.cursor()
         cursor2 = conn.cursor()
@@ -390,6 +403,7 @@ def nurse():
         cursor9 = conn.cursor()
         cursor10 = conn.cursor()
         cursor11 = conn.cursor()
+        cursor12 = conn.cursor()
         cursor.execute("SELECT * FROM personal WHERE id=%s",(s_id))
         cursor2.execute("SELECT * FROM numbers WHERE id=%s",(s_id))
         cursor3.execute("SELECT * FROM residential WHERE id=%s",(s_id))
@@ -401,6 +415,7 @@ def nurse():
         cursor9.execute("SELECT * FROM vocational WHERE id=%s",(s_id))
         cursor10.execute("SELECT * FROM college WHERE id=%s",(s_id))
         cursor11.execute("SELECT * FROM graduate WHERE id=%s",(s_id))
+        cursor12.execute("SELECT * FROM profile WHERE id=%s",(s_id))
         result = cursor.fetchone()
         result2 = cursor2.fetchone()
         result3 = cursor3.fetchone()
@@ -412,14 +427,15 @@ def nurse():
         result9 = cursor9.fetchone()
         result10 = cursor10.fetchone()
         result11 = cursor11.fetchone()
+        result12 = cursor12.fetchone()
 
-        dtr=datetime.strftime(result[4],'%b/%d/%Y')
+        imga = PIL.Image.open(io.BytesIO(result12[3]))
+        imgas = customtkinter.CTkImage(imga,size=(140,140))
     
         id(result[0],1)
         per(result[1],1)
         per(result[2],2)
         per(result[3],3)
-        per(dtr,4)
         per(result[5],5)
         per(result[6],6)
         per(result[7],7)
@@ -560,10 +576,10 @@ def nurse():
     aps = customtkinter.CTkLabel(tableframe, text="Department            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-    aps = customtkinter.CTkLabel(tableframe, text="Status            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps = customtkinter.CTkLabel(tableframe, text="Status               ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
-    aps = customtkinter.CTkLabel(tableframe, text="Action            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    aps = customtkinter.CTkLabel(tableframe, text="Action",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=5,padx=5,pady=10,sticky = NSEW)
 
     i = 1
@@ -621,6 +637,9 @@ def nurse():
 
         i = i+1
 
+#------------------------------------------------------- 
+#-------------------------------------------------------CRUD/update image functions   
+#-------------------------------------------------------
 
 
 
@@ -668,7 +687,7 @@ def nurse():
         cv3.configure(yscrollcommand=sb3.set)
         cv3.bind('<Configure>', lambda e:cv3.configure(scrollregion = cv3.bbox('all')))
 
-        sf3 = customtkinter.CTkFrame(cv3, width=1500, height=2000 ,fg_color ="#d4d4d4")
+        sf3 = customtkinter.CTkFrame(cv3, width=1500, height=2300 ,fg_color ="#d4d4d4")
         cv3.create_window((0,0), window=sf3, anchor="nw")
 
         sf3.bind("<MouseWheel>", lambda event: cv3.yview_scroll(-int(event.delta/100), "units"))
@@ -845,14 +864,50 @@ def nurse():
                     messagebox.showinfo("Error", "Inventory already exist")
                     return
                 nurse()
+        
+
+        def upl_mc():
+            global imgfile, photo
+
+            f_types = [('JPG', '*.jpg'),('PNG', '*.png')]
+            imgfile = filedialog.askopenfilename(filetypes=f_types)
+            photo = PIL.Image.open(imgfile)
+
+            imgs = customtkinter.CTkImage(photo,size=(140,140))
+            profile.configure(image= imgs)
+            profile.place(x=1230, y=100)
+
+        def updimg():
+            idd = Label(textvariable=ids)
+            ide = str(idd.cget("text"))
+
+            if imgfile:
+                fob = open(imgfile, 'rb').read()
+                conn = connection()
+                cursor = conn.cursor()
+                args = (fob,ide)
+                
+                cursor.execute("UPDATE profile SET img=%s WHERE id = %s",args)
+                conn.commit()
+                conn.close()
+            else:
+                messagebox.showinfo("Error", "No File Selected")
+
+        def allsave():
+            updimg()
+            update()
+
+#------------------------------------------------------- 
+#-------------------------------------------------------widgets fucntions   
+#-------------------------------------------------------
 
         back3 = customtkinter.CTkButton(sf3,text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(nurse))
-        back3.place(x=1000, y=1900)
+        back3.place(x=1000, y=2200)
 
         uptd = customtkinter.CTkButton(sf3,text="Update",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
-        hover_color = '#2a4859',cursor='hand2',command=update)
-        uptd.place(x=1200, y=1900)
+        hover_color = '#2a4859',cursor='hand2',command=allsave)
+        uptd.place(x=1200, y=2200)
 
 
         #-------------------------------------------------------------------------------------------------------------------------------------#
@@ -865,6 +920,12 @@ def nurse():
 
         line1 = customtkinter.CTkFrame(sf3, height=40,width=1485, fg_color="#aeafb0").place(x=0,y=50)
         sublabel = Label(sf3, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#aeafb0").place(x=30, y=55)
+
+        
+        profile = customtkinter.CTkLabel(sf3, text="", image= imgas)
+        profile.place(x=1230, y=100)
+        pro_up = customtkinter.CTkButton(sf3, width=50, height=30, command=upl_mc, text="Chose file")
+        pro_up.place(x=920, y=200)
 
 
         snlabel = Label(sf3, text="1.SURNAME :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=100)
@@ -1264,24 +1325,50 @@ def nurse():
         roelabel = Label(sf3, text="EMPLOYEE DETAILS", font=('Arial', 17, 'bold'),bg="#d4d4d4")
         roelabel.place(x=30, y=1750)
 
-        stalabel = Label(sf3, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
-        staEntry = tk.StringVar()
-        sta = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Registered Nurse", "LPN", "Midwife", "Caregivers", "Pediatric nursing",  "Practitioner"])
-        sta.place(x=160, y=1800)
-        sta.set(result2[15])
-
-        polabel = Label(sf3, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=520, y=1800)
+        polabel = Label(sf3, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
         poEntry = tk.StringVar()
         po = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"])
-        po.place(x=640, y=1800)
+        po.place(x=160, y=1800)
         po.set(result2[16])
 
-        deptlabel = Label(sf3, text="STATION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=1000, y=1800)
+        stalabel = Label(sf3, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
+        staEntry = tk.StringVar()
+        sta = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
+        sta.place(x=600, y=1850)
+        sta.set(result2[15])
+
+
+        deptlabel = Label(sf3, text="STATION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
         deEntry = tk.StringVar()
         de = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = deEntry, values=["ANCILLARY", "NURSING", "ADMIN", "MEDICAL "])
-        de.place(x=1120, y=1800)
+        de.place(x=600, y=1970)
         de.set(result2[17])
-        
+
+
+        nool = customtkinter.CTkLabel(sf3, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1870)
+
+
+        lfrom = customtkinter.CTkLabel(sf3, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=1922)
+        lfrom = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+        lfrom.set_date(result2[20])
+        lfrom.place(x=100, y= 1920)
+
+        lto = customtkinter.CTkLabel(sf3, text="To: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=270, y=1922)
+        lto = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+        lto.set_date(result2[21])
+        lto.place(x=305, y= 1920)
+
+        started = customtkinter.CTkLabel(sf3, text="If Permanent (when it started):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1970)
+
+        lstarted = customtkinter.CTkLabel(sf3, text="Start: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=2022)
+        lstart = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+        lstart.set_date(result2[22])
+        lstart.place(x=100, y= 2020)
+
+
+#------------------------------------------------------- 
+#-------------------------------------------------------search fucntions   
+#-------------------------------------------------------
 
     def searching(event):
         for rows2 in f3_1.grid_slaves():

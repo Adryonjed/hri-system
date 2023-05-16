@@ -24,6 +24,8 @@ def show_perform(s_id):
     cursor.execute("SELECT * FROM personal WHERE id=%s",(s_id))
     result = cursor.fetchone()
     ide = result[0]
+    fname = result[2]
+    sname = result[1]
     conn.commit()
     conn.close()
     
@@ -98,9 +100,9 @@ def show_perform(s_id):
             
             jo = customtkinter.CTkLabel(f5_2, text=g2[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo.grid(row=i, column=0,padx=5,pady=10,sticky = NSEW)
-            jo2= customtkinter.CTkLabel(f5_2, text=g2[9],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo2= customtkinter.CTkLabel(f5_2, text=g2[11],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
-            jo3= customtkinter.CTkLabel(f5_2, text=g2[10],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo3= customtkinter.CTkLabel(f5_2, text=g2[12],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo3.grid(row=i, column=2,padx=5,pady=10,sticky = NSEW)
            
             shoow = customtkinter.CTkButton(f5_2,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
@@ -176,6 +178,8 @@ def show_perform(s_id):
         def proceed():
 
             idss = str(ide)
+            ffname = str(fname)
+            ssname = str(sname)
             dfile = str(doblabel.cget("text"))
             cri1 = str(cr1.get())
             cri2 = str(cr2.get())
@@ -195,7 +199,7 @@ def show_perform(s_id):
                             conn = connection()
                             cursor = conn.cursor()
                             cursor.execute(
-                                "INSERT INTO perform VALUES ('""','"+idss+"','"+dfile+"','"+cri1+"','"+cri2+"','"+cri3+"','"+cri4+"','"+cri5+"','"+cri6+"','"+ttl+"','"+average+"') ")
+                                "INSERT INTO perform VALUES ('""','"+idss+"','"+dfile+"','"+ffname+"','"+ssname+"','"+cri1+"','"+cri2+"','"+cri3+"','"+cri4+"','"+cri5+"','"+cri6+"','"+ttl+"','"+average+"') ")
                             conn.commit()
                             conn.close()
                             root.destroy()
@@ -276,7 +280,7 @@ def show_perform(s_id):
         root.mainloop()
 
 
-    aply = customtkinter.CTkButton(f4_1,text="Apply for leave",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#8ad4c9', width=160, height=60, border_width=0, corner_radius=10,
+    aply = customtkinter.CTkButton(f4_1,text="Rate Data",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=160, height=60, border_width=0, corner_radius=10,
     hover_color = '#2a4859',cursor='hand2',command=apply)
     aply.place(x=1200, y=700)
 
