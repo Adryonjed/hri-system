@@ -236,9 +236,13 @@ def add_e():
       photo = PIL.Image.open(imgfile)
 
       imgs = customtkinter.CTkImage(photo,size=(140,140))
+      imgs2 = customtkinter.CTkImage(photo,size=(250,250))
 
       profile = customtkinter.CTkLabel(sf, text="", image= imgs)
       profile.place(x=1230, y=100)
+
+      profile2 = customtkinter.CTkLabel(sf, text="", image= imgs2)
+      profile2.place(x=1120, y=1800)
 
    def addimg():
       if imgfile:
@@ -256,11 +260,11 @@ def add_e():
        addimg()
        add()
 
-   back = customtkinter.CTkButton(sf, text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
+   back = customtkinter.CTkButton(sf, text="Back",fg_color='#9c465d',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
    hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(dash))
    back.place(x=1000, y=2200)
 
-   addto = customtkinter.CTkButton(sf,text="Attach",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
+   addto = customtkinter.CTkButton(sf,text="Attach",fg_color='#46829c',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
    hover_color = '#2a4859',cursor='hand2',command=allsave)
    addto.place(x=1200, y=2200)
 
@@ -275,8 +279,10 @@ def add_e():
    sublabel = Label(sf, text="PERSONAL INFORMATION ", font=('Arial', 18, 'bold'),bg="#aeafb0")
    sublabel.place(x=30, y=55)
 
-   pro_up = customtkinter.CTkButton(sf, width=50, height=30, command=upl_mc, text="Chose file")
-   pro_up.place(x=920, y=200)
+   pro_up = customtkinter.CTkButton(sf, width=50, height=30, command=upl_mc, text="Chose Image file")
+   pro_up.place(x=1060, y=200)
+
+   phott = customtkinter.CTkLabel(sf, text="PHOTO", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="#9c9c9c").place(x=1230, y=150)
 
    
    snlabel = Label(sf, text="1.SURNAME :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=100)
@@ -680,6 +686,8 @@ def add_e():
    po.place(x=160, y=1800)
    po.set("")
 
+   
+
    stalabel = Label(sf, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
    staEntry = tk.StringVar()
    sta = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Registered Nurse", "LPN", "Midwife", "Caregivers", "Pediatric nursing",  "Practitioner", "Pharmacist","Radiologist", "Cardiologist", "Pathologist" ,"Dietitian", "Pediatrician", "Orthopedic", "General surgeons", "Pulmonologists", "Anesthesiologists", "Gynecologists", "Therapist", "hospice workers", "Social workers", "Cook", "Housekeeper", "Driver", "Porter", "Maintenance Worker", "COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
@@ -692,6 +700,7 @@ def add_e():
    de = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = deEntry, values=["ADMIN","ANCILLARY", "MEDICAL", "NURSING"])
    de.place(x=600, y=1970)
    de.set("")
+   
 
    nool = customtkinter.CTkLabel(sf, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1870)
 
@@ -711,6 +720,7 @@ def add_e():
    lstart = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
    lstart.set_date(dt)
    lstart.place(x=100, y= 2020)
+
 
 
 

@@ -12,15 +12,7 @@ from time import strftime
 from tkcalendar import DateEntry
 from datetime import date
 from datetime import datetime
-from reportlab.pdfgen import canvas
-from reportlab.lib.units import inch
-from reportlab.lib.pagesizes import GOV_LEGAL
-
-
-
-
-
-
+from report_submenu.exprt import *
 
     
 
@@ -655,9 +647,20 @@ def rept():
         j.bind("<MouseWheel>", lambda event: cv2.yview_scroll(-int(event.delta/100), "units"))
 
 
-        back2 = customtkinter.CTkButton(sf2,text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#ffffff', width=160, height=60, border_width=0, corner_radius=10,
+        back2 = customtkinter.CTkButton(sf2,text="Back",fg_color='#9c465d',font=('Arial', 20,) ,bg_color= '#ffffff', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(rept))
         back2.place(x=1000, y=1900)
+
+        idd = Label(textvariable=ids)
+        ides = str(idd.cget('text'))
+
+        back2 = customtkinter.CTkButton(sf2,text="Save as File",fg_color='#46829c',font=('Arial', 20,) ,bg_color= '#ffffff', width=160, height=60, border_width=0, corner_radius=10,
+        hover_color = '#2a4859',cursor='hand2',command=lambda k=ides:save_file(k))
+        back2.place(x=1200, y=1900)
+
+
+        def save_file(s_ide):
+            saveasfile(s_ide)
 
 
    #-------------------------------------------------------------------------------------------------------------------------------------#
@@ -771,40 +774,40 @@ def rept():
         mfnshow = Label(sf2, text = "", font=('Courier',16,'bold'),bg="#ffffff",textvariable=f_mfn).place(x=290,y=1402)
         mnshow = Label(sf2, text = "", font=('Courier',16,'bold'),bg="#ffffff",textvariable=f_mn).place(x=290,y=1439)
 
-        enosshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=e_school).place(x=282,y=1585)
-        ebdcshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=e_bdc).place(x=573,y=1585)
+        enosshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=e_school).place(x=282,y=1585)
+        ebdcshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=e_bdc).place(x=573,y=1585)
         efromshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=e_fro).place(x=960,y=1585)
         etoshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=e_to).place(x=1070,y=1585)
         ehishow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=e_hig).place(x=1175,y=1585)
         eygshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=e_yg).place(x=1280,y=1585)
         esashow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=e_sa).place(x=1400,y=1585)
 
-        hnosshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=h_school).place(x=282,y=1627)
-        hbdcshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=h_bdc).place(x=573,y=1627)
+        hnosshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=h_school).place(x=282,y=1627)
+        hbdcshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=h_bdc).place(x=573,y=1627)
         hfromshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=h_fro).place(x=960,y=1627)
         htoshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=h_to).place(x=1070,y=1627)
         hhishow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=h_hig).place(x=1175,y=1627)
         hygshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=h_yg).place(x=1280,y=1627)
         hsashow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=h_sa).place(x=1400,y=1627)
 
-        vnosshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=v_school).place(x=282,y=1669)
-        vbdcshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=v_bdc).place(x=573,y=1669)
+        vnosshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=v_school).place(x=282,y=1669)
+        vbdcshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=v_bdc).place(x=573,y=1669)
         vfromshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=v_fro).place(x=960,y=1669)
         vtoshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=v_to).place(x=1070,y=1669)
         vhishow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=v_hig).place(x=1175,y=1669)
         vygshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=v_yg).place(x=1280,y=1669)
         vsashow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=v_sa).place(x=1400,y=1669)
 
-        cnosshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=c_school).place(x=282,y=1705)
-        cbdcshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=c_bdc).place(x=573,y=1705)
+        cnosshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=c_school).place(x=282,y=1705)
+        cbdcshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=c_bdc).place(x=573,y=1705)
         cfromshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=c_fro).place(x=960,y=1705)
         ctoshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=c_to).place(x=1070,y=1705)
         chishow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=c_hig).place(x=1175,y=1705)
         cygshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=c_yg).place(x=1280,y=1705)
         csashow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=c_sa).place(x=1400,y=1705)
 
-        gnosshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=g_school).place(x=282,y=1743)
-        gbdcshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=g_bdc).place(x=573,y=1743)
+        gnosshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=g_school).place(x=282,y=1743)
+        gbdcshow = Label(sf2, text = "", font=('Courier',7,'bold'),bg="#ffffff",textvariable=g_bdc).place(x=573,y=1743)
         gfromshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=g_fro).place(x=960,y=1743)
         gtoshow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=g_to).place(x=1070,y=1743)
         ghishow = Label(sf2, text = "", font=('Courier',12,'bold'),bg="#ffffff",textvariable=g_hig).place(x=1175,y=1743)
@@ -970,7 +973,6 @@ def rept():
     
     findEntry2 = customtkinter.CTkEntry(f3,height = 37, width= 400, fg_color='white',border_width = 2 , corner_radius= 10,font=('Arial', 20),text_color='black')
     findEntry2.place(x=940, y=150)
-
 
    
     

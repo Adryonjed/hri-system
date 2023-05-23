@@ -389,7 +389,7 @@ def nurse():
 
     def show(s_id):
 
-        global imgas
+        global imgas,imgas2
 
         conn = connection()
         cursor = conn.cursor()
@@ -431,6 +431,7 @@ def nurse():
 
         imga = PIL.Image.open(io.BytesIO(result12[3]))
         imgas = customtkinter.CTkImage(imga,size=(140,140))
+        imgas2 = customtkinter.CTkImage(imga,size=(250,250))
     
         id(result[0],1)
         per(result[1],1)
@@ -874,8 +875,12 @@ def nurse():
             photo = PIL.Image.open(imgfile)
 
             imgs = customtkinter.CTkImage(photo,size=(140,140))
-            profile.configure(image= imgs)
+            imgs2 = customtkinter.CTkImage(photo,size=(250,250))
+
+            profile.configure(image = imgs)
             profile.place(x=1230, y=100)
+            profile2.configure(image = imgs2)
+            profile2.place(x=1120, y=1800)
 
         def updimg():
             idd = Label(textvariable=ids)
@@ -901,11 +906,11 @@ def nurse():
 #-------------------------------------------------------widgets fucntions   
 #-------------------------------------------------------
 
-        back3 = customtkinter.CTkButton(sf3,text="Back",fg_color='#469c91',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
+        back3 = customtkinter.CTkButton(sf3,text="Back",fg_color='#9c465d',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(nurse))
         back3.place(x=1000, y=2200)
 
-        uptd = customtkinter.CTkButton(sf3,text="Update",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
+        uptd = customtkinter.CTkButton(sf3,text="Update",fg_color='#829c46',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=allsave)
         uptd.place(x=1200, y=2200)
 
@@ -924,8 +929,10 @@ def nurse():
         
         profile = customtkinter.CTkLabel(sf3, text="", image= imgas)
         profile.place(x=1230, y=100)
-        pro_up = customtkinter.CTkButton(sf3, width=50, height=30, command=upl_mc, text="Chose file")
-        pro_up.place(x=920, y=200)
+        profile2 = customtkinter.CTkLabel(sf3, text="", image= imgas2)
+        profile2.place(x=1120, y=1800)
+        pro_up = customtkinter.CTkButton(sf3, width=50, height=30, command=upl_mc, text="Chose Image file")
+        pro_up.place(x=1060, y=200)
 
 
         snlabel = Label(sf3, text="1.SURNAME :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=100)
@@ -1344,6 +1351,8 @@ def nurse():
         de.place(x=600, y=1970)
         de.set(result2[17])
 
+        idlabel = Label(sf3, text="YOUR ID :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=2020)
+        idl = Label(sf3, text="", font=('Courier', 18, 'bold'),bg="#d4d4d4",textvariable=ids).place(x=600, y=2070)
 
         nool = customtkinter.CTkLabel(sf3, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1870)
 

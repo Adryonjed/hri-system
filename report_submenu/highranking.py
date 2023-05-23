@@ -14,6 +14,7 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
+from report_submenu.upldHRO import *
 
 
 
@@ -53,7 +54,7 @@ def Highr():
     #-------------------------------------------------------First Frame-----------------------------------------------------------------#
     #-------------------------------------------------------------------------------------------------------------------------------------
 
-   f3_1 = customtkinter.CTkScrollableFrame(f3, fg_color ="transparent",bg_color ="transparent", width= 1380,height= 550)
+   f3_1 = customtkinter.CTkScrollableFrame(f3, fg_color ="transparent",bg_color ="transparent", width= 1380,height= 500)
    f3_1.place(x=50, y=200)
 
    agree = PIL.Image.open("Assets\\green.png")
@@ -210,7 +211,6 @@ def Highr():
             hover_color = '#2a4859' , command=lambda k=array2[0]:show_lea(k)).grid(row= i, column = 5,pady=5,padx = 10)
 
             i = i+1
-      
 
    def searchbar():
       for rows2 in f3_1.grid_slaves():
@@ -306,6 +306,10 @@ def Highr():
    
    findEntry2 = customtkinter.CTkEntry(f3,height = 37, width= 400, fg_color='white',border_width = 2 , corner_radius= 10,font=('Arial', 20),text_color='black')
    findEntry2.place(x=940, y=150)
+
+   aply = customtkinter.CTkButton(f3,text="Upload HRO",fg_color='#46829c',font=('Arial', 20,) ,bg_color= 'transparent', width=160, height=60, border_width=0, corner_radius=10,
+   hover_color = '#2a4859',cursor='hand2',command=filing)
+   aply.place(x=1200, y=720)
 
 
 

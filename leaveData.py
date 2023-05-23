@@ -149,7 +149,7 @@ def leaves():
 
    def show_lea(s_id):
       show_leave(s_id)
-      backt = customtkinter.CTkButton(None ,text="Back",fg_color='#467c9c',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
+      backt = customtkinter.CTkButton(None ,text="Back",fg_color='#9c465d',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
       hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(leaves))
       backt.place(x=1400, y=900)
 

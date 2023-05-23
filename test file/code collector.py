@@ -65,7 +65,9 @@ pdf.drawString(50,525,f'            CURRENT BALANCE :  Rs. {cashData[2]}')
 "SELECT id FROM rating GROUP BY id"
 
 my_path = "C:\\Users\\ferna\\Downloads\\jed.pdf"
+
 c = canvas.Canvas(my_path,pagesize=GOV_LEGAL)
+c.setFillColorRGB(0,0,1)
 c.drawString(20, 10, 'Hello world')
 c.showPage()
 c.save()

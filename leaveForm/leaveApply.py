@@ -125,18 +125,12 @@ def show_leave(s_id):
 
     def apply():
         root = customtkinter.CTkToplevel()
-        root.geometry('1200x790')
+        root.geometry('1200x790+500+200')
         root.overrideredirect(True)
         root.title("Leave Form")
         root.wm_attributes("-transparentcolor",'#333333')
         root.wait_visibility()
         root.grab_set()
-
-        def start_drag(e):
-            e.widget.offset = (e.x, e.y)
-
-        def move_app(e):
-            root.geometry(f'+{e.x_root-e.widget.offset[0]}+{e.y_root-e.widget.offset[1]}')
 
 
         l_frame = customtkinter.CTkFrame(root, bg_color='#333333', fg_color='white',width=1200,height=790,corner_radius=30)
@@ -279,23 +273,19 @@ def show_leave(s_id):
         oth.set(None)
         
 
-        proc = customtkinter.CTkButton(l_frame,text="Proceed",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=160, height=60, border_width=0, corner_radius=10,
+        proc = customtkinter.CTkButton(l_frame,text="Save Data",fg_color='#4b6bab',font=('Arial', 20,) ,bg_color= 'transparent', width=115, height=50, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command= proceed)
-        proc.place(x=990, y=690)
+        proc.place(x=855, y=690)
 
-        can = PIL.Image.open("Assets\\cancel.png")
-        checked2 = customtkinter.CTkImage(can,size=(30,30))
-        cancel = customtkinter.CTkButton(l_frame, text="", image=checked2, bg_color= 'transparent',fg_color="white",hover_color= "#8a8987", width= 20,cursor='hand2',command=cancels)
-        cancel.place(x=1135,y=15)
+        clo = customtkinter.CTkButton(l_frame,text="Close",fg_color='transparent',font=('Arial', 20,) ,bg_color= 'transparent',text_color='black', width=115, height=50, border_width=0, corner_radius=10,
+        hover_color = '#9e9e9e',cursor='hand2',command= cancels)
+        clo.place(x=990, y=690)
 
         aply.configure(state = DISABLED)
 
-        root.bind("<Button-1>", start_drag)
-        root.bind("<B1-Motion>", move_app)
-
         root.mainloop()
 
-    aply = customtkinter.CTkButton(f4_1,text="Apply for leave",fg_color='#9c7846',font=('Arial', 20,) ,bg_color= 'transparent', width=160, height=60, border_width=0, corner_radius=10,
+    aply = customtkinter.CTkButton(f4_1,text="Apply for leave",fg_color='#46829c',font=('Arial', 20,) ,bg_color= 'transparent', width=160, height=60, border_width=0, corner_radius=10,
     hover_color = '#2a4859',cursor='hand2',command=apply)
     aply.place(x=1200, y=700)
 
