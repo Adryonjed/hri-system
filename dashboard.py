@@ -49,6 +49,72 @@ def dash():
     ln4 = customtkinter.CTkLabel(f1_4, text="Total Inactive ", font=('Arial', 20), bg_color="transparent",text_color="black",image=depts4,compound="right")
     ln4.place(x=25, y=10)
 
+    ln4 = customtkinter.CTkLabel(f1, text="Top Performer:", font=('Arial', 24, 'bold'), bg_color="transparent",text_color="black")
+    ln4.place(x=700, y=360)
+
+    topper = customtkinter.CTkScrollableFrame(f1, fg_color ="#c7b391",bg_color ="transparent", width= 700,height= 350,corner_radius=20)
+    topper.place(x=700, y=400)
+
+    conn = connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM perform ORDER BY averages DESC")
+    result = cursor.fetchall()
+    conn.commit()
+    conn.close()
+
+    i = 1
+
+    tableframe = customtkinter.CTkFrame(f1,fg_color ="#c7b391",bg_color ="#c7b391",width=550,height=50)
+    tableframe.place(x=715, y=415)
+
+    dfile = customtkinter.CTkLabel(tableframe, text="First Name             ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
+    dfile.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
+
+    tol = customtkinter.CTkLabel(tableframe, text="last Name             ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
+    tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
+
+    dayss = customtkinter.CTkLabel(tableframe, text="Total      ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
+    dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
+
+    dayss = customtkinter.CTkLabel(tableframe, text="Average     ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
+    dayss.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
+    aps = customtkinter.CTkLabel(tableframe, text="Rating    ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
+    aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
+
+    for g2 in result:
+
+        dfile2 = customtkinter.CTkLabel(topper, text="                 ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
+
+        tol2 = customtkinter.CTkLabel(topper, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2.grid(row=0, column=1,padx=35,pady=10,sticky = NSEW)
+
+        dayss2 = customtkinter.CTkLabel(topper, text="    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
+
+        dayss2 = customtkinter.CTkLabel(topper, text="    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
+
+        ap2 = customtkinter.CTkLabel(topper, text="   ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2.grid(row=0, column=4,padx=35,pady=10,sticky = NSEW)
+
+        jo = customtkinter.CTkLabel(topper, text=g2[3],font=('Arial', 18,),bg_color="transparent",text_color="black",anchor=W)
+        jo.grid(row=i, column=0,padx=5,pady=10,sticky = NSEW)
+        jo = customtkinter.CTkLabel(topper, text=g2[4],font=('Arial', 18, ),bg_color="transparent",text_color="black",anchor=W)
+        jo.grid(row=i, column=1,padx=5,pady=10,sticky = NSEW)
+        jo2= customtkinter.CTkLabel(topper, text=g2[15],font=('Arial', 18,),bg_color="transparent",text_color="black",anchor=W)
+        jo2.grid(row=i, column=2,padx = 5,pady=10,sticky = NSEW)
+        jo3= customtkinter.CTkLabel(topper, text=g2[16],font=('Arial', 18,),bg_color="transparent",text_color="black",anchor=W)
+        jo3.grid(row=i, column=3,padx=5,pady=10,sticky = NSEW)
+        jo3= customtkinter.CTkLabel(topper, text=g2[17],font=('Arial', 18,),bg_color="transparent",text_color="black",anchor=W)
+        jo3.grid(row=i, column=4,padx=5,pady=10,sticky = NSEW)
+
+        i = i+1
+
+        if i == 5:
+            break
+
 
 
 
@@ -64,6 +130,7 @@ def dash():
         customtkinter.CTkLabel(f1_3, text=(AWOL_num), font=('Arial', 70), bg_color="transparent",text_color="black").place(relx=0.5,rely=0.5, anchor=CENTER)
         inac_num = cursor.execute("SELECT * FROM personal WHERE status = 'Inactive' ")
         customtkinter.CTkLabel(f1_4, text=(inac_num), font=('Arial', 70), bg_color="transparent",text_color="black").place(relx=0.5,rely=0.5, anchor=CENTER)
+
 
 
 
