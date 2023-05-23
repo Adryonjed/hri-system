@@ -109,7 +109,7 @@ def saveasfile(s_id):
         c.drawImage("Assets\\chk.jpg",4.35*inch, 9.45*inch,height=10,width=10)
     if result[11] == 'Dual Citizenship':
         c.drawImage("Assets\\chk.jpg",5.45*inch, 9.45*inch,height=10,width=10)
-
+        
     if result[12] == 'By Birth':
         c.drawImage("Assets\\chk.jpg",5.65*inch, 9.25*inch,height=10,width=10)
     if result[12] == 'By Naturalization':
@@ -168,7 +168,7 @@ def saveasfile(s_id):
 
     #elementary
 
-    c.drawString(0.7*inch, 0.8*inch, result7[1],c.setFontSize(size=5))
+    c.drawString(0.63*inch, 0.8*inch, result7[1],c.setFontSize(size=5))
     c.drawString(2.3*inch, 0.8*inch, result7[2])
     c.drawString(4.35*inch, 0.8*inch, str(result7[3]),c.setFontSize(size=12))
     c.drawString(5.08*inch, 0.8*inch, str(result7[4]))
@@ -178,7 +178,7 @@ def saveasfile(s_id):
 
     #highschool
 
-    c.drawString(0.7*inch, 0.5*inch, result8[1],c.setFontSize(size=5))
+    c.drawString(0.63*inch, 0.5*inch, result8[1],c.setFontSize(size=5))
     c.drawString(2.3*inch, 0.5*inch, result8[2])
     c.drawString(4.35*inch, 0.5*inch, str(result8[3]),c.setFontSize(size=12))
     c.drawString(5.08*inch, 0.5*inch, str(result8[4]))
@@ -188,7 +188,7 @@ def saveasfile(s_id):
     
     #vocational
 
-    c.drawString(0.7*inch, 0.22*inch, result9[1],c.setFontSize(size=5))
+    c.drawString(0.63*inch, 0.22*inch, result9[1],c.setFontSize(size=5))
     c.drawString(2.3*inch, 0.22*inch, result9[2])
     c.drawString(4.35*inch, 0.22*inch, str(result9[3]),c.setFontSize(size=12))
     c.drawString(5.08*inch, 0.22*inch, str(result9[4]))
@@ -198,7 +198,7 @@ def saveasfile(s_id):
 
     #college
 
-    c.drawString(0.7*inch, -0.07*inch, result10[1],c.setFontSize(size=5))
+    c.drawString(0.63*inch, -0.07*inch, result10[1],c.setFontSize(size=5))
     c.drawString(2.3*inch, -0.07*inch, result10[2])
     c.drawString(4.35*inch, -0.07*inch, str(result10[3]),c.setFontSize(size=12))
     c.drawString(5.08*inch, -0.07*inch, str(result10[4]))
@@ -208,7 +208,7 @@ def saveasfile(s_id):
 
     #graduate
 
-    c.drawString(0.7*inch, -0.33*inch, result10[1],c.setFontSize(size=5))
+    c.drawString(0.63*inch, -0.33*inch, result10[1],c.setFontSize(size=5))
     c.drawString(2.3*inch, -0.33*inch, result10[2])
     c.drawString(4.35*inch, -0.33*inch, str(result10[3]),c.setFontSize(size=12))
     c.drawString(5.08*inch, -0.33*inch, str(result10[4]))

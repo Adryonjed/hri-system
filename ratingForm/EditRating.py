@@ -127,6 +127,17 @@ def show_edit(s_ids):
         avera.configure(text='{:.2f}'.format(aver))
         average = str(aver)
 
+        if aver == 5.0:
+            scl.configure(text = 'Outstanding')
+        elif aver <= 4.9 and aver >= 4.0:
+            scl.configure(text = 'Very Good')
+        elif aver <= 3.9 and aver >= 3.0:
+            scl.configure(text = 'Average')
+        elif aver <= 2.9 and aver >= 2.0:
+            scl.configure(text = 'Below Average')
+        elif aver <= 1.9 and aver >= 1.0:
+            scl.configure(text = 'Poor Performance')
+
 
 
     def validate(u_input): 
@@ -152,6 +163,7 @@ def show_edit(s_ids):
         cri8 = str(cr8.get())
         cri9 = str(cr9.get())
         cri10 = str(cr10.get())
+        scle  = str(scl.cget("text"))
     
         if (cri1 == "" or cri1 == " ") or (cri2 == "" or cri2 == " ") or (cri3 == "" or cri3 == " ") or (cri4 == "" or cri4 == " ") or (cri5 == "" or cri5 == " ") or (cri6 == "" or cri6 == " ") or (cri7 == "" or cri7 == " ") or (cri8 == "" or cri8 == " ") or (cri9 == "" or cri9 == " ") or (cri10 == "" or cri10 == " "):
                 messagebox.showinfo("Error", "Please fill up the blank entry")
@@ -162,7 +174,7 @@ def show_edit(s_ids):
                     if msg == 'yes':
                         conn = connection()
                         cursor = conn.cursor()
-                        cursor.execute("UPDATE perform SET datefile = '"+dfile+"', fname = '"+ffname+"', sname = '"+ssname+"', cr1 = '"+cri1+"', cr2 = '"+cri2+"', cr3 = '"+cri3+"', cr4 = '"+cri4+"', cr5 = '"+cri5+"', cr6 = '"+cri6+"', cr7 = '"+cri7+"', cr8 = '"+cri8+"', cr9 = '"+cri9+"', cr10 = '"+cri10+"', totals = '"+ttl+"', averages = '"+average+"' WHERE ide = '"+idss+"' ")
+                        cursor.execute("UPDATE perform SET datefile = '"+dfile+"', fname = '"+ffname+"', sname = '"+ssname+"', cr1 = '"+cri1+"', cr2 = '"+cri2+"', cr3 = '"+cri3+"', cr4 = '"+cri4+"', cr5 = '"+cri5+"', cr6 = '"+cri6+"', cr7 = '"+cri7+"', cr8 = '"+cri8+"', cr9 = '"+cri9+"', cr10 = '"+cri10+"', totals = '"+ttl+"', averages = '"+average+"' , scale = '"+scle+"' WHERE ide = '"+idss+"' ")
                         conn.commit()
                         conn.close()
                         root.destroy()
@@ -231,6 +243,9 @@ def show_edit(s_ids):
     aver = customtkinter.CTkLabel(p_frame, text="Average", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black").place(x=70, y=800)
     avera = customtkinter.CTkLabel(p_frame, text=results[16], font=('Arial', 18, "bold"),bg_color="transparent", text_color="black")
     avera.place(x=650, y=800)
+
+    scl = customtkinter.CTkLabel(p_frame, text=results[17], font=('Arial', 18, "bold"),bg_color="transparent", text_color="black")
+    scl.place(x=650, y=840)
 
 
     sol = customtkinter.CTkButton(p_frame,text="count",fg_color='#789c46',font=('Arial', 16,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,

@@ -3,7 +3,6 @@ from database.db import *
 from PIL import ImageTk
 from time import strftime
 import tkinter as tk
-from tkinter import ttk
 import customtkinter
 import PIL.Image
 from dashboard import *
@@ -27,11 +26,16 @@ app.resizable(True,True)
 app.configure(bg ='#aee0e8')
 app.iconbitmap("Assets\\logo1.ico")
 
-
-customtkinter.set_appearance_mode("System")
-
 f2title = customtkinter.CTkFrame(app, width=1500, height=130, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
 f2title.place(x=380, y=20)
+
+mem= PIL.Image.open("Assets\\logo.png")
+cap= PIL.Image.open("Assets\\capizlogo.png")
+memor = customtkinter.CTkImage(mem,size=(100,100))
+capiz = customtkinter.CTkImage(cap,size=(110,110))
+
+logo1 = customtkinter.CTkLabel(f2title, text="",image=memor).place(x=220,y=15)
+logo2 = customtkinter.CTkLabel(f2title, text="",image=capiz).place(x=1180,y=11)
 
 tit = customtkinter.CTkLabel(f2title, text="Human Resource Information Management", font=("Arial", 40, 'bold'))
 tit.place(x=350,y=20)
@@ -45,7 +49,7 @@ mbar.pack(side=tk.LEFT)
 mbar.pack_propagate (False)
 mbar.place(x=-35,y=0)
 
-   
+
 mainframe = tk.Frame(app, bg='#aee0e8')
 mainframe.pack(side=tk.BOTTOM)
 mainframe.pack_propagate(False)
@@ -121,9 +125,9 @@ def update_switch():
         bttn5.place(x=-198, y=640)
         bttn4.place(x=-210, y=560)
         bttn3.place(x=-160, y=480)
-        
 
-is_on = False
+global is_on
+is_on = False   
 
 mbarframe = customtkinter.CTkFrame(mbar, bg_color="transparent", fg_color="red", width=350, height=300)
 
@@ -215,11 +219,10 @@ def update_switch2():
         bttn5.place(x=-198, y=640)
         bttn4.place(x=-210, y=560)
         bttn3.place(x=-160, y=480)
-
     else:
         mbarframe2.place_forget()
         
-
+global is_onr
 is_onr = False
 
 mbarframe2 = customtkinter.CTkFrame(mbar, bg_color="transparent", fg_color="red", width=350, height=160)
@@ -248,11 +251,9 @@ dash()
 
 
 photo = PIL.Image.open("Assets\\logo.png")
-resized = photo.resize((200,200))
-nphoto = ImageTk.PhotoImage(resized)
+imgs = customtkinter.CTkImage(photo,size=(200,200))
 
-j = Label(app, image= nphoto, bg="#335791")
-j.place(x=50, y=40)
+j = customtkinter.CTkLabel(mbar, image=imgs, bg_color="#335791").place(x=90, y=40)
 
 """def my_time():
     time_string = strftime('%b %d, %Y \n %A') 
@@ -264,8 +265,5 @@ l1=customtkinter.CTkLabel(f2title,font=my_font,bg_color="transparent")
 l1.place(x=1330, y=35)
 
 my_time()"""
-
-
-
 app.state('zoomed')
 app.mainloop()

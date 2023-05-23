@@ -15,6 +15,7 @@ from datetime import datetime
 import io
 from PIL import ImageGrab
 from ratingForm.EditRating import *
+from ratingForm.exprtdata import *
 
 
 def show_perform(s_id):
@@ -54,6 +55,9 @@ def show_perform(s_id):
     ed = PIL.Image.open("Assets\\edit.png")
     edt = customtkinter.CTkImage(ed,size=(25,25))
 
+    dl = PIL.Image.open("Assets\\downloads.png")
+    dwl = customtkinter.CTkImage(dl,size=(25,25))
+
     def show_data():
         
         conn = connection()
@@ -69,33 +73,39 @@ def show_perform(s_id):
         tableframe = customtkinter.CTkFrame(f4_1,fg_color ="transparent",bg_color ="transparent",width=1200,height=50)
         tableframe.place(x=55,y=150)
 
-        dfile = customtkinter.CTkLabel(tableframe, text="Date Filed                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile = customtkinter.CTkLabel(tableframe, text="Date Filed                             ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dfile.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
 
-        tol = customtkinter.CTkLabel(tableframe, text="Total                                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol = customtkinter.CTkLabel(tableframe, text="Total                                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-        dayss = customtkinter.CTkLabel(tableframe, text="Average                                             ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss = customtkinter.CTkLabel(tableframe, text="Average                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
+        dayss = customtkinter.CTkLabel(tableframe, text="Scale                           ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+
         aps = customtkinter.CTkLabel(tableframe, text="Action     ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-        aps.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
+        aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
 
         for g2 in result:
             
 
-            dfile2 = customtkinter.CTkLabel(f5_2, text="                                                       ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dfile2 = customtkinter.CTkLabel(f5_2, text="                                         ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
 
-            tol2 = customtkinter.CTkLabel(f5_2, text="                                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            tol2 = customtkinter.CTkLabel(f5_2, text="                                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             tol2.grid(row=0, column=1,padx=35,pady=10,sticky = NSEW)
 
-            dayss2 = customtkinter.CTkLabel(f5_2, text="                                ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dayss2 = customtkinter.CTkLabel(f5_2, text="                            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
 
-            ap2 = customtkinter.CTkLabel(f5_2, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
-            ap2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
+            dayss2 = customtkinter.CTkLabel(f5_2, text="                        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            dayss2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
+
+            ap2 = customtkinter.CTkLabel(f5_2, text="   ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            ap2.grid(row=0, column=4,padx=35,pady=10,sticky = NSEW)
 
             
             jo = customtkinter.CTkLabel(f5_2, text=g2[2],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
@@ -104,10 +114,16 @@ def show_perform(s_id):
             jo2.grid(row=i, column=1,padx = 5,pady=10,sticky = NSEW)
             jo3= customtkinter.CTkLabel(f5_2, text=g2[16],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
             jo3.grid(row=i, column=2,padx=5,pady=10,sticky = NSEW)
+            jo3= customtkinter.CTkLabel(f5_2, text=g2[17],font=('Arial', 18, 'bold'),bg_color="transparent",text_color="black",anchor=W)
+            jo3.grid(row=i, column=3,padx=5,pady=10,sticky = NSEW)
            
             shoow = customtkinter.CTkButton(f5_2,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
             hover_color = '#2a4859' , command=lambda k=g2[0]:showit(k))
             shoow.grid(row= i, column = 4,pady=5,padx = 3)
+
+            expt = customtkinter.CTkButton(f5_2,text="",image= dwl, fg_color='#9c9346',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+            hover_color = '#2a4859' , command=lambda k=g2[0]:exprtit(k))
+            expt.grid(row= i, column = 5,pady=5,padx = 3)
 
             i = i+1
     
@@ -115,6 +131,10 @@ def show_perform(s_id):
 
     def showit(s_ide):
         show_edit(s_ide)
+
+    def exprtit(s_ide):
+        saveasfile(s_ide)
+
 
 
     def apply():
@@ -165,6 +185,18 @@ def show_perform(s_id):
             avera.configure(text='{:.2f}'.format(aver))
             average = str(aver)
 
+            if aver == 5.0:
+                 scl.configure(text = 'Outstanding')
+            elif aver <= 4.9 and aver >= 4.0:
+                 scl.configure(text = 'Very Good')
+            elif aver <= 3.9 and aver >= 3.0:
+                 scl.configure(text = 'Average')
+            elif aver <= 2.9 and aver >= 2.0:
+                 scl.configure(text = 'Below Average')
+            elif aver <= 1.9 and aver >= 1.0:
+                 scl.configure(text = 'Poor Performance')
+                 
+
 
         def validate(u_input): 
              return u_input.isdigit()
@@ -187,6 +219,7 @@ def show_perform(s_id):
             cri8 = str(cr8.get())
             cri9 = str(cr9.get())
             cri10 = str(cr10.get())
+            scle  = str(scl.cget("text"))
 
         
             if (cri1 == "" or cri1 == " ") or (cri2 == "" or cri2 == " ") or (cri3 == "" or cri3 == " ") or (cri4 == "" or cri4 == " ") or (cri5 == "" or cri5 == " ") or (cri6 == "" or cri6 == " ") or (cri7 == "" or cri7 == " ") or (cri8 == "" or cri8 == " ") or (cri9 == "" or cri9 == " ") or (cri10 == "" or cri10 == " "):
@@ -199,7 +232,7 @@ def show_perform(s_id):
                             conn = connection()
                             cursor = conn.cursor()
                             cursor.execute(
-                                "INSERT INTO perform VALUES ('""','"+idss+"','"+dfile+"','"+ffname+"','"+ssname+"','"+cri1+"','"+cri2+"','"+cri3+"','"+cri4+"','"+cri5+"','"+cri6+"' ,'"+cri7+"' ,'"+cri8+"' ,'"+cri9+"' ,'"+cri10+"' ,'"+ttl+"','"+average+"') ")
+                                "INSERT INTO perform VALUES ('""','"+idss+"','"+dfile+"','"+ffname+"','"+ssname+"','"+cri1+"','"+cri2+"','"+cri3+"','"+cri4+"','"+cri5+"','"+cri6+"' ,'"+cri7+"' ,'"+cri8+"' ,'"+cri9+"' ,'"+cri10+"' ,'"+ttl+"','"+average+"','"+scle+"') ")
                             conn.commit()
                             conn.close()
                             root.destroy()
@@ -214,9 +247,6 @@ def show_perform(s_id):
                         messagebox.showinfo("Error", "Data already exist")
                         return
             show_data()
-
-        def allsave():
-            proceed()
 
 
         criteria = customtkinter.CTkLabel(l_frame, text="Criteria", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black").place(x=270, y=150)
@@ -272,6 +302,9 @@ def show_perform(s_id):
         aver = customtkinter.CTkLabel(l_frame, text="Average", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black").place(x=70, y=800)
         avera = customtkinter.CTkLabel(l_frame, text="", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black")
         avera.place(x=650, y=800)
+
+        scl = customtkinter.CTkLabel(l_frame, text="", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black")
+        scl.place(x=650, y=840)
 
 
         sol = customtkinter.CTkButton(l_frame,text="count",fg_color='#789c46',font=('Arial', 16,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,

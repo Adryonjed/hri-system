@@ -15,6 +15,7 @@ from datetime import datetime
 import io
 from PIL import ImageGrab
 from report_submenu.upldHRO import *
+from report_submenu.editHRO import *
 
 
 
@@ -143,13 +144,13 @@ def Highr():
       col5.grid(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
 
       showb2 = customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
-      hover_color = '#2a4859' , command=lambda k=g[0]:show_lea(k))
+      hover_color = '#2a4859' , command=lambda k=g[0]:show_hro(k))
       showb2.grid(row= i, column = 5,pady=5,padx = 3)
       
       i = i+1
 
-   def show_lea(s_id):
-        pass
+   def show_hro(s_id):
+        edit_file(s_id)
 
 
    def searching(event):
@@ -208,7 +209,7 @@ def Highr():
 
 
             customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
-            hover_color = '#2a4859' , command=lambda k=array2[0]:show_lea(k)).grid(row= i, column = 5,pady=5,padx = 10)
+            hover_color = '#2a4859' , command=lambda k=array2[0]:show_hro(k)).grid(row= i, column = 5,pady=5,padx = 10)
 
             i = i+1
 
@@ -268,7 +269,7 @@ def Highr():
 
 
          customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
-         hover_color = '#2a4859' , command=lambda k=array2[0]:show_lea(k)).grid(row= i, column = 5,pady=5,padx = 10)
+         hover_color = '#2a4859' , command=lambda k=array2[0]:show_hro(k)).grid(row= i, column = 5,pady=5,padx = 10)
 
          i = i+1
 

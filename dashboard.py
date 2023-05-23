@@ -31,7 +31,7 @@ def dash():
     ln2 = customtkinter.CTkLabel(f1_2, text="Total Active ", font=('Arial', 20), bg_color="transparent",text_color="black",image=depts,compound="right")
     ln2.place(x=25, y=10)
 
-    f1_3 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#95c791",corner_radius=40)
+    f1_3 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#c7a391",corner_radius=40)
     f1_3.place(x=775, y=30)
 
     img3 = PIL.Image.open("Assets\\dept.png")
@@ -40,7 +40,7 @@ def dash():
     ln3 = customtkinter.CTkLabel(f1_3, text="Total AWOL ", font=('Arial', 20), bg_color="transparent",text_color="black",image=depts3,compound="right")
     ln3.place(x=25, y=10)
 
-    f1_4 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#95c791",corner_radius=40)
+    f1_4 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#c79191",corner_radius=40)
     f1_4.place(x=1150, y=30)
 
     img4 = PIL.Image.open("Assets\\dept.png")

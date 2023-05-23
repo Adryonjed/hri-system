@@ -601,7 +601,7 @@ def nurse():
         ap2 = customtkinter.CTkLabel(f3_1, text="                              ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         ap2.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-        dfile2 = customtkinter.CTkLabel(f3_1, text="                      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dfile2 = customtkinter.CTkLabel(f3_1, text="                       ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dfile2.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
         act2 = customtkinter.CTkLabel(f3_1, text="        ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")

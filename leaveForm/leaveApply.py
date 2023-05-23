@@ -15,6 +15,8 @@ from datetime import datetime
 import io
 from PIL import ImageGrab
 from leaveForm.EditLeave import *
+from leaveForm.exprtleave import *
+
 
 def show_leave(s_id):
       
@@ -23,6 +25,8 @@ def show_leave(s_id):
     cursor.execute("SELECT * FROM personal WHERE id=%s",(s_id))
     result = cursor.fetchone()
     ide = result[0]
+    fname = result[2]
+    sname = result[1]
     conn.commit()
     conn.close()
     
@@ -50,6 +54,9 @@ def show_leave(s_id):
 
     ed = PIL.Image.open("Assets\\edit.png")
     edt = customtkinter.CTkImage(ed,size=(25,25))
+
+    dl = PIL.Image.open("Assets\\downloads.png")
+    dwl = customtkinter.CTkImage(dl,size=(25,25))
 
     def show_data():
         
@@ -95,7 +102,7 @@ def show_leave(s_id):
             dayss2 = customtkinter.CTkLabel(f5_2, text="                 ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
 
-            ap2 = customtkinter.CTkLabel(f5_2, text="                    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+            ap2 = customtkinter.CTkLabel(f5_2, text="                 ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
             ap2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
 
             ac = customtkinter.CTkLabel(f5_2, text="      ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
@@ -113,7 +120,11 @@ def show_leave(s_id):
 
             shoow = customtkinter.CTkButton(f5_2,text="",image= edt, fg_color='#46729c',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
             hover_color = '#2a4859' , command=lambda k=g2[0]:showit(k))
-            shoow.grid(row= i, column = 4,pady=5,padx = 3)
+            shoow.grid(row= i, column = 4,pady=5,padx = 2)
+
+            expt = customtkinter.CTkButton(f5_2,text="",image= dwl, fg_color='#9c9346',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
+            hover_color = '#2a4859' , command=lambda k=g2[0]:exprtit(k))
+            expt.grid(row= i, column = 5,pady=5,padx = 2)
 
             i = i+1
     
@@ -121,6 +132,9 @@ def show_leave(s_id):
 
     def showit(s_ide):
         show_apply(s_ide)
+
+    def exprtit(s_ide):
+        saveasfile(s_ide)
 
 
     def apply():
@@ -152,6 +166,8 @@ def show_leave(s_id):
         def proceed():
 
             idss = str(ide)
+            ffname = str(fname)
+            ssname = str(sname)
             dfile = str(dofentry.get_date())
             typ = str(tyle.get())
             froo =  str(lfromentry.get_date())
@@ -176,7 +192,7 @@ def show_leave(s_id):
                             conn = connection()
                             cursor = conn.cursor()
                             cursor.execute(
-                                "INSERT INTO leaves VALUES ('""','"+idss+"','"+dfile+"','"+typ+"','"+froo+"','"+too+"','"+days+"','"+comm+"','"+reco+"','"+vsp+"','"+ics+"','"+ifp+"','"+bw+"','"+sts+"','"+stl+"','"+ops+"') ")
+                                "INSERT INTO leaves VALUES ('""','"+idss+"','"+dfile+"','"+ffname+"','"+ssname+"','"+typ+"','"+froo+"','"+too+"','"+days+"','"+comm+"','"+reco+"','"+vsp+"','"+ics+"','"+ifp+"','"+bw+"','"+sts+"','"+stl+"','"+ops+"') ")
                             conn.commit()
                             conn.close()
 
@@ -262,14 +278,14 @@ def show_leave(s_id):
 
         csl = customtkinter.CTkLabel(l_frame, text="In case of Study Leave:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=700, y=350)
         stud = tk.StringVar()
-        opcsl1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Completion of Master's Degree", radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Filipino',bg_color="transparent",variable=stud, cursor='hand2', font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 380)
-        opcsl2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="BAR/Board Examination Review",radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Dual Citizenship',bg_color="transparent",variable=stud, cursor='hand2',font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 410)
+        opcsl1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Completion of Master's Degree", radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value="Completion of Masters Degree",bg_color="transparent",variable=stud, cursor='hand2', font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 380)
+        opcsl2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="BAR/Board Examination Review",radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='BAR/Board Examination Review',bg_color="transparent",variable=stud, cursor='hand2',font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 410)
         stud.set(None)
 
         op = customtkinter.CTkLabel(l_frame, text="Other purpose:", font=('Arial', 18, 'bold'),text_color= "black",bg_color="transparent").place(x=700, y=450)
         oth = tk.StringVar()
-        op1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Monetization of Leave Credits", radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Filipino',bg_color="transparent",variable=oth, cursor='hand2', font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 480)
-        op2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="Terminal Leave",radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Dual Citizenship',bg_color="transparent",variable=oth, cursor='hand2',font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 510)
+        op1 = customtkinter.CTkRadioButton(l_frame,border_color="#5c5c5c", text="Monetization of Leave Credits", radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Monetization of Leave Credits',bg_color="transparent",variable=oth, cursor='hand2', font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 480)
+        op2 = customtkinter.CTkRadioButton(l_frame, border_color="#5c5c5c",text="Terminal Leave",radiobutton_height= 25, radiobutton_width= 25, border_width_checked = 10, border_width_unchecked= 5, value='Terminal Leave',bg_color="transparent",variable=oth, cursor='hand2',font=('Arial', 16, 'bold'),text_color='#171414').place(x=750,y= 510)
         oth.set(None)
         
 

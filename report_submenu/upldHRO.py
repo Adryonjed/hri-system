@@ -47,9 +47,6 @@ def filing():
     my_valid2 = f_frame.register(validate2)
 
 
-    def addfile():
-        pass
-    
     def upl_etd():
 
       global imgfile
@@ -62,39 +59,63 @@ def filing():
 
     def upl_clrnc():
 
-      global imgfile
+      global imgfile2
 
       f_types = [('PDF', '*.pdf')]
-      imgfile = filedialog.askopenfilename(filetypes=f_types)
-      if imgfile:
-        clrncpth.set(imgfile)
+      imgfile2 = filedialog.askopenfilename(filetypes=f_types)
+      if imgfile2:
+        clrncpth.set(imgfile2)
 
     def upl_wc():
 
-      global imgfile
+      global imgfile3
 
       f_types = [('PDF', '*.pdf')]
-      imgfile = filedialog.askopenfilename(filetypes=f_types)
-      if imgfile:
-        wcpth.set(imgfile)
+      imgfile3 = filedialog.askopenfilename(filetypes=f_types)
+      if imgfile3:
+        wcpth.set(imgfile3)
 
     def upl_hr():
 
-      global imgfile
+      global imgfile4
 
       f_types = [('PDF', '*.pdf')]
-      imgfile = filedialog.askopenfilename(filetypes=f_types)
-      if imgfile:
-        hrpth.set(imgfile)
+      imgfile4 = filedialog.askopenfilename(filetypes=f_types)
+      if imgfile4:
+        hrpth.set(imgfile4)
 
     def upl_tx():
 
-      global imgfile
+      global imgfile5
 
       f_types = [('PDF', '*.pdf')]
-      imgfile = filedialog.askopenfilename(filetypes=f_types)
-      if imgfile:
-        txpth.set(imgfile)
+      imgfile5 = filedialog.askopenfilename(filetypes=f_types)
+      if imgfile5:
+        txpth.set(imgfile5)
+
+      
+    def addfile():
+      
+      fob = open(imgfile, 'rb').read()
+      fob2 = open(imgfile2, 'rb').read()
+      fob3 = open(imgfile3, 'rb').read()
+      fob4 = open(imgfile4, 'rb').read()
+      fob5 = open(imgfile5, 'rb').read()
+      
+      msg = messagebox.askquestion('',"Do you want to add this person?")
+      if msg == 'yes':
+        conn = connection()
+        cursor = conn.cursor()
+        args = (idl.get(),fn.get(), sn.get(),fob,fob2,fob3,fob4,fob5)
+        cursor.execute("INSERT INTO hro (id,fname,sname,edp,clearance,workh,hiring,tax) VALUES (%s,%s,%s,%s,%s,%s,%s,%s)",args)
+        conn.commit()
+        conn.close()
+        root.destroy()
+      elif msg == 'no':
+        pass
+      else:
+        messagebox.showinfo('Return', 'You will now return to the application screen')
+        root.destroy()
 
     idlabel = customtkinter.CTkLabel(f_frame, text="ID NO. :", font=('Courier', 18, 'bold'),bg_color="transparent",text_color='black').place(x=20, y=150)
     idl = customtkinter.CTkEntry(f_frame, height= 35,width=100, fg_color='white',border_width = 2, font=('Arial', 22),corner_radius= 10,text_color='black',validate='key',validatecommand=(my_valid2,'%S'))
@@ -141,7 +162,7 @@ def filing():
 
 
     proc = customtkinter.CTkButton(f_frame,text="Save Data",fg_color='#4b6bab',font=('Arial', 20,) ,bg_color= 'transparent', width=115, height=50, border_width=0, corner_radius=10,
-    hover_color = '#2a4859',cursor='hand2')
+    hover_color = '#2a4859',cursor='hand2',command=addfile)
     proc.place(x=495, y=910)
 
     clo = customtkinter.CTkButton(f_frame,text="Close",fg_color='transparent',font=('Arial', 20,) ,bg_color= 'transparent',text_color='black', width=115, height=50, border_width=0, corner_radius=10,
