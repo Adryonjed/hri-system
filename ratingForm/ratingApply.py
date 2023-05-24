@@ -194,7 +194,7 @@ def show_perform(s_id):
             elif aver <= 2.9 and aver >= 2.0:
                  scl.configure(text = 'Below Average')
             elif aver <= 1.9 and aver >= 1.0:
-                 scl.configure(text = 'Poor Performance')
+                 scl.configure(text = 'Poor')
                  
 
 
@@ -304,7 +304,7 @@ def show_perform(s_id):
         avera.place(x=650, y=800)
 
         scl = customtkinter.CTkLabel(l_frame, text="", font=('Arial', 18, "bold"),bg_color="transparent", text_color="black")
-        scl.place(x=650, y=840)
+        scl.place(x=630, y=840)
 
 
         sol = customtkinter.CTkButton(l_frame,text="count",fg_color='#789c46',font=('Arial', 16,) ,bg_color= 'transparent', width=80, height=40, border_width=0, corner_radius=10,

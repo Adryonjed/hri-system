@@ -6,6 +6,12 @@ import tkinter as tk
 import customtkinter
 from PIL import Image, ImageTk
 import PIL.Image
+from time import strftime
+from tkcalendar import DateEntry
+from datetime import date
+from datetime import datetime
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg 
 
 
 
@@ -13,7 +19,7 @@ def dash():
     f1 = customtkinter.CTkFrame(None, width=1500, height=820, fg_color ="#d4d4d4", corner_radius=50)
     f1.place(x=380, y=200)
 
-    f1_1 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#67c9be",corner_radius=40)
+    f1_1 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#67c9be",corner_radius=30)
     f1_1.place(x=30, y=30)
 
     img = PIL.Image.open("Assets\\peo.png")
@@ -22,50 +28,51 @@ def dash():
     ln = customtkinter.CTkLabel(f1_1, text="Total Employees", font=('Arial', 20), bg_color="transparent",text_color="black",image=peo,compound="right")
     ln.place(x=25, y=10)
     
-    f1_2 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#95c791",corner_radius=40)
+    f1_2 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#95c791",corner_radius=30)
     f1_2.place(x=400, y=30)
 
-    img2 = PIL.Image.open("Assets\\dept.png")
+    img2 = PIL.Image.open("Assets\\peoactive.png")
     depts = customtkinter.CTkImage(img2,size=(30,30))
 
     ln2 = customtkinter.CTkLabel(f1_2, text="Total Active ", font=('Arial', 20), bg_color="transparent",text_color="black",image=depts,compound="right")
     ln2.place(x=25, y=10)
 
-    f1_3 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#c7a391",corner_radius=40)
+    f1_3 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#c7a391",corner_radius=30)
     f1_3.place(x=775, y=30)
 
-    img3 = PIL.Image.open("Assets\\dept.png")
+    img3 = PIL.Image.open("Assets\\missing.png")
     depts3 = customtkinter.CTkImage(img3,size=(30,30))
 
     ln3 = customtkinter.CTkLabel(f1_3, text="Total AWOL ", font=('Arial', 20), bg_color="transparent",text_color="black",image=depts3,compound="right")
     ln3.place(x=25, y=10)
 
-    f1_4 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#c79191",corner_radius=40)
+    f1_4 = customtkinter.CTkFrame(f1, width=300, height=180, fg_color="#c79191",corner_radius=30)
     f1_4.place(x=1150, y=30)
 
-    img4 = PIL.Image.open("Assets\\dept.png")
+    img4 = PIL.Image.open("Assets\\peoinactive.png")
     depts4 = customtkinter.CTkImage(img4,size=(30,30))
 
     ln4 = customtkinter.CTkLabel(f1_4, text="Total Inactive ", font=('Arial', 20), bg_color="transparent",text_color="black",image=depts4,compound="right")
     ln4.place(x=25, y=10)
 
-    ln4 = customtkinter.CTkLabel(f1, text="Top Performer:", font=('Arial', 24, 'bold'), bg_color="transparent",text_color="black")
+    ln4 = customtkinter.CTkLabel(f1, text="Top Performer:", font=('Arial', 26, 'bold'), bg_color="transparent",text_color="black")
     ln4.place(x=700, y=360)
 
-    topper = customtkinter.CTkScrollableFrame(f1, fg_color ="#c7b391",bg_color ="transparent", width= 700,height= 350,corner_radius=20)
+    topper = customtkinter.CTkFrame(f1, fg_color ="#c7b391",bg_color ="transparent", width= 700,height= 350,corner_radius=15)
     topper.place(x=700, y=400)
 
     conn = connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM perform ORDER BY averages DESC")
+    cursor.execute("SELECT * FROM perform ORDER BY datefile DESC, averages DESC")
     result = cursor.fetchall()
     conn.commit()
     conn.close()
 
+
     i = 1
 
     tableframe = customtkinter.CTkFrame(f1,fg_color ="#c7b391",bg_color ="#c7b391",width=550,height=50)
-    tableframe.place(x=715, y=415)
+    tableframe.place(x=700, y=410)
 
     dfile = customtkinter.CTkLabel(tableframe, text="First Name             ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
     dfile.grid(row=0, column=0,padx=5,pady=10,sticky = NSEW)
@@ -79,7 +86,7 @@ def dash():
     dayss = customtkinter.CTkLabel(tableframe, text="Average     ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
     dayss.grid(row=0, column=3,padx=5,pady=10,sticky = NSEW)
 
-    aps = customtkinter.CTkLabel(tableframe, text="Rating    ",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
+    aps = customtkinter.CTkLabel(tableframe, text="Rating",font=('Arial', 20, 'bold'),bg_color="transparent",text_color="black")
     aps.grid(row=0, column=4,padx=5,pady=10,sticky = NSEW)
 
     for g2 in result:
@@ -87,16 +94,16 @@ def dash():
         dfile2 = customtkinter.CTkLabel(topper, text="                 ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dfile2.grid(row=0, column=0,padx=35,pady=10,sticky = NSEW)
 
-        tol2 = customtkinter.CTkLabel(topper, text="                  ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        tol2 = customtkinter.CTkLabel(topper, text="                 ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         tol2.grid(row=0, column=1,padx=35,pady=10,sticky = NSEW)
 
-        dayss2 = customtkinter.CTkLabel(topper, text="    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        dayss2 = customtkinter.CTkLabel(topper, text="     ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dayss2.grid(row=0, column=2,padx=35,pady=10,sticky = NSEW)
 
         dayss2 = customtkinter.CTkLabel(topper, text="    ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         dayss2.grid(row=0, column=3,padx=35,pady=10,sticky = NSEW)
 
-        ap2 = customtkinter.CTkLabel(topper, text="   ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
+        ap2 = customtkinter.CTkLabel(topper, text="            ",font=('Arial', 26, 'bold'),bg_color="transparent",text_color="black")
         ap2.grid(row=0, column=4,padx=35,pady=10,sticky = NSEW)
 
         jo = customtkinter.CTkLabel(topper, text=g2[3],font=('Arial', 18,),bg_color="transparent",text_color="black",anchor=W)
@@ -112,7 +119,7 @@ def dash():
 
         i = i+1
 
-        if i == 5:
+        if i == 6:
             break
 
 
@@ -131,6 +138,31 @@ def dash():
         inac_num = cursor.execute("SELECT * FROM personal WHERE status = 'Inactive' ")
         customtkinter.CTkLabel(f1_4, text=(inac_num), font=('Arial', 70), bg_color="transparent",text_color="black").place(relx=0.5,rely=0.5, anchor=CENTER)
 
+    conn = connection()
+    cursor = conn.cursor()
+    admins = cursor.execute("SELECT * FROM personal WHERE department = 'ADMIN' ")
+    ancis = cursor.execute("SELECT * FROM personal WHERE department = 'ANCILLARY' ")
+    meds = cursor.execute("SELECT * FROM personal WHERE department = 'MEDICAL' ")
+    nars = cursor.execute("SELECT * FROM personal WHERE department = 'NURSING' ")
+
+    share = [admins,ancis,meds, nars] # sales in million units
+    # plt.pie(x=share, labels=labels, autopct='%.2f%%')
+
+    #### Plotting pie chart #####
+    fig = plt.figure(figsize=(5, 5), dpi=100,facecolor="#d4d4d4")
+    fig.set_size_inches (6, 4.5)
+    # Data to plot
+    labels = ['ADMIN', 'ANCILLARY', 'MEDICAL', 'NURSING']
+    sizes= []
+    colors= ['#70d6ff', '#ff70a6', '#ff9770', '#ffd670']
+    explodes = (0.2, 0, 0, 0)
+    # Plot pie chart
+    plt.pie (share, explode=explodes, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=140)
+    plt.axis ('equal') # creates the pie chart like a circle
+    canvasbar = FigureCanvasTkAgg(fig, master=f1)
+    canvasbar.draw()
+    canvasbar.get_tk_widget().place(x=300, y=530,anchor=CENTER)
+    
 
 
 

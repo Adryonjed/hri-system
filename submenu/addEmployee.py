@@ -282,7 +282,7 @@ def add_e():
    pro_up = customtkinter.CTkButton(sf, width=50, height=30, command=upl_mc, text="Chose Image file")
    pro_up.place(x=1060, y=200)
 
-   phott = customtkinter.CTkLabel(sf, text="PHOTO", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="#9c9c9c").place(x=1230, y=150)
+   phott = customtkinter.CTkLabel(sf, text="PHOTO", font=('Arial', 20, 'bold'),bg_color="transparent",text_color="#9c9c9c").place(x=1250, y=150)
 
    
    snlabel = Label(sf, text="1.SURNAME :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=100)
@@ -491,7 +491,7 @@ def add_e():
    fspoEntry = customtkinter.CTkEntry(sf, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black')
    fspoEntry.place(x=230, y=1100)
 
-   mspolabel = Label(sf, text="   MIIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1150)
+   mspolabel = Label(sf, text="   MIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1150)
    mspoEntry = customtkinter.CTkEntry(sf, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black')
    mspoEntry.place(x=230, y=1150)
 
@@ -519,7 +519,7 @@ def add_e():
    ffnEntry = customtkinter.CTkEntry(sf, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black')
    ffnEntry.place(x=950, y=1100)
 
-   fmnlabel = Label(sf, text="   MIIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=700, y=1150)
+   fmnlabel = Label(sf, text="   MIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=700, y=1150)
    fmnEntry = customtkinter.CTkEntry(sf, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black')
    fmnEntry.place(x=950, y=1150)
 
@@ -680,19 +680,19 @@ def add_e():
 
 
 
-   polabel = Label(sf, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
+   polabel = Label(sf, text="EMPLOYMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
    poEntry = tk.StringVar()
    po = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"])
    po.place(x=160, y=1800)
    po.set("")
 
-   stalabel = Label(sf, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
+   stalabel = Label(sf, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
    staEntry = tk.StringVar()
    sta = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Registered Nurse", "LPN", "Midwife", "Caregivers", "Pediatric nursing",  "Practitioner", "Pharmacist","Radiologist", "Cardiologist", "Pathologist" ,"Dietitian", "Pediatrician", "Orthopedic", "General surgeons", "Pulmonologists", "Anesthesiologists", "Gynecologists", "Therapist", "hospice workers", "Social workers", "Cook", "Housekeeper", "Driver", "Porter", "Maintenance Worker", "COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
    sta.place(x=600, y=1850)
    sta.set("")
 
-   deptlabel = Label(sf, text="STATION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
+   deptlabel = Label(sf, text="DEPARTMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
    deEntry = tk.StringVar()
    de = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = deEntry, values=["ADMIN","ANCILLARY", "MEDICAL", "NURSING"])
    de.place(x=600, y=1970)

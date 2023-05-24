@@ -1146,7 +1146,7 @@ def nurse():
         fspoEntry = customtkinter.CTkEntry(sf3, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black',textvariable=s_fname)
         fspoEntry.place(x=230, y=1100)
 
-        mspolabel = Label(sf3, text="   MIIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1150)
+        mspolabel = Label(sf3, text="   MIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=20, y=1150)
         mspoEntry = customtkinter.CTkEntry(sf3, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black',textvariable=s_mname)
         mspoEntry.place(x=230, y=1150)
 
@@ -1174,7 +1174,7 @@ def nurse():
         ffnEntry = customtkinter.CTkEntry(sf3, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black',textvariable=f_ffn)
         ffnEntry.place(x=950, y=1100)
 
-        fmnlabel = Label(sf3, text="   MIIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=700, y=1150)
+        fmnlabel = Label(sf3, text="   MIDDLE NAME : ", font=('Courier', 12, 'bold'),bg="#d4d4d4").place(x=700, y=1150)
         fmnEntry = customtkinter.CTkEntry(sf3, height= 35, width=450, fg_color='white',border_width = 2, corner_radius= 10,font=('Arial', 22),text_color='black',textvariable=f_fmn)
         fmnEntry.place(x=950, y=1150)
 
@@ -1332,20 +1332,20 @@ def nurse():
         roelabel = Label(sf3, text="EMPLOYEE DETAILS", font=('Arial', 17, 'bold'),bg="#d4d4d4")
         roelabel.place(x=30, y=1750)
 
-        polabel = Label(sf3, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
+        polabel = Label(sf3, text="EMPLOYMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
         poEntry = tk.StringVar()
         po = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"])
         po.place(x=160, y=1800)
         po.set(result2[16])
 
-        stalabel = Label(sf3, text="STAFF TYPE :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
+        stalabel = Label(sf3, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
         staEntry = tk.StringVar()
         sta = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
         sta.place(x=600, y=1850)
         sta.set(result2[15])
 
 
-        deptlabel = Label(sf3, text="STATION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
+        deptlabel = Label(sf3, text="DEPARTMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
         deEntry = tk.StringVar()
         de = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = deEntry, values=["ANCILLARY", "NURSING", "ADMIN", "MEDICAL "])
         de.place(x=600, y=1970)
