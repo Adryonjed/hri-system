@@ -227,7 +227,7 @@ is_onr = False
 
 mbarframe2 = customtkinter.CTkFrame(mbar, bg_color="transparent", fg_color="transparent", width=350, height=160)
 
-bttn5 = customtkinter.CTkButton(mbar, text='Reports',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
+bttn5 = customtkinter.CTkButton(mbar, text='Records',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
 cursor='hand2',command=lambda: indicate(bttn5,toggle_switch2))
 bttn5.place(x=-198, y=640)
 bttn5.bind("<Enter>", entered5)

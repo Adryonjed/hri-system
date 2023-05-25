@@ -645,25 +645,23 @@ def nurse():
 
 
     def delete(s_id):
-
-            
             decision = messagebox.askquestion("Warning!!", "Delete this data? " + g[1])
         
             if decision == "yes":
                 conn = connection()
                 cursor = conn.cursor()
-                cursor.execute("DELETE FROM personal WHERE id = %s",(s_id))
-                cursor.execute("DELETE FROM numbers WHERE id = %s",(s_id))
-                cursor.execute("DELETE FROM residential WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM permanent WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM spouse WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM family WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM elementary WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM highschool WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM vocational WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM college WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM graduate WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM rating WHERE id ='",(s_id))
+                cursor.execute("DELETE FROM personal WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM numbers WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM residential WHERE id = % s",(s_id))
+                cursor.execute("DELETE FROM permanent WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM spouse WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM family WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM elementary WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM highschool WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM vocational WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM college WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM graduate WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM profile WHERE id = %s ",(s_id))
                 conn.commit()
                 conn.close()
 

@@ -125,6 +125,8 @@ def show_perform(s_id):
             hover_color = '#2a4859' , command=lambda k=g2[0]:exprtit(k))
             expt.grid(row= i, column = 5,pady=5,padx = 3)
 
+            
+
             i = i+1
     
     show_data()
