@@ -143,6 +143,7 @@ def Highr():
       col5 = customtkinter.CTkLabel(f3_1, text=g[19], image = clrstat,compound= "left",font=('Arial',20),bg_color="transparent",text_color="black",anchor=W)
       col5.grid(row=i, column=4,padx = 5,pady=10,sticky = NSEW)
 
+   
       showb2 = customtkinter.CTkButton(f3_1,text="",image= edt, fg_color='#469c8e',font=('Arial', 20,) ,bg_color= 'transparent', width=40, height=35, border_width=0, corner_radius=10,
       hover_color = '#2a4859' , command=lambda k=g[0]:show_hro(k))
       showb2.grid(row= i, column = 5,pady=5,padx = 3)
@@ -150,7 +151,8 @@ def Highr():
       i = i+1
 
    def show_hro(s_id):
-        edit_file(s_id)
+      
+      edit_file(s_id)
 
 
    def searching(event):
