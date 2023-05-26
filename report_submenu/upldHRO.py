@@ -118,7 +118,7 @@ def filing():
         root.destroy()
 
     idlabel = customtkinter.CTkLabel(f_frame, text="ID NO. :", font=('Courier', 18, 'bold'),bg_color="transparent",text_color='black').place(x=20, y=150)
-    idl = customtkinter.CTkEntry(f_frame, height= 35,width=100, fg_color='white',border_width = 2, font=('Arial', 22),corner_radius= 10,text_color='black',validate='key',validatecommand=(my_valid2,'%S'))
+    idl = customtkinter.CTkEntry(f_frame, height= 35,width=75, fg_color='white',border_width = 2, font=('Arial', 22),corner_radius= 10,text_color='black',validate='key',validatecommand=(my_valid2,'%S'))
     idl.place(x=100, y=200)
 
     fnlabel = customtkinter.CTkLabel(f_frame, text="FIRSTNAME :", font=('Courier', 18, 'bold'),bg_color="transparent",text_color='black').place(x=20, y=350)

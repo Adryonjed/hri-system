@@ -16,6 +16,7 @@ import io
 from PIL import ImageGrab
 
 
+
 def edit_file(s_id):
 
     root = customtkinter.CTkToplevel()
@@ -43,11 +44,16 @@ def edit_file(s_id):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM hro WHERE id = %s",(s_id))
     results = cursor.fetchone()
-    store(results[0],1)
-    store(results[1],2)
-    store(results[2],3)
 
-
+    try:
+        if results[0] is not None:
+            store(results[0],1)
+            store(results[1],2)
+            store(results[2],3)
+    except TypeError:
+        messagebox.showinfo("Error", "Please Upload PDF file First")
+        root.destroy()
+        
 
     f_frame = customtkinter.CTkFrame(root, bg_color='#333333', fg_color='white',width=800,height=1000,corner_radius=30)
     f_frame.pack()
