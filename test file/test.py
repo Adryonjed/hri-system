@@ -1,54 +1,24 @@
-import tkinter as tk
+import tkinter  as tk 
+from tkcalendar import DateEntry 
+from dateutil.relativedelta import relativedelta 
+from datetime import date, datetime
 
-class Calculator:
-    def __init__(self, master):
-        self.master = master
-        master.title("Calculator")
-
-        # create entry widget to display numbers and results
-        self.entry = tk.Entry(master, width=30, borderwidth=5)
-        self.entry.grid(row=0, column=0, columnspan=4, padx=10, pady=10)
-
-        # create buttons for numbers 0-9
-        self.create_button("7", 1, 0)
-        self.create_button("8", 1, 1)
-        self.create_button("9", 1, 2)
-        self.create_button("4", 2, 0)
-        self.create_button("5", 2, 1)
-        self.create_button("6", 2, 2)
-        self.create_button("1", 3, 0)
-        self.create_button("2", 3, 1)
-        self.create_button("3", 3, 2)
-        self.create_button("0", 4, 0)
-
-        # create buttons for mathematical operations
-        self.create_button("+", 1, 3)
-        self.create_button("-", 2, 3)
-        self.create_button("*", 3, 3)
-        self.create_button("/", 4, 3)
-        self.create_button("C", 4, 1)
-        self.create_button("=", 4, 2)
-
-    def create_button(self, text, row, column):
-        button = tk.Button(self.master, text=text, padx=40, pady=20, command=lambda: self.button_click(text))
-        button.grid(row=row, column=column)
-
-    def button_click(self, text):
-        if text == "C":
-            self.entry.delete(0, tk.END)
-        elif text == "=":
-            try:
-                result = eval(self.entry.get())
-                self.entry.delete(0, tk.END)
-                self.entry.insert(0, result)
-            except:
-                self.entry.delete(0, tk.END)
-                self.entry.insert(0, "Error")
-        else:
-            current = self.entry.get()
-            self.entry.delete(0, tk.END)
-            self.entry.insert(0, current + text)
-
-root = tk.Tk()
-calculator = Calculator(root)
-root.mainloop()
+my_w = tk.Tk()
+my_w.geometry("380x200") 
+sel=tk.StringVar() # declaring string variable 
+cal=DateEntry(my_w,selectmode='day',textvariable=sel)
+cal.grid(row=1,column=1,padx=20)
+def my_upd(*args): # triggered when value of string varaible changes    
+    if(len(sel.get())>4):        
+        l1.config(text=sel.get()) # read and display date        
+        dob = datetime.strptime(sel.get(),'%m/%d/%y')        
+        dt=date.today()        
+        dt3=relativedelta(dt,dob)        
+        l2.config(text="Dayes:" + str(dt3.days) +"\n Months:"+ str(dt3.months) + "\n Years:"+ str(dt3.years) )        
+        print("Dayes:",dt3.days," Months:",dt3.months," Years:", dt3.years)
+l1=tk.Label(my_w,bg='yellow')  # Label to display date 
+l1.grid(row=1,column=2)
+l2=tk.Label(my_w)  # Label to display date 
+l2.grid(row=1,column=3,padx=10)
+sel.trace('w',my_upd) # on change of string variable 
+my_w.mainloop()

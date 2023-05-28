@@ -678,19 +678,71 @@ def add_e():
    roelabel = Label(sf, text="EMPLOYEE DETAILS", font=('Arial', 17, 'bold'),bg="#d4d4d4")
    roelabel.place(x=30, y=1750)
 
+   def ror(event):
+      tst1 = str(poEntry.get())
 
+      if tst1 == 'Contractual':
+         nool.place(x=20, y=1870)
+         lfro.place(x=40, y=1922)
+         lfrom.place(x=100, y= 1920)
+         lt.place(x=270, y=1922)
+         lto.place(x=305, y= 1920)
+         
+         started.place_forget()
+         lstarted.place_forget()
+         lstart.place_forget()
+         
+      elif tst1 == 'Permanent':
+
+         lstart.place(x=100, y= 2020)
+         started.place(x=20, y=1970)
+         lstarted.place(x=40, y=2022)
+         
+         nool.place_forget()
+         lfro.place_forget()
+         lfrom.place_forget()
+         lt.place_forget()
+         lto.place_forget()
+      else:
+         nool.place_forget()
+         lfro.place_forget()
+         lfrom.place_forget()
+         lt.place_forget()
+         lto.place_forget()
+
+         started.place_forget()
+         lstarted.place_forget()
+         lstart.place_forget()
 
    polabel = Label(sf, text="EMPLOYMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
    poEntry = tk.StringVar()
-   po = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"])
+   po = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"],command=ror)
    po.place(x=160, y=1800)
    po.set("")
+   po.bind("<Key>", ror)
+
+   nool = customtkinter.CTkLabel(sf, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+   lfro = customtkinter.CTkLabel(sf, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+   lfrom = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+   lfrom.set_date(dt)
+
+   lt = customtkinter.CTkLabel(sf, text="To: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+   lto = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+   lto.set_date(dt)
+
+   started = customtkinter.CTkLabel(sf, text="If Permanent (when it started):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+   lstarted = customtkinter.CTkLabel(sf, text="Start: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+   lstart = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+   lstart.set_date(dt)
+
+
 
    stalabel = Label(sf, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
    staEntry = tk.StringVar()
    sta = customtkinter.CTkOptionMenu(sf,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Registered Nurse", "LPN", "Midwife", "Caregivers", "Pediatric nursing",  "Practitioner", "Pharmacist","Radiologist", "Cardiologist", "Pathologist" ,"Dietitian", "Pediatrician", "Orthopedic", "General surgeons", "Pulmonologists", "Anesthesiologists", "Gynecologists", "Therapist", "hospice workers", "Social workers", "Cook", "Housekeeper", "Driver", "Porter", "Maintenance Worker", "COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
    sta.place(x=600, y=1850)
    sta.set("")
+   
 
    deptlabel = Label(sf, text="DEPARTMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
    deEntry = tk.StringVar()
@@ -698,24 +750,21 @@ def add_e():
    de.place(x=600, y=1970)
    de.set("")
 
-   nool = customtkinter.CTkLabel(sf, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1870)
+   
 
-   lfrom = customtkinter.CTkLabel(sf, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=1922)
-   lfrom = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
-   lfrom.set_date(dt)
-   lfrom.place(x=100, y= 1920)
+   
 
-   lto = customtkinter.CTkLabel(sf, text="To: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=270, y=1922)
-   lto = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
-   lto.set_date(dt)
-   lto.place(x=305, y= 1920)
+   
 
-   started = customtkinter.CTkLabel(sf, text="If Permanent (when it started):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1970)
+   
 
-   lstarted = customtkinter.CTkLabel(sf, text="Start: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=2022)
-   lstart = DateEntry(sf, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
-   lstart.set_date(dt)
-   lstart.place(x=100, y= 2020)
+
+   
+
+   
+
+   
+       
 
 
 

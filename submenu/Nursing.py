@@ -6,7 +6,6 @@ import customtkinter
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import PIL.Image
-import math
 import base64
 from time import strftime
 from tkcalendar import DateEntry
@@ -14,6 +13,8 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
+from dateutil.relativedelta import relativedelta
+
 
 
 #------------------------------------------------------- 
@@ -389,7 +390,7 @@ def nurse():
 
     def show(s_id):
 
-        global imgas,imgas2
+        global imgas,imgas2,contents
 
         conn = connection()
         cursor = conn.cursor()
@@ -429,9 +430,11 @@ def nurse():
         result11 = cursor11.fetchone()
         result12 = cursor12.fetchone()
 
+
         imga = PIL.Image.open(io.BytesIO(result12[3]))
         imgas = customtkinter.CTkImage(imga,size=(140,140))
         imgas2 = customtkinter.CTkImage(imga,size=(250,250))
+
     
         id(result[0],1)
         per(result[1],1)
@@ -571,7 +574,7 @@ def nurse():
     tol = customtkinter.CTkLabel(tableframe, text="Last Name                        ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-    dayss = customtkinter.CTkLabel(tableframe, text="Staff Type           ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+    dayss = customtkinter.CTkLabel(tableframe, text="Position              ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
     dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
     aps = customtkinter.CTkLabel(tableframe, text="Department            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
@@ -729,7 +732,10 @@ def nurse():
             posi = str(poEntry.get())
             dept = str(deEntry.get())
             stus = str(tus.get())
-            sal = str(sg.get()) 
+            sal = str(sg.get())
+            cstart = str(lfrom.get_date())
+            cend = str(lto.get_date())
+            lstrt = str(lstart.get_date())
 
             #=====numbers
             gsis = str(gsEntry.get())
@@ -834,7 +840,7 @@ def nurse():
                     if msg == 'yes':
                         conn = connection()
                         cursor = conn.cursor()
-                        cursor.execute("UPDATE personal SET surname = '"+sname+"', firstname = '"+fname+"', middlename = '"+mname+"', DOB = '"+dob+"', POB = '"+pob+"' , sex = '"+sex+"', civil = '"+civil+"', height = '"+hei+"', weight = '"+wei+"', bloodtype = '"+blood+"', citizenship = '"+ctiz+"', ifDC = '"+ifdu+"', country = '"+count+"', email = '"+email+"', staff = '"+staf+"', position = '"+posi+"', department = '"+dept+"', salary = '"+sal+"', status = '"+stus+"' WHERE id='"+ide+"'")
+                        cursor.execute("UPDATE personal SET surname = '"+sname+"', firstname = '"+fname+"', middlename = '"+mname+"', DOB = '"+dob+"', POB = '"+pob+"' , sex = '"+sex+"', civil = '"+civil+"', height = '"+hei+"', weight = '"+wei+"', bloodtype = '"+blood+"', citizenship = '"+ctiz+"', ifDC = '"+ifdu+"', country = '"+count+"', email = '"+email+"', staff = '"+staf+"', position = '"+posi+"', department = '"+dept+"', salary = '"+sal+"', status = '"+stus+"' , cfrom = '"+cstart+"' , cto = '"+cend+"' , pstart = '"+lstrt+"' WHERE id='"+ide+"'")
                         cursor.execute("UPDATE numbers SET gsis = '"+gsis+"', pagibig = '"+pagi+"', philhealth = '"+phil+"', sss = '"+sss+"', tin = '"+tin+"', agency = '"+agem+"', telephone = '"+tele+"', cellphone = '"+cell+"' WHERE id='"+ide+"' ")
                         cursor.execute("UPDATE residential SET houseblock = '"+res1+"', street = '"+res2+"', subd  = '"+res3+"', brgy = '"+res4+"', city = '"+res5+"', province = '"+res6+"', zip = '"+res7+"' WHERE id='"+ide+"' ")
                         cursor.execute("UPDATE permanent SET houseblock = '"+per1+"', street = '"+per2+"', subd  = '"+per3+"', brgy = '"+per4+"', city = '"+per5+"', province = '"+per6+"', zip = '"+per7+"' WHERE id='"+ide+"'")
@@ -881,11 +887,14 @@ def nurse():
             profile2.place(x=1120, y=1800)
 
         def updimg():
+            
+
             idd = Label(textvariable=ids)
             ide = str(idd.cget("text"))
-
+            
             if imgfile:
-                fob = open(imgfile, 'rb').read()
+                fob = open(imgfile,'rb').read()
+
                 conn = connection()
                 cursor = conn.cursor()
                 args = (fob,ide)
@@ -893,7 +902,7 @@ def nurse():
                 cursor.execute("UPDATE profile SET img=%s WHERE id = %s",args)
                 conn.commit()
                 conn.close()
-            else:
+            else: 
                 messagebox.showinfo("Error", "No File Selected")
 
         def allsave():
@@ -1330,48 +1339,89 @@ def nurse():
         roelabel = Label(sf3, text="EMPLOYEE DETAILS", font=('Arial', 17, 'bold'),bg="#d4d4d4")
         roelabel.place(x=30, y=1750)
 
+        def ror(event):
+            tst1 = str(poEntry.get()) 
+
+            if tst1 == 'Contractual' or result2[16] == 'Contractual':
+                nool.place(x=20, y=1870)
+                lfro.place(x=40, y=1922)
+                lfrom.place(x=100, y= 1920)
+                lt.place(x=270, y=1922)
+                lto.place(x=305, y= 1920)
+                
+                started.place_forget()
+                lstarted.place_forget()
+                lstart.place_forget()
+                
+            elif tst1 == 'Permanent' or result2[16] == 'Permanent':
+
+                lstart.place(x=100, y= 2020)
+                started.place(x=20, y=1970)
+                lstarted.place(x=40, y=2022)
+                
+                nool.place_forget()
+                lfro.place_forget()
+                lfrom.place_forget()
+                lt.place_forget()
+                lto.place_forget()
+            else:
+                nool.place_forget()
+                lfro.place_forget()
+                lfrom.place_forget()
+                lt.place_forget()
+                lto.place_forget()
+
+                started.place_forget()
+                lstarted.place_forget()
+                lstart.place_forget()
+
         polabel = Label(sf3, text="EMPLOYMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=20, y=1800)
         poEntry = tk.StringVar()
-        po = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"])
+        po = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = poEntry, values=["Permanent", "Contractual","Casual" ,"On the Job", "Volunteer"],command=ror)
         po.place(x=160, y=1800)
         po.set(result2[16])
+        po.bind("<Key>", ror)
+
+        nool = customtkinter.CTkLabel(sf3, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+        lfro = customtkinter.CTkLabel(sf3, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+        lfrom = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+        lfrom.set_date(result2[20])
+
+        lt = customtkinter.CTkLabel(sf3, text="To: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+        lto = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+        lto.set_date(result2[21])
+
+        started = customtkinter.CTkLabel(sf3, text="If Permanent (when it started):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+        lstarted = customtkinter.CTkLabel(sf3, text="Start: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+        lstart = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
+        lstart.set_date(result2[22])
+
 
         stalabel = Label(sf3, text="POSITION :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1800)
         staEntry = tk.StringVar()
-        sta = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
+        sta = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = staEntry, values=["Registered Nurse", "LPN", "Midwife", "Caregivers", "Pediatric nursing",  "Practitioner", "Pharmacist","Radiologist", "Cardiologist", "Pathologist" ,"Dietitian", "Pediatrician", "Orthopedic", "General surgeons", "Pulmonologists", "Anesthesiologists", "Gynecologists", "Therapist", "hospice workers", "Social workers", "Cook", "Housekeeper", "Driver", "Porter", "Maintenance Worker", "COH", "CON" , "COD", "Assistant", "Secretary", "IT technician", "IT Administrator"])
         sta.place(x=600, y=1850)
         sta.set(result2[15])
-
+        
 
         deptlabel = Label(sf3, text="DEPARTMENT :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=1920)
         deEntry = tk.StringVar()
-        de = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = deEntry, values=["ANCILLARY", "NURSING", "ADMIN", "MEDICAL "])
+        de = customtkinter.CTkOptionMenu(sf3,height= 35, width = 350,fg_color='#a2a3a2',font=('Arial', 22),dropdown_font = ('Courier', 16),dropdown_fg_color ='white',dropdown_text_color = 'black',dropdown_hover_color = 'green', button_color = '#a2a3a2',button_hover_color = 'gray',text_color = "black", variable = deEntry, values=["ADMIN","ANCILLARY", "MEDICAL", "NURSING"])
         de.place(x=600, y=1970)
         de.set(result2[17])
 
+        dt=date.today()
+        dtr = (result2[22])
+        dt3 = relativedelta(dt,dtr)
+
+        tenuretit = customtkinter.CTkLabel(sf3, text='tenure: ', font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent")
+        tenuretit.place(x=350, y= 2020)
+        
+        tenure = customtkinter.CTkLabel(sf3, text=str(dt3.years) + ' years', font=('Arial', 24, 'bold'),text_color= "black",bg_color="transparent")
+        tenure.place(x=400, y=2060)
+
         idlabel = Label(sf3, text="YOUR ID :", font=('Courier', 14, 'bold'),bg="#d4d4d4").place(x=570, y=2020)
-        idl = Label(sf3, text="", font=('Courier', 18, 'bold'),bg="#d4d4d4",textvariable=ids).place(x=600, y=2070)
-
-        nool = customtkinter.CTkLabel(sf3, text="If Contractual (time of contract):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1870)
-
-
-        lfrom = customtkinter.CTkLabel(sf3, text="From: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=1922)
-        lfrom = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
-        lfrom.set_date(result2[20])
-        lfrom.place(x=100, y= 1920)
-
-        lto = customtkinter.CTkLabel(sf3, text="To: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=270, y=1922)
-        lto = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
-        lto.set_date(result2[21])
-        lto.place(x=305, y= 1920)
-
-        started = customtkinter.CTkLabel(sf3, text="If Permanent (when it started):", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=20, y=1970)
-
-        lstarted = customtkinter.CTkLabel(sf3, text="Start: ", font=('Arial', 20, 'bold'),text_color= "black",bg_color="transparent").place(x=40, y=2022)
-        lstart = DateEntry(sf3, height= 25, width=10, font = ('arial', 16),date_pattern='mm/dd/y', background='#808080', foreground='white', borderwidth=5, weekendbackground ="red",bd = 0)
-        lstart.set_date(result2[22])
-        lstart.place(x=100, y= 2020)
-
+        idl = Label(sf3, text="", font=('Arial', 18, 'bold'),bg="#d4d4d4",textvariable=ids).place(x=600, y=2060)
 
 #------------------------------------------------------- 
 #-------------------------------------------------------search fucntions   
@@ -1538,6 +1588,7 @@ def nurse():
     
     findEntry2 = customtkinter.CTkEntry(f3,height = 37, width= 400, fg_color='white',border_width = 2 , corner_radius= 10,font=('Arial', 20),text_color='black')
     findEntry2.place(x=940, y=150)
+
 
 
 

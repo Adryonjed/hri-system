@@ -82,7 +82,7 @@ def leaves():
    tol = customtkinter.CTkLabel(tableframe, text="Last Name                        ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
    tol.grid(row=0, column=1,padx=5,pady=10,sticky = NSEW)
 
-   dayss = customtkinter.CTkLabel(tableframe, text="Staff Type           ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
+   dayss = customtkinter.CTkLabel(tableframe, text="Position              ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
    dayss.grid(row=0, column=2,padx=5,pady=10,sticky = NSEW)
 
    aps = customtkinter.CTkLabel(tableframe, text="Department            ",font=('Arial', 24, 'bold'),bg_color="transparent",text_color="black")
