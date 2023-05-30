@@ -15,6 +15,7 @@ from submenu.addEmployee import *
 from leaveData import *
 from ratingData import *
 from report_submenu.highranking import *
+from dlData import *
 
 
 
@@ -74,7 +75,8 @@ def hide_indi():
     bttn4.configure(fg_color="transparent")
     bttn5.configure(fg_color="transparent")
     bttn5_1.configure(fg_color="transparent",text_color ="white")
-    bttn5_5.configure(fg_color="transparent",text_color ="white")
+    bttn5_2.configure(fg_color="transparent",text_color ="white")
+    bttn5_3.configure(fg_color="transparent",text_color ="white")
     
 def indicate (lb,page):
     hide_indi()
@@ -225,7 +227,7 @@ def update_switch2():
 global is_onr
 is_onr = False
 
-mbarframe2 = customtkinter.CTkFrame(mbar, bg_color="transparent", fg_color="transparent", width=350, height=160)
+mbarframe2 = customtkinter.CTkFrame(mbar, bg_color="transparent", fg_color="transparent", width=350, height=210)
 
 bttn5 = customtkinter.CTkButton(mbar, text='Records',height=80, width=600, fg_color="transparent", font=("", 30, "bold"),text_color= 'White', hover_color= '#335791',
 cursor='hand2',command=lambda: indicate(bttn5,toggle_switch2))
@@ -237,9 +239,13 @@ bttn5_1 = customtkinter.CTkButton(mbarframe2, text='HIGH RANKING OFFICALS',heigh
 cursor='hand2',command=lambda: indicate(bttn5_1, Highr))
 bttn5_1.place(x=-130, y=60)
 
-bttn5_5 = customtkinter.CTkButton(mbarframe2, text='DATA SHEET RECORDS',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
-cursor='hand2',command=lambda: indicate(bttn5_5, rept))
-bttn5_5.place(x=-140, y=110)
+bttn5_2 = customtkinter.CTkButton(mbarframe2, text='DATA SHEET RECORDS',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
+cursor='hand2',command=lambda: indicate(bttn5_2, rept))
+bttn5_2.place(x=-140, y=110)
+
+bttn5_3 = customtkinter.CTkButton(mbarframe2, text='SAVE A DATA',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
+cursor='hand2',command=lambda: indicate(bttn5_3, save_data))
+bttn5_3.place(x=-183, y=160)
 
 
 
