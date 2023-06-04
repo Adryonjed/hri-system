@@ -637,7 +637,14 @@ def adm():
     def delete(s_id):
 
             
-            decision = messagebox.askquestion("Warning!!", "Delete this data? " + g[1])
+            conn = connection()
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM personal WHERE id = %s",(s_id))
+            result = cursor.fetchone() 
+            conn.commit()
+            conn.close()
+
+            decision = messagebox.askquestion("Warning!!", "Delete this data? " + result[2])
         
             if decision == "yes":
                 conn = connection()

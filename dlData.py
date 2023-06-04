@@ -15,7 +15,7 @@ def save_data():
     root = customtkinter.CTkToplevel()
     root.geometry('730x500+650+350')
     root.overrideredirect(True)
-    root.title("Rating Form")
+    root.title("Download Data Form")
     root.wm_attributes("-transparentcolor",'#333333')
     root.wait_visibility()
     root.grab_set()

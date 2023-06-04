@@ -16,6 +16,7 @@ from leaveData import *
 from ratingData import *
 from report_submenu.highranking import *
 from dlData import *
+from userdet import *
 
 
 
@@ -248,7 +249,23 @@ cursor='hand2',command=lambda: indicate(bttn5_3, save_data))
 bttn5_3.place(x=-183, y=160)
 
 
+def ent(event):
+    sol5.configure(text_color = '#0335fc')
 
+    
+def lef(event):
+    sol5.configure(text_color = 'white')
+
+
+sttg= PIL.Image.open("Assets\\gear.png")
+stg = customtkinter.CTkImage(sttg,size=(25,25))
+
+
+sol5 = customtkinter.CTkButton(mbar,text="User Settings",image= stg, compound= 'left',fg_color='transparent',font=('Arial', 20, 'bold') ,bg_color= 'transparent', width=120, height=40, border_width=0, corner_radius=5,
+hover_color = '#335791',cursor='hand2', command= show_user)
+sol5.place(x=180, y=980)
+sol5.bind("<Enter>", ent)
+sol5.bind("<Leave>", lef)
 #=========================================================================================frames=====================================================================================#
 
 dash()

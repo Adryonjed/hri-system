@@ -22,7 +22,7 @@ def edit_file(s_id):
     root = customtkinter.CTkToplevel()
     root.geometry('800x1000+650+50')
     root.overrideredirect(True)
-    root.title("Rating Form")
+    root.title("Update HRO Form")
     root.wm_attributes("-transparentcolor",'#333333')
     root.wait_visibility()
     root.grab_set()
