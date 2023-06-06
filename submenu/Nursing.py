@@ -880,7 +880,7 @@ def nurse():
         
 
         def upl_mc():
-            global imgfile, photo
+            global imgfile
 
             f_types = [('JPG', '*.jpg'),('PNG', '*.png')]
             imgfile = filedialog.askopenfilename(filetypes=f_types)
@@ -894,12 +894,9 @@ def nurse():
             profile2.configure(image = imgs2)
             profile2.place(x=1120, y=1800)
 
-        def updimg():
-            
-
             idd = Label(textvariable=ids)
             ide = str(idd.cget("text"))
-            
+
             if imgfile:
                 fob = open(imgfile,'rb').read()
 
@@ -912,23 +909,15 @@ def nurse():
                 conn.close()
             else: 
                 messagebox.showinfo("Error", "No File Selected")
-
-        def allsave():
-            updimg()
-            update()
-
-#------------------------------------------------------- 
-#-------------------------------------------------------widgets fucntions   
-#-------------------------------------------------------
+            
 
         back3 = customtkinter.CTkButton(sf3,text="Back",fg_color='#9c465d',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
         hover_color = '#2a4859',cursor='hand2',command=lambda: indicate(nurse))
         back3.place(x=1000, y=2200)
 
         uptd = customtkinter.CTkButton(sf3,text="Update",fg_color='#829c46',font=('Arial', 20,) ,bg_color= '#d4d4d4', width=160, height=60, border_width=0, corner_radius=10,
-        hover_color = '#2a4859',cursor='hand2',command=allsave)
+        hover_color = '#2a4859',cursor='hand2',command=update)
         uptd.place(x=1200, y=2200)
-
 
         #-------------------------------------------------------------------------------------------------------------------------------------#
         #-------------------------------------------------------PERSONAL INFO-----------------------------------------------------------------#
