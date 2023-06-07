@@ -14,6 +14,9 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
+from tkPDFViewer import tkPDFViewer as pdf
+import os
+import PyPDF2
 
 
 
@@ -53,7 +56,8 @@ def edit_file(s_id):
     except TypeError:
         messagebox.showinfo("Error", "Please Upload PDF file First")
         root.destroy()
-        
+
+    
 
     f_frame = customtkinter.CTkFrame(root, bg_color='#333333', fg_color='white',width=800,height=1000,corner_radius=30)
     f_frame.pack()
@@ -67,6 +71,19 @@ def edit_file(s_id):
     subtit.place(x=20,y=60)
 
 
+    with open('C:\\Users\\ferna\\Downloads\\transcript.pdf', 'wb') as outfile:
+        outfile.write(results[3])
+    with open('C:\\Users\\ferna\\Downloads\\clearance.pdf', 'wb') as outfile:
+        outfile.write(results[4])
+    with open('C:\\Users\\ferna\\Downloads\\workhistory.pdf', 'wb') as outfile:
+        outfile.write(results[5])
+    with open('C:\\Users\\ferna\\Downloads\\hiring.pdf', 'wb') as outfile:
+        outfile.write(results[6])
+    with open('C:\\Users\\ferna\\Downloads\\tax.pdf', 'wb') as outfile:
+        outfile.write(results[7])
+
+
+
     def cancels():
         root.destroy()
 
@@ -78,22 +95,55 @@ def edit_file(s_id):
     
     def upl_etd():
 
-      global imgfile
+        global imgfile
 
-      f_types = [('PDF', '*.pdf')]
-      imgfile = filedialog.askopenfilename(filetypes=f_types)
-      if imgfile:
-        etdpth.set(imgfile)
+        f_types = [('PDF', '*.pdf')]
+        imgfile = filedialog.askopenfilename(filetypes=f_types)
+
+        if imgfile:
+
+            etdpth.set(imgfile)
+
+            idd = Label(textvariable=ids)
+            ide = str(idd.cget("text"))
+
+            fob = open(imgfile, 'rb').read()
+            
+            conn = connection()
+            cursor = conn.cursor()
+            args = (fob,ide)
+            cursor.execute("UPDATE hro SET edp=%s WHERE id = %s",args)
+            conn.commit()
+            conn.close()
+     
+
+
 
 
     def upl_clrnc():
 
-      global imgfile2
+        global imgfile2
 
-      f_types = [('PDF', '*.pdf')]
-      imgfile2 = filedialog.askopenfilename(filetypes=f_types)
-      if imgfile2:
-        clrncpth.set(imgfile2)
+        f_types = [('PDF', '*.pdf')]
+        imgfile2 = filedialog.askopenfilename(filetypes=f_types)
+
+        if imgfile2:
+            clrncpth.set(imgfile2)
+
+            idd = Label(textvariable=ids)
+            ide = str(idd.cget("text"))
+
+            fob = open(imgfile2, 'rb').read()
+            
+           
+            conn = connection()
+            cursor = conn.cursor()
+            args = (fob,ide)
+            cursor.execute("UPDATE hro SET clearance=%s, WHERE id = %s",args)
+            conn.commit()
+            conn.close()
+
+            
 
     def upl_wc():
 
@@ -101,8 +151,24 @@ def edit_file(s_id):
 
       f_types = [('PDF', '*.pdf')]
       imgfile3 = filedialog.askopenfilename(filetypes=f_types)
+
       if imgfile3:
         wcpth.set(imgfile3)
+
+        idd = Label(textvariable=ids)
+        ide = str(idd.cget("text"))
+
+        fob = open(imgfile3, 'rb').read()
+        
+        
+        conn = connection()
+        cursor = conn.cursor()
+        args = (fob,ide)
+        cursor.execute("UPDATE hro SET workh=%s, WHERE id = %s",args)
+        conn.commit()
+        conn.close()
+
+    
 
     def upl_hr():
 
@@ -113,6 +179,19 @@ def edit_file(s_id):
       if imgfile4:
         hrpth.set(imgfile4)
 
+        idd = Label(textvariable=ids)
+        ide = str(idd.cget("text"))
+
+        fob = open(imgfile4, 'rb').read()
+        
+        
+        conn = connection()
+        cursor = conn.cursor()
+        args = (fob,ide)
+        cursor.execute("UPDATE hro SET hiring=%s, WHERE id = %s",args)
+        conn.commit()
+        conn.close()
+
     def upl_tx():
 
       global imgfile5
@@ -122,22 +201,29 @@ def edit_file(s_id):
       if imgfile5:
         txpth.set(imgfile5)
 
-    def updtfile():
         idd = Label(textvariable=ids)
         ide = str(idd.cget("text"))
 
-        fob = open(imgfile, 'rb').read()
-        fob2 = open(imgfile2, 'rb').read()
-        fob3 = open(imgfile3, 'rb').read()
-        fob4 = open(imgfile4, 'rb').read()
-        fob5 = open(imgfile5, 'rb').read()
+        fob = open(imgfile5, 'rb').read()
+        
+        conn = connection()
+        cursor = conn.cursor()
+        args = (fob,ide)
+        cursor.execute("UPDATE hro SET tax=%s, WHERE id = %s",args)
+        conn.commit()
+        conn.close()
+
+
+    def updtfile():
+        idd = Label(textvariable=ids)
+        ide = str(idd.cget("text"))
 
         msg = messagebox.askquestion('',"Do you want to add this person?")
         if msg == 'yes':
             conn = connection()
             cursor = conn.cursor()
-            args = (idl.get(),fn.get(),sn.get(),fob,fob2,fob3,fob4,fob5,ide)
-            cursor.execute("UPDATE hro SET id=%s, fname=%s, sname=%s, edp=%s, clearance=%s, workh=%s, hiring=%s, tax=%s WHERE id = %s",args)
+            args = (idl.get(),fn.get(),sn.get(),ide)
+            cursor.execute("UPDATE hro SET id=%s, fname=%s, sname=%s WHERE id = %s",args)
             conn.commit()
             conn.close()
             root.destroy()
@@ -146,6 +232,8 @@ def edit_file(s_id):
         else:
             messagebox.showinfo('Return', 'You will now return to the application screen')
             root.destroy()
+
+    
 
     
 
