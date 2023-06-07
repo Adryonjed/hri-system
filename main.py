@@ -141,24 +141,24 @@ bttn2.place(x=-170, y=400)
 bttn2.bind("<Enter>", entered2)
 bttn2.bind("<Leave>", left2)
 
-bttn2_5 = customtkinter.CTkButton(mbarframe, text='ADD EMPLOYEE',height=50, width=700, fg_color="transparent", font=("", 20, "bold"),text_color= 'White', hover_color= '#6fabc9',
+bttn2_5 = customtkinter.CTkButton(mbarframe, text='ADD EMPLOYEE',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
 cursor='hand2',command=lambda: indicate(bttn2_5, add_e))
-bttn2_5.place(x=-130, y=60)
+bttn2_5.place(x=-197, y=60)
 
-bttn2_1 = customtkinter.CTkButton(mbarframe, text='ADMIN',height=50, width=700, fg_color="transparent", font=("", 20, "bold"),text_color= 'White', hover_color= '#6fabc9',
+bttn2_1 = customtkinter.CTkButton(mbarframe, text='ADMIN DEPARTMENT',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
 cursor='hand2',command=lambda: indicate(bttn2_1, adm))
 bttn2_1.place(x=-175, y=110)
 
 
-bttn2_2 = customtkinter.CTkButton(mbarframe, text='ANCILLARY',height=50, width=700, fg_color="transparent", font=("", 20, "bold"),text_color= 'White', hover_color= '#6fabc9',
+bttn2_2 = customtkinter.CTkButton(mbarframe, text='ANCILLARY DEPARTMENT',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
 cursor='hand2',command=lambda: indicate(bttn2_2, anci))
 bttn2_2.place(x=-153, y=160)
 
-bttn2_3 = customtkinter.CTkButton(mbarframe, text='MEDICAL',height=50, width=700, fg_color="transparent", font=("", 20, "bold"),text_color= 'White', hover_color= '#6fabc9',
+bttn2_3 = customtkinter.CTkButton(mbarframe, text='MEDICAL DEPARTMENT',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
 cursor='hand2',command=lambda: indicate(bttn2_3, medic))
 bttn2_3.place(x=-165, y=210)
 
-bttn2_4 = customtkinter.CTkButton(mbarframe, text='NURSING',height=50, width=700, fg_color="transparent", font=("", 20, "bold"),text_color= 'White', hover_color= '#6fabc9',
+bttn2_4 = customtkinter.CTkButton(mbarframe, text='NURSING DEPARTMENT',height=50, width=700, fg_color="transparent", font=("", 18, "bold"),text_color= 'White', hover_color= '#6fabc9',
 cursor='hand2',command=lambda: indicate(bttn2_4, nurse))
 bttn2_4.place(x=-165, y=260)
 
