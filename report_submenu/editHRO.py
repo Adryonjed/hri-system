@@ -14,9 +14,8 @@ from datetime import date
 from datetime import datetime
 import io
 from PIL import ImageGrab
-from tkPDFViewer import tkPDFViewer as pdf
 import os
-import PyPDF2
+
 
 
 
@@ -71,15 +70,15 @@ def edit_file(s_id):
     subtit.place(x=20,y=60)
 
 
-    with open('C:\\Users\\ferna\\Downloads\\transcript.pdf', 'wb') as outfile:
+    with open('C:\\Users\\Lenovo\\Downloads\\transcript.pdf', 'wb') as outfile:
         outfile.write(results[3])
-    with open('C:\\Users\\ferna\\Downloads\\clearance.pdf', 'wb') as outfile:
+    with open('C:\\Users\\Lenovo\\Downloads\\clearance.pdf', 'wb') as outfile:
         outfile.write(results[4])
-    with open('C:\\Users\\ferna\\Downloads\\workhistory.pdf', 'wb') as outfile:
+    with open('C:\\Users\\Lenovo\\Downloads\\workhistory.pdf', 'wb') as outfile:
         outfile.write(results[5])
-    with open('C:\\Users\\ferna\\Downloads\\hiring.pdf', 'wb') as outfile:
+    with open('C:\\Users\\Lenovo\\Downloads\\hiring.pdf', 'wb') as outfile:
         outfile.write(results[6])
-    with open('C:\\Users\\ferna\\Downloads\\tax.pdf', 'wb') as outfile:
+    with open('C:\\Users\\Lenovo\\Downloads\\tax.pdf', 'wb') as outfile:
         outfile.write(results[7])
 
 

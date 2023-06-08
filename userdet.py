@@ -37,9 +37,9 @@ def show_user():
     f2title = customtkinter.CTkFrame(l_frame, width=1170, height=100, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
     f2title.place(x=15, y=20)
 
-    tit = customtkinter.CTkLabel(f2title, text="User Details", font=("Arial", 30, 'bold'))
+    tit = customtkinter.CTkLabel(f2title, text="User Settings", font=("Arial", 30, 'bold'))
     tit.place(x=20,y=20)
-    subtit = customtkinter.CTkLabel(f2title, text="Delete/Update User Details", font=("Arial", 20))
+    subtit = customtkinter.CTkLabel(f2title, text="Delete/Update User Account", font=("Arial", 20))
     subtit.place(x=20,y=60)
 
     def cancels():
@@ -159,9 +159,9 @@ def show_user():
             f2title = customtkinter.CTkFrame(p_frame, width=770, height=100, fg_color ="#4976bf",corner_radius=30,bg_color="transparent")
             f2title.place(x=15, y=20)
 
-            tit = customtkinter.CTkLabel(f2title, text="UPDATE OR ADD USER ACCOUNT", font=("Arial", 30, 'bold'))
+            tit = customtkinter.CTkLabel(f2title, text="USER DETAILS", font=("Arial", 30, 'bold'))
             tit.place(x=20,y=20)
-            subtit = customtkinter.CTkLabel(f2title, text="Manage user account details", font=("Arial", 20))
+            subtit = customtkinter.CTkLabel(f2title, text="Update/Add user Details", font=("Arial", 20))
             subtit.place(x=20,y=60)
 
             ide = tk.StringVar()

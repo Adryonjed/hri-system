@@ -644,18 +644,18 @@ def medic():
             if decision == "yes":
                 conn = connection()
                 cursor = conn.cursor()
-                cursor.execute("DELETE FROM personal WHERE id = %s",(s_id))
-                cursor.execute("DELETE FROM numbers WHERE id = %s",(s_id))
-                cursor.execute("DELETE FROM residential WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM permanent WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM spouse WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM family WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM elementary WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM highschool WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM vocational WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM college WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM graduate WHERE id ='",(s_id))
-                cursor.execute("DELETE FROM rating WHERE id ='",(s_id))
+                cursor.execute("DELETE FROM personal WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM numbers WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM residential WHERE id = %s",(s_id))
+                cursor.execute("DELETE FROM permanent WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM spouse WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM family WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM elementary WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM highschool WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM vocational WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM college WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM graduate WHERE id = %s ",(s_id))
+                cursor.execute("DELETE FROM profile WHERE id = %s ",(s_id))
                 conn.commit()
                 conn.close()
 
@@ -1320,9 +1320,10 @@ def medic():
         roelabel.place(x=30, y=1750)
 
         def ror(event):
+            
             tst1 = str(poEntry.get()) 
 
-            if tst1 == 'Contractual' or result2[16] == 'Contractual':
+            if tst1 == 'Contractual':
                 nool.place(x=20, y=1870)
                 lfro.place(x=40, y=1922)
                 lfrom.place(x=100, y= 1920)
@@ -1333,7 +1334,7 @@ def medic():
                 lstarted.place_forget()
                 lstart.place_forget()
                 
-            elif tst1 == 'Permanent' or result2[16] == 'Permanent':
+            elif tst1 == 'Permanent':
 
                 lstart.place(x=100, y= 2020)
                 started.place(x=20, y=1970)
